@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fluid.css">
+    <link rel="stylesheet" href="resize-smooth.css">
+    <link rel="stylesheet" href="quality.css">
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            max-width: 1240px;
+            width: 100%;
+            min-height: 100vh;
+            background: #080808;
+            font-family: 'Cormorant Garamond', serif;
+            color: #e8e6e3;
+            position: relative;
+            margin: 0 auto;
+            overflow-x: hidden;
+            padding-bottom: 240px;
+        }
+
+        .frame {
+            position: absolute;
+            top: var(--fluid-space);
+            left: var(--fluid-space);
+            right: var(--fluid-space);
+            bottom: var(--fluid-space);
+            border: var(--fluid-border-thin) solid #333;
+        }
+
+        .corner-tl {
+            position: absolute;
+            top: var(--fluid-space);
+            left: var(--fluid-space);
+            width: var(--fluid-corner); height: var(--fluid-corner);
+            border-top: var(--fluid-border) solid #d4b896;
+            border-left: var(--fluid-border) solid #d4b896;
+        }
+
+        .corner-br {
+            position: absolute;
+            bottom: var(--fluid-space);
+            right: var(--fluid-space);
+            width: var(--fluid-corner); height: var(--fluid-corner);
+            border-bottom: var(--fluid-border) solid #d4b896;
+            border-right: var(--fluid-border) solid #d4b896;
+        }
+
+        .header {
+            position: absolute;
+            top: 80px;
+            left: 80px;
+        }
+
+        .section-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: 38px;
+            font-weight: 300;
+            letter-spacing: var(--fluid-tracking-md);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .why-matters {
+            position: absolute;
+            top: 180px;
+            left: 80px;
+            right: 80px;
+        }
+
+        .why-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: var(--fluid-space-sm);
+        }
+
+        .why-item {
+            font-size: 13px;
+            line-height: 1.7;
+            color: #999;
+            padding: 15px;
+            background: #0a0a0a;
+            border-left: var(--fluid-border) solid #444;
+        }
+
+        .why-item strong {
+            color: #aaa;
+        }
+
+        .projects-grid {
+            position: absolute;
+            top: 420px;
+            left: 80px;
+            right: 80px;
+            bottom: 240px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--fluid-gap-xs);
+        }
+
+        .project {
+            background: #0a0a0a;
+            border: var(--fluid-border-thin) solid #222;
+            padding: var(--fluid-space-xs);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project::before {
+            content: attr(data-num);
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            background: #d4b896;
+            color: #080808;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            padding: 4px 8px;
+        }
+
+        .project-name {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #e8e6e3;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .project-desc {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #999;
+            flex: 1;
+        }
+
+        .project-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #222;
+        }
+
+        .project.highlight {
+            border-color: #d4b896;
+        }
+
+        .project.highlight .project-name {
+            color: #d4b896;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #555;
+            letter-spacing: var(--fluid-tracking-sm);
+            padding: 0 80px;
+            z-index: 999;
+        }
+
+        .page-num {
+            color: #d4b896;
+        }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, #0a0a0a, #080808);
+            border: var(--fluid-border-thin) solid #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            flex: 1;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #555;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            color: #888;
+            border-color: #333;
+            background: #111;
+        }
+
+        .nav-item.active {
+            background: #d4b896;
+            color: #080808;
+            border-color: #d4b896;
+            font-weight: 500;
+        }
+
+                /* Mobile Hamburger Menu */
+        #menu-toggle {
+            display: none;
+        }
+
+        .hamburger-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #d4b896;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1001;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: #080808;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: #080808;
+            border-left: var(--fluid-border) solid #d4b896;
+            z-index: 1000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            padding: 80px 20px 20px;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--fluid-space-sm);
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .mobile-menu-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: var(--fluid-border) solid #d4b896;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--fluid-title-sm);
+            color: #d4b896;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #d4b896;
+            color: #080808;
+        }
+
+        .mobile-nav-item {
+            display: block;
+            padding: 18px 20px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            color: #888;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            border-bottom: none;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .mobile-nav-item:last-child {
+            border-bottom: 1px solid #222;
+        }
+
+        .mobile-nav-item:hover {
+            color: #d4b896;
+            background: #111;
+            border-color: #333;
+            padding-left: 30px;
+        }
+
+        .mobile-nav-item.active {
+            background: #d4b896;
+            color: #080808;
+            border-color: #d4b896;
+            font-weight: 500;
+        }
+
+        /* Checkbox hack for menu toggle */
+        #menu-toggle:checked ~ .mobile-menu {
+            right: 0;
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(2) {
+            opacity: 0;
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-bar {
+                display: none;
+            }
+
+            .hamburger-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            body {
+                width: 100%;
+                height: auto;
+                min-height: 100vh;
+                overflow-x: hidden;
+                padding-bottom: 140px;
+            }
+
+            .content {
+                width: 90%;
+                padding: var(--fluid-space-xs) 0;
+            }
+
+            .title {
+                font-size: var(--fluid-title-lg);
+                letter-spacing: 10px;
+            }
+
+            .stats {
+                flex-wrap: wrap;
+                gap: var(--fluid-gap);
+            }
+
+            .diagram {
+                width: 100%;
+                height: auto;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 70px;
+                left: 0;
+                right: 0;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="svg-responsive.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="hover-effects.css">
+</head>
+<body>
+    <!-- Mobile Hamburger Menu -->
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="hamburger-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="mobile-menu">
+        <label for="menu-toggle" class="close-btn">✕</label>
+        <div class="mobile-menu-header">
+            <span class="mobile-menu-title">Navigation</span>
+        </div>
+        <a href="page_01_title.html" class="mobile-nav-item">Title</a>
+        <a href="page_02_philosophy.html" class="mobile-nav-item">Philosophy</a>
+        <a href="page_03_topology.html" class="mobile-nav-item">Topology</a>
+        <a href="page_04_models.html" class="mobile-nav-item">Models</a>
+        <a href="page_05_memory.html" class="mobile-nav-item">Memory</a>
+        <a href="page_06_obsidian.html" class="mobile-nav-item"><strong>Obsidian</strong></a>
+        <a href="page_07_projects.html" class="mobile-nav-item active">Projects</a>
+        <a href="page_08_agenthub.html" class="mobile-nav-item">Agents</a>
+        <a href="page_09_browser.html" class="mobile-nav-item">Browser</a>
+        <a href="page_10_mind.html" class="mobile-nav-item">Mind</a>
+        <a href="page_11_genesis.html" class="mobile-nav-item">Genesis</a>
+        <a href="page_12_bernard.html" class="mobile-nav-item"><strong>Bernard</strong></a>
+        <a href="page_13_suggestions.html" class="mobile-nav-item">Suggest</a>
+        <a href="page_14_voice.html" class="mobile-nav-item">Voice</a>
+        <a href="page_15_closing.html" class="mobile-nav-item">Closing</a>
+        <a href="page_16_appendix.html" class="mobile-nav-item">Appendix</a>
+    </nav>
+
+    <div class="frame"></div>
+    <div class="corner-tl"></div>
+    <div class="corner-br"></div>
+
+    <div class="header">
+        <div class="section-num">SECTION 06</div>
+        <h2>Project Inventory</h2>
+    </div>
+
+    <div class="why-matters">
+        <div class="why-title">Why This Matters</div>
+        <div class="why-grid">
+            <div class="why-item"><strong>For ADHD:</strong> External memory means you don't have to hold everything in your head. The system remembers so you can focus on thinking.</div>
+            <div class="why-item"><strong>For chronic fatigue:</strong> Automation handles the repetitive work when energy is scarce. What took hours now takes seconds.</div>
+            <div class="why-item"><strong>For anxiety:</strong> Past decisions are recorded. You don't have to second-guess what you already figured out.</div>
+            <div class="why-item"><strong>For anyone drowning in information:</strong> The system filters noise, surfaces patterns, and extends your capacity to process complexity.</div>
+        </div>
+    </div>
+
+    <div class="projects-grid">
+        <div class="project highlight" data-num="01">
+            <div class="project-name"><strong>Local Brain</strong></div>
+            <div class="project-desc">Central orchestrator. Routes requests, maintains context, coordinates agents.</div>
+            <div class="project-tag">Core Infrastructure</div>
+        </div>
+
+        <div class="project highlight" data-num="02">
+            <div class="project-name">Memory Watcher</div>
+            <div class="project-desc">Remembers what you forget. "We tried that 2 hours ago, it failed because..." No more repeating mistakes. No more lost context. Decisions recorded, patterns extracted, anti-patterns flagged.</div>
+            <div class="project-tag">Memory Layer</div>
+        </div>
+
+        <div class="project highlight" data-num="03">
+            <div class="project-name">Browser Agent</div>
+            <div class="project-desc">Automates the tedious. Form filling, data extraction, multi-step workflows. Visual grounding means it sees the page like you do. The hours you spent clicking become seconds.</div>
+            <div class="project-tag">Automation</div>
+        </div>
+
+        <div class="project" data-num="04">
+            <div class="project-name">Vault Manager</div>
+            <div class="project-desc"><strong>Obsidian</strong> integration. Note routing. Template application. Link maintenance.</div>
+            <div class="project-tag">Knowledge Base</div>
+        </div>
+
+        <div class="project highlight" data-num="05">
+            <div class="project-name">Guardian Agent</div>
+            <div class="project-desc">Found 847 orphaned notes in a 2000-note vault. Identified 23 broken links. Suggested 156 potential connections. What would take hours of manual review happens in 30 seconds.</div>
+            <div class="project-tag">Maintenance</div>
+        </div>
+
+        <div class="project highlight" data-num="06">
+            <div class="project-name">Writer Agent</div>
+            <div class="project-desc">Shadow work processing. When therapy homework feels overwhelming, the system guides reflection. Templates for processing anger, grief, triggers. Turns raw emotion into structured insight without judgment.</div>
+            <div class="project-tag">Personal Systems</div>
+        </div>
+
+        <div class="project highlight" data-num="07">
+            <div class="project-name">System Tuner</div>
+            <div class="project-desc"><strong>GPU</strong> crashing during <strong>inference</strong>? The system profiles thermals, adjusts power limits, switches between gaming/LLM/coding workloads. No more manual overclocking headaches.</div>
+            <div class="project-tag">System Control</div>
+        </div>
+
+        <div class="project highlight" data-num="08">
+            <div class="project-name">Gmail Extractor</div>
+            <div class="project-desc"><strong>18 mo</strong>nths of receipts, travel itineraries, shipping confirmations - extracted and organized into <strong>Obsidian</strong>. The cognitive load of "where did I put that" disappears.</div>
+            <div class="project-tag">Data Pipeline</div>
+        </div>
+
+        <div class="project highlight" data-num="09">
+            <div class="project-name"><strong>Bernard</strong> / Curator Bot</div>
+            <div class="project-desc">Multi-user Telegram bot with couple awareness. Learns mood patterns, predicts needs, handles voice notes at 3am. Shopping lists, calendar sync, YouTube downloads. Pattern learning means it gets better at anticipating you.</div>
+            <div class="project-tag">Interface</div>
+        </div>
+
+        <div class="project highlight" data-num="10">
+            <div class="project-name">Voice of <strong>Bernard</strong></div>
+            <div class="project-desc">Wake word "<strong>bernard</strong>" triggers Faster-Whisper on <strong>RTX</strong> 5090. Anti-hallucination guards prevent noise activation. HUD overlay shows processing state. Speak naturally, the system listens.</div>
+            <div class="project-tag">Voice Layer</div>
+        </div>
+
+        <div class="project highlight" data-num="11">
+            <div class="project-name">SovereignLink</div>
+            <div class="project-desc">The neural bridge. Watches <strong>Obsidian</strong> vault for checkboxes: /do, /research, /browse. Task appears in a note, system executes it. Speed tiers route to appropriate models. The vault becomes command interface.</div>
+            <div class="project-tag">Task Execution</div>
+        </div>
+
+        <div class="project highlight" data-num="12">
+            <div class="project-name">FileManagerAI</div>
+            <div class="project-desc"><strong>64KB</strong> of intelligent file <strong>classification</strong>. <strong>Ollama</strong> analyzes content patterns: screenshots, receipts, wallpapers, ebooks. Protected paths for safety. Desktop chaos becomes organized structure.</div>
+            <div class="project-tag">Organization</div>
+        </div>
+
+        <div class="project" data-num="13">
+            <div class="project-name"><strong>Bernard</strong> Nexus</div>
+            <div class="project-desc">Unified nervous system singleton. Connects <strong>Local Brain</strong>, Memory Watcher, Life OS into single API. One interface for all cognition.</div>
+            <div class="project-tag">Integration</div>
+        </div>
+
+        <div class="project" data-num="14">
+            <div class="project-name">Superpowers</div>
+            <div class="project-desc">Skill system with workflows, checklists, agent patterns. TDD, debugging, code review - all as invokable skills.</div>
+            <div class="project-tag">Meta-tools</div>
+        </div>
+
+        <div class="project" data-num="15">
+            <div class="project-name"><strong>Ollama</strong> <strong>MCP</strong></div>
+            <div class="project-desc">Local model orchestration. <strong>Embedding</strong> generation. Multi-model routing.</div>
+            <div class="project-tag">AI Backend</div>
+        </div>
+
+        <div class="project" data-num="16">
+            <div class="project-name">OSBrain / Desktop</div>
+            <div class="project-desc">Vision-first desktop automation. OCR + VLM for element detection. Registry actions for fast path. When browser isn't enough.</div>
+            <div class="project-tag">Desktop Control</div>
+        </div>
+
+        <div class="project" data-num="17">
+            <div class="project-name">PR Review Toolkit</div>
+            <div class="project-desc">Six specialized agents: code reviewer, simplifier, type analyzer, test analyzer, comment parser, silent failure hunter.</div>
+            <div class="project-tag">Development</div>
+        </div>
+
+        <div class="project" data-num="18">
+            <div class="project-name">DST Server</div>
+            <div class="project-desc">Don't Starve Together dedicated server. World config, mods, player management, item spawning.</div>
+            <div class="project-tag">Game Systems</div>
+        </div>
+    </div>
+
+        <div class="nav-bar" style="position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 1000 !important;">
+        <a href="page_01_title.html" class="nav-item">Title</a>
+        <a href="page_02_philosophy.html" class="nav-item">Philosophy</a>
+        <a href="page_03_topology.html" class="nav-item">Topology</a>
+        <a href="page_04_models.html" class="nav-item">Models</a>
+        <a href="page_05_memory.html" class="nav-item">Memory</a>
+        <a href="page_06_obsidian.html" class="nav-item"><strong>Obsidian</strong></a>
+        <a href="page_07_projects.html" class="nav-item active">Projects</a>
+        <a href="page_08_agenthub.html" class="nav-item">Agents</a>
+        <a href="page_09_browser.html" class="nav-item">Browser</a>
+        <a href="page_10_mind.html" class="nav-item">Mind</a>
+        <a href="page_11_genesis.html" class="nav-item">Genesis</a>
+        <a href="page_12_bernard.html" class="nav-item"><strong>Bernard</strong></a>
+        <a href="page_13_suggestions.html" class="nav-item">Suggest</a>
+        <a href="page_14_voice.html" class="nav-item">Voice</a>
+        <a href="page_15_closing.html" class="nav-item">Closing</a>
+        <a href="page_16_appendix.html" class="nav-item">Appendix</a>
+    </div>
+
+    <div class="footer animate-footer" style="position: fixed !important; bottom: 70px !important; left: 0 !important; right: 0 !important; z-index: 999 !important;">
+        <span>JOHN MITTHS</span>
+        <span><strong>COGNITIVE ARCHITECTURE</strong></span>
+        <span class="page-num">07</span>
+    </div>
+</body>
+</html>

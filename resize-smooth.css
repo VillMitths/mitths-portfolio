@@ -1,0 +1,45 @@
+/* Smooth Reactive Resizing */
+/* DISABLED: Global wildcard transitions cause performance issues and conflicts */
+/* Use specific classes below instead */
+
+/* Exclude animations from resize transitions */
+*[class*="animate"],
+*[class*="anim"],
+.mood-ball {
+    transition: none;
+}
+
+/* Container queries for modern responsive */
+@container (min-width: 0) {
+    .content-box, .card, .grid-item {
+        container-type: inline-size;
+    }
+}
+
+/* Smooth viewport-based scaling */
+html {
+    font-size: clamp(14px, 1vw + 12px, 18px);
+}
+
+/* All elements scale smoothly */
+.parallel-box, .insight-box, .bottom-item, .feature-box,
+.content-area, .main-content, .header, .footer {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* SVG smooth scaling */
+svg {
+    transition: width 0.2s ease, height 0.2s ease;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Grid and flex smooth transitions */
+.grid, [class*="grid"], [style*="grid"] {
+    transition: gap 0.2s ease, grid-template-columns 0.2s ease;
+}
+
+/* Navigation smooth resize */
+.nav-bar, .nav-item {
+    transition: all 0.2s ease;
+}

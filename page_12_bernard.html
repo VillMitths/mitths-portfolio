@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fluid.css">
+    <link rel="stylesheet" href="resize-smooth.css">
+    <link rel="stylesheet" href="quality.css">
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            max-width: 1240px;
+            width: 100%;
+            min-height: 100vh;
+            background: #080808;
+            font-family: 'Cormorant Garamond', serif;
+            color: #e8e6e3;
+            position: relative;
+            margin: 0 auto;
+            overflow-x: hidden;
+            padding-bottom: 240px;
+        }
+
+        .frame {
+            position: absolute;
+            top: var(--fluid-space);
+            left: var(--fluid-space);
+            right: var(--fluid-space);
+            bottom: var(--fluid-space);
+            border: var(--fluid-border-thin) solid #333;
+        }
+
+        .corner-tl {
+            position: absolute;
+            top: var(--fluid-space);
+            left: var(--fluid-space);
+            width: var(--fluid-corner); height: var(--fluid-corner);
+            border-top: var(--fluid-border) solid #d4b896;
+            border-left: var(--fluid-border) solid #d4b896;
+        }
+
+        .corner-br {
+            position: absolute;
+            bottom: var(--fluid-space);
+            right: var(--fluid-space);
+            width: var(--fluid-corner); height: var(--fluid-corner);
+            border-bottom: var(--fluid-border) solid #d4b896;
+            border-right: var(--fluid-border) solid #d4b896;
+        }
+
+        .header {
+            position: relative;
+            margin: 80px 0 0 80px;
+            z-index: 20;
+        }
+
+        .section-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: 38px;
+            font-weight: 300;
+            letter-spacing: var(--fluid-tracking-md);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: var(--fluid-body);
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .main-diagram {
+            position: relative;
+            margin: 180px auto 40px;
+            display: block;
+            max-width: 100%;
+            height: auto;
+            z-index: 1;
+        }
+
+        .features-grid {
+            position: relative;
+            margin: 0 80px 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            z-index: 10;
+            background: #080808;
+        }
+
+        .feature {
+            background: #0a0a0a;
+            border: var(--fluid-border-thin) solid #222;
+            padding: var(--fluid-space-xs);
+        }
+
+        .feature-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-title-sm);
+            color: #d4b896;
+            margin-bottom: 12px;
+        }
+
+        .feature-name {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #e8e6e3;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            font-size: 12px;
+            line-height: 1.7;
+            color: #999;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 8px;
+        }
+
+        .feature-list li {
+            font-size: 11px;
+            color: #888;
+            padding-left: 12px;
+            margin-bottom: 4px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #d4b896;
+        }
+
+        .tech-stack {
+            position: relative;
+            margin: 30px 80px;
+            display: flex;
+            justify-content: center;
+            gap: var(--fluid-gap);
+            padding: var(--fluid-space-xs) 0;
+            border-top: 1px solid #222;
+            z-index: 10;
+        }
+
+        .tech-item {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #555;
+            letter-spacing: 1px;
+        }
+
+        .tech-item span {
+            color: #d4b896;
+        }
+
+        .stats-bar {
+            position: relative;
+            margin: 0 80px 120px;
+            display: flex;
+            justify-content: space-around;
+            padding: 25px 0;
+            background: #0a0a0a;
+            border: var(--fluid-border-thin) solid #222;
+            z-index: 10;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-title-sm);
+            color: #d4b896;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #555;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+        }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, #0a0a0a, #080808);
+            border: var(--fluid-border-thin) solid #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 0 40px;
+        
+            z-index: 1000;
+        }
+
+        .nav-item {
+            flex: 1;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #888;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            color: #888;
+            border-color: #333;
+            background: #111;
+        }
+
+        .nav-item.active {
+            background: #d4b896;
+            color: #080808;
+            border-color: #d4b896;
+            font-weight: 500;
+        }
+
+                /* Mobile Hamburger Menu */
+        #menu-toggle {
+            display: none;
+        }
+
+        .hamburger-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #d4b896;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1001;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: #080808;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: #080808;
+            border-left: var(--fluid-border) solid #d4b896;
+            z-index: 1000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            padding: 80px 20px 20px;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--fluid-space-sm);
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .mobile-menu-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: var(--fluid-border) solid #d4b896;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--fluid-title-sm);
+            color: #d4b896;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #d4b896;
+            color: #080808;
+        }
+
+        .mobile-nav-item {
+            display: block;
+            padding: 18px 20px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            color: #888;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            border-bottom: none;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .mobile-nav-item:last-child {
+            border-bottom: 1px solid #222;
+        }
+
+        .mobile-nav-item:hover {
+            color: #d4b896;
+            background: #111;
+            border-color: #333;
+            padding-left: 30px;
+        }
+
+        .mobile-nav-item.active {
+            background: #d4b896;
+            color: #080808;
+            border-color: #d4b896;
+            font-weight: 500;
+        }
+
+        /* Checkbox hack for menu toggle */
+        #menu-toggle:checked ~ .mobile-menu {
+            right: 0;
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(2) {
+            opacity: 0;
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-bar {
+                display: none;
+            }
+
+            .hamburger-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            body {
+                width: 100%;
+                height: auto;
+                min-height: 100vh;
+                overflow-x: hidden;
+                padding-bottom: 140px;
+            }
+
+            .content {
+                width: 90%;
+                padding: var(--fluid-space-xs) 0;
+            }
+
+            .title {
+                font-size: var(--fluid-title-lg);
+                letter-spacing: 10px;
+            }
+
+            .stats {
+                flex-wrap: wrap;
+                gap: var(--fluid-gap);
+            }
+
+            .diagram {
+                width: 100%;
+                height: auto;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 70px;
+                left: 0;
+                right: 0;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #555;
+            letter-spacing: var(--fluid-tracking-sm);
+            padding: 0 80px;
+        
+            z-index: 999;
+        }
+
+        .page-num {
+            color: #d4b896;
+        }
+    </style>
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="svg-responsive.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="hover-effects.css">
+</head>
+<body>
+    <!-- Mobile Hamburger Menu -->
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="hamburger-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="mobile-menu">
+        <label for="menu-toggle" class="close-btn">✕</label>
+        <div class="mobile-menu-header">
+            <span class="mobile-menu-title">Navigation</span>
+        </div>
+        <a href="page_01_title.html" class="mobile-nav-item">Title</a>
+        <a href="page_02_philosophy.html" class="mobile-nav-item">Philosophy</a>
+        <a href="page_03_topology.html" class="mobile-nav-item">Topology</a>
+        <a href="page_04_models.html" class="mobile-nav-item">Models</a>
+        <a href="page_05_memory.html" class="mobile-nav-item">Memory</a>
+        <a href="page_06_obsidian.html" class="mobile-nav-item"><strong>Obsidian</strong></a>
+        <a href="page_07_projects.html" class="mobile-nav-item">Projects</a>
+        <a href="page_08_agenthub.html" class="mobile-nav-item">Agents</a>
+        <a href="page_09_browser.html" class="mobile-nav-item">Browser</a>
+        <a href="page_10_mind.html" class="mobile-nav-item">Mind</a>
+        <a href="page_11_genesis.html" class="mobile-nav-item">Genesis</a>
+        <a href="page_12_bernard.html" class="mobile-nav-item active"><strong>Bernard</strong></a>
+        <a href="page_13_suggestions.html" class="mobile-nav-item">Suggest</a>
+        <a href="page_14_voice.html" class="mobile-nav-item">Voice</a>
+        <a href="page_15_closing.html" class="mobile-nav-item">Closing</a>
+        <a href="page_16_appendix.html" class="mobile-nav-item">Appendix</a>
+    </nav>
+
+    <div class="frame"></div>
+    <div class="corner-tl"></div>
+    <div class="corner-br"></div>
+
+    <div class="header">
+        <div class="section-num">DEEP DIVE 02</div>
+        <h2><strong>Bernard</strong> Bot</h2>
+        <div class="subtitle animate-header-delay-2">Multi-user intelligence layer for operations of daily life, orchestrated remotely</div>
+    </div>
+
+    <svg class="animate-diagram main-diagram" width="100%" height="auto" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet">
+        <defs>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="4" result="blur"/>
+                <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#d4b896"/>
+            </marker>
+            <marker id="arrowhead-subtle" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+            </marker>
+        </defs>
+
+        <!-- Central Brain -->
+        <circle cx="500" cy="240" r="85" fill="#111" stroke="#d4b896" stroke-width="3" filter="url(#glow)"/>
+        <text x="500" y="230" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="16" font-weight="bold">BERNARD</text>
+        <text x="500" y="252" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="12">Multi-User Core</text>
+        <text x="500" y="268" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10" font-weight="bold">Claude + Context</text>
+
+        <!-- User 1: John -->
+        <rect x="70" y="80" width="160" height="90" fill="#0a0a0a" stroke="#d4b896" stroke-width="2" rx="5"/>
+        <text x="150" y="105" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="13">USER: JOHN</text>
+        <text x="150" y="125" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10">Shadow work</text>
+        <text x="150" y="140" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10">Therapy prep</text>
+        <text x="150" y="155" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10">Server admin</text>
+        <line x1="230" y1="120" x2="415" y2="200" stroke="#d4b896" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+        <!-- User 2: Sabina -->
+        <rect x="770" y="80" width="160" height="90" fill="#0a0a0a" stroke="#d4b896" stroke-width="2" rx="5"/>
+        <text x="850" y="105" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="13">USER: SABINA</text>
+        <text x="850" y="125" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10">Fashion advice</text>
+        <text x="850" y="140" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10">AITA stories</text>
+        <text x="850" y="155" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10">Mood tracking</text>
+        <line x1="770" y1="120" x2="585" y2="200" stroke="#d4b896" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+        <!-- Telegram Interface -->
+        <rect x="380" y="50" width="240" height="50" fill="#0c0c0c" stroke="#555" stroke-width="1.5" rx="3"/>
+        <text x="500" y="70" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="11">TELEGRAM API</text>
+        <text x="500" y="88" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="10">python-telegram-bot</text>
+        <line x1="500" y1="100" x2="500" y2="155" stroke="#555" stroke-width="1.5" marker-end="url(#arrowhead-subtle)"/>
+
+        <!-- Feature Modules (arranged in circle) -->
+
+        <!-- Smart Suggestions (top-left) -->
+        <rect x="220" y="300" width="140" height="80" fill="#111" stroke="#444" stroke-width="1.5" rx="4"/>
+        <text x="290" y="320" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="11">Suggestions</text>
+        <text x="290" y="338" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="9">Dynamic buttons</text>
+        <text x="290" y="352" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="9">Context-aware</text>
+        <text x="290" y="365" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="9">Mood-based</text>
+        <line x1="415" y1="270" x2="360" y2="310" stroke="#555" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+        <!-- Remote Control (bottom-left) -->
+        <rect x="220" y="400" width="140" height="80" fill="#111" stroke="#444" stroke-width="1.5" rx="4"/>
+        <text x="290" y="420" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="11">Remote Ctrl</text>
+        <text x="290" y="438" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="9" font-weight="bold">Claude Code API</text>
+        <text x="290" y="452" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="9">File operations</text>
+        <text x="290" y="465" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="9">Server access</text>
+        <line x1="415" y1="290" x2="360" y2="410" stroke="#555" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+        <!-- Fashion/Inventory (top-right) -->
+        <rect x="640" y="300" width="140" height="80" fill="#111" stroke="#444" stroke-width="1.5" rx="4"/>
+        <text x="710" y="320" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="11">Fashion AI</text>
+        <text x="710" y="338" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="9">Image uploads</text>
+        <text x="710" y="352" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="9">Dashboard</text>
+        <text x="710" y="365" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="9">Suggestions</text>
+        <line x1="585" y1="270" x2="640" y2="310" stroke="#555" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+        <!-- Receipt Tracking (bottom-right) -->
+        <rect x="640" y="400" width="140" height="80" fill="#111" stroke="#444" stroke-width="1.5" rx="4"/>
+        <text x="710" y="420" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="11">Economy</text>
+        <text x="710" y="438" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="9">Receipt OCR</text>
+        <text x="710" y="452" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="9">Budget insights</text>
+        <text x="710" y="465" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="9" font-weight="bold">SQLite DB</text>
+        <line x1="585" y1="290" x2="640" y2="410" stroke="#555" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+        <!-- TTS AITA (bottom center) -->
+        <rect x="430" y="360" width="140" height="80" fill="#111" stroke="#444" stroke-width="1.5" rx="4"/>
+        <text x="500" y="380" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="11">TTS AITA</text>
+        <text x="500" y="398" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="9">Reddit scraper</text>
+        <text x="500" y="412" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="9">ElevenLabs TTS</text>
+        <text x="500" y="425" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="9">Voice calls</text>
+        <line x1="500" y1="325" x2="500" y2="360" stroke="#555" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+        <!-- Context Database -->
+        <rect x="420" y="490" width="160" height="50" fill="#0c0c0c" stroke="#d4b896" stroke-width="1.5" rx="3"/>
+        <text x="500" y="510" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="11" font-weight="bold">PERSISTENT MEMORY</text>
+        <text x="500" y="528" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10">User patterns · Preferences · History</text>
+        <line x1="500" y1="325" x2="500" y2="490" stroke="#d4b896" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+        <!-- Annotations -->
+        <text x="50" y="240" text-anchor="start" fill="#666" font-family="IBM Plex Mono" font-size="10">Personalized</text>
+        <text x="50" y="255" text-anchor="start" fill="#555" font-family="IBM Plex Mono" font-size="10">per user</text>
+
+        <text x="900" y="240" text-anchor="start" fill="#666" font-family="IBM Plex Mono" font-size="10">Couple-aware</text>
+        <text x="900" y="255" text-anchor="start" fill="#555" font-family="IBM Plex Mono" font-size="10">shared context</text>
+    </svg>
+
+    <div class="features-grid">
+        <div class="feature">
+            <div class="feature-num">01</div>
+            <div class="feature-name">Smart Suggestions</div>
+            <div class="feature-desc">
+                Four dynamic buttons: adaptive surfaces that reshape according to user context and emotional valence.
+            </div>
+            <ul class="feature-list">
+                <li>Therapy prep guidance</li>
+                <li>Shadow work prompts</li>
+                <li>Panic attack protocols</li>
+                <li>Mood-based responses</li>
+            </ul>
+        </div>
+
+        <div class="feature">
+            <div class="feature-num">02</div>
+            <div class="feature-name">Remote Control</div>
+            <div class="feature-desc">
+                Full <strong>Claude</strong> Code access via Telegram; unrestricted system authority when /debug off mode is invoked.
+            </div>
+            <ul class="feature-list">
+                <li>Create/modify files remotely</li>
+                <li>Download YouTube videos</li>
+                <li>Email checking & parsing</li>
+                <li>DST server management</li>
+                <li>Call girlfriend via TTS</li>
+            </ul>
+        </div>
+
+        <div class="feature">
+            <div class="feature-num">03</div>
+            <div class="feature-name">Fashion AI</div>
+            <div class="feature-desc">
+                Visual inventory system: cataloging garments and generating outfit configurations through AI-mediated aesthetic <strong>reasoning</strong>.
+            </div>
+            <ul class="feature-list">
+                <li>Photo upload & cataloging</li>
+                <li>Dashboard view of items</li>
+                <li>Outfit recommendations</li>
+                <li>Style pattern learning</li>
+            </ul>
+        </div>
+
+        <div class="feature">
+            <div class="feature-num">04</div>
+            <div class="feature-name">Receipt Tracking</div>
+            <div class="feature-desc">
+                Photograph receipts; extract structured data automatically. Track spending patterns across temporal horizons.
+            </div>
+            <ul class="feature-list">
+                <li>OCR extraction</li>
+                <li><strong>SQLite</strong> database storage</li>
+                <li>Budget insights</li>
+                <li>Category analysis</li>
+            </ul>
+        </div>
+
+        <div class="feature">
+            <div class="feature-num">05</div>
+            <div class="feature-name">Couple Awareness</div>
+            <div class="feature-desc">
+                Multi-user architecture: independent pattern learning trajectories that remain distinct yet contextually aware.
+            </div>
+            <ul class="feature-list">
+                <li>Separate user contexts</li>
+                <li>Individual mood tracking</li>
+                <li>Personalized responses</li>
+                <li>Shared calendar sync</li>
+            </ul>
+        </div>
+
+        <div class="feature">
+            <div class="feature-num">06</div>
+            <div class="feature-name">Automated TTS AITA</div>
+            <div class="feature-desc">
+                Scrapes Reddit AITA posts; converts narrative text to synthesized voice; initiates telephonic delivery automatically.
+            </div>
+            <ul class="feature-list">
+                <li>Reddit AITA scraping</li>
+                <li>ElevenLabs voice synthesis</li>
+                <li>Automated phone calls</li>
+                <li>Story selection AI</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="tech-stack">
+        <div class="tech-item"><span>python-telegram-bot</span> / Async messaging</div>
+        <div class="tech-item"><span><strong>Claude</strong> API</span> / Intelligence layer</div>
+        <div class="tech-item"><span><strong>SQLite</strong></span> / User context & data</div>
+        <div class="tech-item"><span>ElevenLabs</span> / Voice synthesis</div>
+        <div class="tech-item"><span>OCR</span> / Receipt parsing</div>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat">
+            <div class="stat-value">2</div>
+            <div class="stat-label">Active Users</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">6</div>
+            <div class="stat-label">Core Features</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">24/7</div>
+            <div class="stat-label">Availability</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">∞</div>
+            <div class="stat-label">Context Memory</div>
+        </div>
+    </div>
+
+        <div class="nav-bar">
+        <a href="page_01_title.html" class="nav-item">Title</a>
+        <a href="page_02_philosophy.html" class="nav-item">Philosophy</a>
+        <a href="page_03_topology.html" class="nav-item">Topology</a>
+        <a href="page_04_models.html" class="nav-item">Models</a>
+        <a href="page_05_memory.html" class="nav-item">Memory</a>
+        <a href="page_06_obsidian.html" class="nav-item"><strong>Obsidian</strong></a>
+        <a href="page_07_projects.html" class="nav-item">Projects</a>
+        <a href="page_08_agenthub.html" class="nav-item">Agents</a>
+        <a href="page_09_browser.html" class="nav-item">Browser</a>
+        <a href="page_10_mind.html" class="nav-item">Mind</a>
+        <a href="page_11_genesis.html" class="nav-item">Genesis</a>
+        <a href="page_12_bernard.html" class="nav-item active"><strong>Bernard</strong></a>
+        <a href="page_13_suggestions.html" class="nav-item">Suggest</a>
+        <a href="page_14_voice.html" class="nav-item">Voice</a>
+        <a href="page_15_closing.html" class="nav-item">Closing</a>
+        <a href="page_16_appendix.html" class="nav-item">Appendix</a>
+    </div>
+
+    <div class="footer animate-footer">
+        <span>JOHN MITTHS</span>
+        <span><strong>COGNITIVE ARCHITECTURE</strong></span>
+        <span class="page-num">12</span>
+    </div>
+</body>
+</html>

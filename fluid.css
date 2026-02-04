@@ -1,0 +1,310 @@
+/*
+  FLUID DESIGN SYSTEM
+  Dynamic sizing using CSS clamp() and viewport units
+  Provides smooth scaling without breakpoint jumps
+*/
+
+:root {
+  /* === FLUID TYPOGRAPHY === */
+  /* Main titles - scales from mobile (28px) to desktop (72px) */
+  --fluid-title-xl: clamp(28px, 5vw, 72px);
+
+  /* Section titles - scales from 24px to 56px */
+  --fluid-title-lg: clamp(24px, 4vw, 56px);
+
+  /* Subsection titles - scales from 18px to 36px */
+  --fluid-title-md: clamp(18px, 3vw, 36px);
+
+  /* Small titles/eyebrows - scales from 10px to 22px */
+  --fluid-title-sm: clamp(10px, 2vw, 22px);
+
+  /* Eyebrows/labels - scales from 12px to 16px (FIXED: was 8px min) */
+  --fluid-eyebrow: clamp(12px, 1.2vw, 16px);
+
+  /* Body text - scales from 14px to 18px (IMPROVED: was 12px min) */
+  --fluid-body: clamp(14px, 1.5vw, 18px);
+
+  /* Small text/captions - scales from 12px to 16px (FIXED: was 10px min) */
+  --fluid-small: clamp(12px, 1.2vw, 16px);
+
+  /* Tiny labels - scales from 12px to 14px (FIXED: was 8px min) */
+  --fluid-tiny: clamp(12px, 1vw, 14px);
+
+  /* === FLUID SPACING === */
+  /* Extra large spacing - page margins, section gaps */
+  --fluid-space-xl: clamp(40px, 8vw, 120px);
+
+  /* Large spacing - section margins, major gaps */
+  --fluid-space-lg: clamp(30px, 6vw, 80px);
+
+  /* Medium spacing - content margins, card gaps */
+  --fluid-space-md: clamp(20px, 4vw, 60px);
+
+  /* Standard spacing - element margins, padding */
+  --fluid-space: clamp(16px, 3vw, 40px);
+
+  /* Small spacing - tight gaps, inline spacing */
+  --fluid-space-sm: clamp(12px, 2vw, 30px);
+
+  /* Extra small spacing - minimal gaps */
+  --fluid-space-xs: clamp(8px, 1.5vw, 20px);
+
+  /* === FLUID SIZING === */
+  /* Decorative elements - corner brackets, icons */
+  --fluid-corner: clamp(30px, 5vw, 60px);
+
+  /* Circular decorations */
+  --fluid-circle: clamp(60px, 10vw, 120px);
+
+  /* Navigation items, buttons */
+  --fluid-nav-item: clamp(32px, 4vw, 48px);
+
+  /* Icon sizes */
+  --fluid-icon: clamp(16px, 2vw, 24px);
+
+  /* === FLUID LETTER SPACING === */
+  /* Title letter spacing - scales proportionally */
+  --fluid-tracking-xl: clamp(8px, 2vw, 20px);
+  --fluid-tracking-lg: clamp(4px, 1.5vw, 12px);
+  --fluid-tracking-md: clamp(2px, 1vw, 8px);
+  --fluid-tracking-sm: clamp(1px, 0.5vw, 4px);
+
+  /* === FLUID LINE HEIGHTS === */
+  /* Proportional line heights that scale with text */
+  --fluid-line-tight: 1.1;
+  --fluid-line-normal: 1.4;
+  --fluid-line-relaxed: 1.6;
+  --fluid-line-loose: 1.8;
+
+  /* === FLUID BORDERS === */
+  --fluid-border-thin: clamp(1px, 0.1vw, 2px);
+  --fluid-border: clamp(2px, 0.2vw, 3px);
+  --fluid-border-thick: clamp(3px, 0.3vw, 5px);
+
+  /* === FLUID GAPS === */
+  /* Flexbox/grid gaps that scale smoothly */
+  --fluid-gap-xl: clamp(40px, 6vw, 100px);
+  --fluid-gap-lg: clamp(30px, 5vw, 80px);
+  --fluid-gap-md: clamp(20px, 3vw, 50px);
+  --fluid-gap: clamp(16px, 2.5vw, 40px);
+  --fluid-gap-sm: clamp(12px, 2vw, 30px);
+  --fluid-gap-xs: clamp(8px, 1.5vw, 20px);
+}
+
+/* === FLUID UTILITY CLASSES === */
+
+/* Typography utilities */
+.fluid-title-xl { font-size: var(--fluid-title-xl); }
+.fluid-title-lg { font-size: var(--fluid-title-lg); }
+.fluid-title-md { font-size: var(--fluid-title-md); }
+.fluid-title-sm { font-size: var(--fluid-title-sm); }
+.fluid-eyebrow { font-size: var(--fluid-eyebrow); }
+.fluid-body { font-size: var(--fluid-body); }
+.fluid-small { font-size: var(--fluid-small); }
+.fluid-tiny { font-size: var(--fluid-tiny); }
+
+/* Spacing utilities */
+.fluid-mt-xl { margin-top: var(--fluid-space-xl); }
+.fluid-mt-lg { margin-top: var(--fluid-space-lg); }
+.fluid-mt-md { margin-top: var(--fluid-space-md); }
+.fluid-mt { margin-top: var(--fluid-space); }
+.fluid-mt-sm { margin-top: var(--fluid-space-sm); }
+
+.fluid-mb-xl { margin-bottom: var(--fluid-space-xl); }
+.fluid-mb-lg { margin-bottom: var(--fluid-space-lg); }
+.fluid-mb-md { margin-bottom: var(--fluid-space-md); }
+.fluid-mb { margin-bottom: var(--fluid-space); }
+.fluid-mb-sm { margin-bottom: var(--fluid-space-sm); }
+
+.fluid-p-xl { padding: var(--fluid-space-xl); }
+.fluid-p-lg { padding: var(--fluid-space-lg); }
+.fluid-p-md { padding: var(--fluid-space-md); }
+.fluid-p { padding: var(--fluid-space); }
+.fluid-p-sm { padding: var(--fluid-space-sm); }
+
+/* Gap utilities for flex/grid */
+.fluid-gap-xl { gap: var(--fluid-gap-xl); }
+.fluid-gap-lg { gap: var(--fluid-gap-lg); }
+.fluid-gap-md { gap: var(--fluid-gap-md); }
+.fluid-gap { gap: var(--fluid-gap); }
+.fluid-gap-sm { gap: var(--fluid-gap-sm); }
+.fluid-gap-xs { gap: var(--fluid-gap-xs); }
+
+/* === RESPONSIVE CONTAINER === */
+/* Container with fluid padding that scales with viewport */
+.fluid-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--fluid-space-md);
+}
+
+/* === FLUID FRAME SYSTEM === */
+/* For pages with decorative frames */
+.fluid-frame {
+  position: absolute;
+  inset: var(--fluid-space-md);
+  border: var(--fluid-border-thin) solid #333;
+  pointer-events: none;
+}
+
+.fluid-corner {
+  position: absolute;
+  width: var(--fluid-corner);
+  height: var(--fluid-corner);
+  border: var(--fluid-border) solid #d4b896;
+}
+
+.fluid-corner-tl {
+  top: var(--fluid-space-md);
+  left: var(--fluid-space-md);
+  border-right: none;
+  border-bottom: none;
+}
+
+.fluid-corner-tr {
+  top: var(--fluid-space-md);
+  right: var(--fluid-space-md);
+  border-left: none;
+  border-bottom: none;
+}
+
+.fluid-corner-bl {
+  bottom: var(--fluid-space-md);
+  left: var(--fluid-space-md);
+  border-right: none;
+  border-top: none;
+}
+
+.fluid-corner-br {
+  bottom: var(--fluid-space-md);
+  right: var(--fluid-space-md);
+  border-left: none;
+  border-top: none;
+}
+
+/* === FLUID NAVIGATION === */
+.fluid-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--fluid-gap-md);
+  padding: var(--fluid-space-sm) var(--fluid-space);
+}
+
+.fluid-nav-item {
+  font-size: var(--fluid-small);
+  letter-spacing: var(--fluid-tracking-sm);
+}
+
+/* === FLUID STATS/GRID === */
+.fluid-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--fluid-gap-lg);
+}
+
+.fluid-stat {
+  text-align: center;
+  min-width: clamp(100px, 20vw, 200px);
+}
+
+/* === FLUID CARDS === */
+.fluid-card {
+  padding: var(--fluid-space-md);
+  border: var(--fluid-border-thin) solid #333;
+  border-radius: clamp(8px, 1vw, 16px);
+}
+
+/* === BREATHING ANIMATIONS === */
+/* DISABLED - felt like clutter */
+/*
+@keyframes fluid-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+*/
+
+.fluid-breathe {
+  /* animation disabled */
+}
+
+/* === CONTAINER QUERIES === */
+/* For components that adapt to their container, not viewport */
+@supports (container-type: inline-size) {
+  .fluid-container-query {
+    container-type: inline-size;
+    container-name: fluid-box;
+  }
+
+  /* Elements inside adapt to container width */
+  @container fluid-box (min-width: 400px) {
+    .fluid-adaptive-title {
+      font-size: clamp(16px, 4cqi, 32px);
+    }
+  }
+
+  @container fluid-box (min-width: 800px) {
+    .fluid-adaptive-title {
+      font-size: clamp(24px, 5cqi, 48px);
+    }
+  }
+}
+
+/* === SMOOTH TRANSITIONS === */
+/* Apply to elements that change size to prevent jarring jumps */
+.fluid-smooth {
+  transition: font-size 0.2s ease-out,
+              padding 0.2s ease-out,
+              margin 0.2s ease-out,
+              gap 0.2s ease-out;
+}
+
+/* === ASPECT RATIO UTILITIES === */
+/* Maintain aspect ratios while scaling fluidly */
+.fluid-ratio-16-9 {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+.fluid-ratio-4-3 {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+}
+
+.fluid-ratio-1-1 {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+}
+
+/* === VIEWPORT-AWARE OVERRIDES === */
+/* Fine-tune scaling at extreme viewport sizes */
+
+/* Very small screens (phones in portrait) */
+@media (max-width: 400px) {
+  :root {
+    --fluid-title-xl: clamp(20px, 8vw, 28px);
+    --fluid-space-xl: clamp(20px, 6vw, 40px);
+  }
+}
+
+/* Very large screens (4K+) */
+@media (min-width: 2000px) {
+  :root {
+    /* Prevent excessive scaling on huge screens */
+    --fluid-title-xl: min(72px, 3.6vw);
+    --fluid-space-xl: min(120px, 6vw);
+  }
+}
+
+/* === PRINT STYLES === */
+/* Reset to fixed sizes for print */
+@media print {
+  :root {
+    --fluid-title-xl: 48pt;
+    --fluid-title-lg: 36pt;
+    --fluid-title-md: 24pt;
+    --fluid-body: 12pt;
+    --fluid-space: 20pt;
+    --fluid-space-lg: 40pt;
+  }
+}

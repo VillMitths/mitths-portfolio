@@ -1,0 +1,15 @@
+# Python scripts (not needed for website)
+*.py
+__pycache__/
+*.pyc
+
+# Temp files
+tmpclaude-*
+
+# Documentation (keep only essential ones)
+*.md
+!README.md
+
+# Batch/PowerShell scripts
+*.bat
+*.ps1

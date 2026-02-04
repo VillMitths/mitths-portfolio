@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fluid.css">
+    <link rel="stylesheet" href="resize-smooth.css">
+    <link rel="stylesheet" href="quality.css">
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            max-width: 1240px;
+            width: 100%;
+            min-height: 100vh;
+            background: #080808;
+            font-family: 'Cormorant Garamond', serif;
+            color: #e8e6e3;
+            position: relative;
+            margin: 0 auto;
+            overflow-x: hidden;
+            padding-bottom: 240px;
+        }
+
+        .frame {
+            position: absolute;
+            top: var(--fluid-space);
+            left: var(--fluid-space);
+            right: var(--fluid-space);
+            bottom: var(--fluid-space);
+            border: var(--fluid-border-thin) solid #333;
+        }
+
+        .corner-tl {
+            position: absolute;
+            top: var(--fluid-space);
+            left: var(--fluid-space);
+            width: var(--fluid-corner); height: var(--fluid-corner);
+            border-top: var(--fluid-border) solid #d4b896;
+            border-left: var(--fluid-border) solid #d4b896;
+        }
+
+        .corner-br {
+            position: absolute;
+            bottom: var(--fluid-space);
+            right: var(--fluid-space);
+            width: var(--fluid-corner); height: var(--fluid-corner);
+            border-bottom: var(--fluid-border) solid #d4b896;
+            border-right: var(--fluid-border) solid #d4b896;
+        }
+
+        .header {
+            position: relative;
+            margin: 80px 0 0 80px;
+            z-index: 10;
+        }
+
+        .section-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: 38px;
+            font-weight: 300;
+            letter-spacing: var(--fluid-tracking-md);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: var(--fluid-body);
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .model-grid {
+            position: relative;
+            margin: 40px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--fluid-gap) 60px;
+            z-index: 5;
+        }
+
+        .model-card {
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #2a2a2a;
+            padding: var(--fluid-space-sm);
+            position: relative;
+            z-index: 5;
+        }
+
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #d4b896;
+        }
+
+        .model-tier {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .model-name {
+            font-size: var(--fluid-title-sm);
+            font-weight: 400;
+            margin-bottom: 6px;
+            letter-spacing: var(--fluid-tracking-sm);
+        }
+
+        .model-params {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        .model-desc {
+            font-size: clamp(12px, 1.4vw, var(--fluid-eyebrow));
+            line-height: 1.8;
+            color: #888;
+        }
+
+        .model-stats {
+            display: flex;
+            gap: var(--fluid-gap-sm);
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #222;
+        }
+
+        .stat {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .stat-value {
+            font-size: var(--fluid-title-sm);
+            color: #d4b896;
+        }
+
+        .stat-label {
+            font-size: clamp(10px, 1.2vw, 11px);
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .routing-diagram {
+            position: relative;
+            margin: 60px auto;
+            display: block;
+            z-index: 5;
+        }
+
+        .<strong>latency</strong>-chart {
+            position: relative;
+            margin: 40px 80px;
+            z-index: 5;
+            background: #080808;
+        }
+
+        .decorative-line {
+            position: relative;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #333, transparent);
+            margin: 40px 80px;
+        }
+
+        .decorative-line-mid {
+            margin: 60px 80px 40px 80px;
+        }
+
+        .accent-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #d4b896;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #d4b896;
+        }
+
+        .<strong>latency</strong>-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            text-align: center;
+            background: #080808;
+            padding: 10px;
+        }
+
+        .<strong>latency</strong>-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 150px;
+            gap: 25px;
+            padding: 0 40px;
+        }
+
+        .<strong>latency</strong>-bar-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .<strong>latency</strong>-bar {
+            width: 100%;
+            background: linear-gradient(to top, #d4b896, #a89274);
+            position: relative;
+            border-radius: 2px 2px 0 0;
+            box-shadow: 0 0 15px rgba(212, 184, 150, 0.3);
+        }
+
+        .<strong>latency</strong>-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #d4b896;
+            margin-bottom: 5px;
+        }
+
+        .<strong>latency</strong>-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #666;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, #0a0a0a, #080808);
+            border: var(--fluid-border-thin) solid #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            flex: 1;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #555;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            color: #888;
+            border-color: #333;
+            background: #111;
+        }
+
+        .nav-item.active {
+            background: #d4b896;
+            color: #080808;
+            border-color: #d4b896;
+            font-weight: 500;
+        }
+
+                /* Mobile Hamburger Menu */
+        #menu-toggle {
+            display: none;
+        }
+
+        .hamburger-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #d4b896;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1001;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: #080808;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: #080808;
+            border-left: var(--fluid-border) solid #d4b896;
+            z-index: 1000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            padding: 80px 20px 20px;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--fluid-space-sm);
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .mobile-menu-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: var(--fluid-border) solid #d4b896;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--fluid-title-sm);
+            color: #d4b896;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #d4b896;
+            color: #080808;
+        }
+
+        .mobile-nav-item {
+            display: block;
+            padding: 18px 20px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            color: #888;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            border-bottom: none;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .mobile-nav-item:last-child {
+            border-bottom: 1px solid #222;
+        }
+
+        .mobile-nav-item:hover {
+            color: #d4b896;
+            background: #111;
+            border-color: #333;
+            padding-left: 30px;
+        }
+
+        .mobile-nav-item.active {
+            background: #d4b896;
+            color: #080808;
+            border-color: #d4b896;
+            font-weight: 500;
+        }
+
+        /* Checkbox hack for menu toggle */
+        #menu-toggle:checked ~ .mobile-menu {
+            right: 0;
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(2) {
+            opacity: 0;
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-bar {
+                display: none;
+            }
+
+            .hamburger-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            body {
+                width: 100%;
+                height: auto;
+                min-height: 100vh;
+                overflow-x: hidden;
+                padding-bottom: 140px;
+            }
+
+            .content {
+                width: 90%;
+                padding: var(--fluid-space-xs) 0;
+            }
+
+            .title {
+                font-size: var(--fluid-title-lg);
+                letter-spacing: 10px;
+            }
+
+            .stats {
+                flex-wrap: wrap;
+                gap: var(--fluid-gap);
+            }
+
+            .diagram {
+                width: 100%;
+                height: auto;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 70px;
+                left: 0;
+                right: 0;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .model-grid {
+                position: static;
+                grid-template-columns: 1fr;
+                margin: 40px auto;
+                width: 90%;
+            }
+
+            .<strong>latency</strong>-chart {
+                position: static;
+                width: 90%;
+                margin: 40px auto;
+            }
+
+            .routing-diagram {
+                position: static;
+                transform: none;
+                width: 100%;
+                margin: 40px auto;
+            }
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #555;
+            letter-spacing: var(--fluid-tracking-sm);
+            padding: 0 80px;
+            z-index: 999;
+        }
+
+        .page-num {
+            color: #d4b896;
+        }
+    </style>
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="svg-responsive.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="hover-effects.css">
+</head>
+<body>
+    <!-- Mobile Hamburger Menu -->
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="hamburger-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="mobile-menu">
+        <label for="menu-toggle" class="close-btn">✕</label>
+        <div class="mobile-menu-header">
+            <span class="mobile-menu-title">Navigation</span>
+        </div>
+        <a href="page_01_title.html" class="mobile-nav-item">Title</a>
+        <a href="page_02_philosophy.html" class="mobile-nav-item">Philosophy</a>
+        <a href="page_03_topology.html" class="mobile-nav-item">Topology</a>
+        <a href="page_04_models.html" class="mobile-nav-item active">Models</a>
+        <a href="page_05_memory.html" class="mobile-nav-item">Memory</a>
+        <a href="page_06_obsidian.html" class="mobile-nav-item"><strong>Obsidian</strong></a>
+        <a href="page_07_projects.html" class="mobile-nav-item">Projects</a>
+        <a href="page_08_agenthub.html" class="mobile-nav-item">Agents</a>
+        <a href="page_09_browser.html" class="mobile-nav-item">Browser</a>
+        <a href="page_10_mind.html" class="mobile-nav-item">Mind</a>
+        <a href="page_11_genesis.html" class="mobile-nav-item">Genesis</a>
+        <a href="page_12_bernard.html" class="mobile-nav-item"><strong>Bernard</strong></a>
+        <a href="page_13_suggestions.html" class="mobile-nav-item">Suggest</a>
+        <a href="page_14_voice.html" class="mobile-nav-item">Voice</a>
+        <a href="page_15_closing.html" class="mobile-nav-item">Closing</a>
+        <a href="page_16_appendix.html" class="mobile-nav-item">Appendix</a>
+    </nav>
+
+    <div class="frame"></div>
+    <div class="corner-tl"></div>
+    <div class="corner-br"></div>
+
+    <div class="header">
+        <div class="section-num">SECTION 03</div>
+        <h2>Model Routing</h2>
+        <div class="subtitle animate-header-delay-2">Task complexity determines which model runs it</div>
+    </div>
+
+    <div class="model-grid">
+        <div class="model-card">
+            <div class="model-tier"><strong>Reasoning</strong> Tier</div>
+            <div class="model-name"><strong>Claude</strong> <strong>Opus</strong></div>
+            <div class="model-params">Anthropic API</div>
+            <div class="model-desc">
+                Deep analysis. Complex <strong>reasoning</strong> chains.
+                Architecture decisions. Code review. When correctness
+                matters more than <strong>latency</strong>. Handles ambiguous requirements,
+                multi-file refactors, system design questions. <strong>200K</strong> context
+                allows <strong>reasoning</strong> over entire codebases at once. API <strong>latency</strong>
+                typically 2-4 seconds for medium tasks, with streaming responses
+                beginning in under <strong>500ms</strong>.
+            </div>
+            <div class="model-stats">
+                <div class="stat">
+                    <div class="stat-value"><strong>200K</strong></div>
+                    <div class="stat-label">Context</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">2-4s</div>
+                    <div class="stat-label"><strong>Latency</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="model-card">
+            <div class="model-tier"><strong>Reasoning</strong> Tier</div>
+            <div class="model-name"><strong>DeepSeek</strong> R1</div>
+            <div class="model-params">70B Parameters</div>
+            <div class="model-desc">
+                Chain of thought <strong>reasoning</strong>. Mathematical proof.
+                Step-by-step derivation. When the path
+                matters as much as the answer. Self-corrects through
+                internal dialogue. Runs locally on <strong>GPU</strong> with <strong>128K</strong> context.
+                Outputs <strong>reasoning</strong> traces that expose decision process. Generates
+                at 18-22 tokens per second on <strong>RTX</strong> 3090, with first token <strong>latency</strong>
+                under <strong>300ms</strong>. No API costs or rate limits.
+            </div>
+            <div class="model-stats">
+                <div class="stat">
+                    <div class="stat-value"><strong>128K</strong></div>
+                    <div class="stat-label">Context</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">18-<strong>22 t/s</strong></div>
+                    <div class="stat-label">Speed</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="model-card">
+            <div class="model-tier">Balanced Tier</div>
+            <div class="model-name"><strong>Qwen</strong> 32B</div>
+            <div class="model-params">32B Parameters</div>
+            <div class="model-desc">
+                General tasks. Code generation. Translation.
+                The versatile middle ground between depth and speed.
+                Handles most programming tasks, documentation generation,
+                structured data extraction. Generates at 38-42 tokens per second
+                locally with first token in <strong>180ms</strong>. Good enough for 80% of requests
+                without API costs. Smart cache reduces redundant computation with
+                70-80% hit rate on repeated context.
+            </div>
+            <div class="model-stats">
+                <div class="stat">
+                    <div class="stat-value"><strong>32K</strong></div>
+                    <div class="stat-label">Context</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">38-<strong>42 t/s</strong></div>
+                    <div class="stat-label">Speed</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="model-card">
+            <div class="model-tier">Fast Tier</div>
+            <div class="model-name"><strong>Qwen</strong> 7B / <strong>Llama</strong> 1B</div>
+            <div class="model-params">7B / 1B Parameters</div>
+            <div class="model-desc">
+                <strong>Classification</strong>. Routing. Quick extraction.
+                <strong>Embedding</strong> generation. The reflexive layer that never blocks.
+                <strong>Llama</strong> 1B classifies requests in 35-<strong>50ms</strong> with 85% accuracy.
+                <strong>Qwen</strong> 7B handles simple queries at 120-140 tokens per second,
+                first token under <strong>90ms</strong>. Memory retrieval completes in under <strong>30ms</strong>
+                via vector similarity search. The system feels instant because
+                most decisions route through this tier first.
+            </div>
+            <div class="model-stats">
+                <div class="stat">
+                    <div class="stat-value">120-140</div>
+                    <div class="stat-label">Tok/s</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">&lt;<strong>50ms</strong></div>
+                    <div class="stat-label"><strong>Latency</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="position: relative;">
+        <div class="decorative-line decorative-line-mid"></div>
+        <div class="accent-dot" style="position: absolute; top: -2px; left: 80px;"></div>
+        <div class="accent-dot" style="position: absolute; top: -2px; right: 80px;"></div>
+    </div>
+
+    <div class="<strong>latency</strong>-chart">
+        <div class="<strong>latency</strong>-title">Response Time Comparison</div>
+        <div class="<strong>latency</strong>-bars">
+            <div class="<strong>latency</strong>-bar-wrapper">
+                <div class="<strong>latency</strong>-value">35-<strong>50ms</strong></div>
+                <div class="<strong>latency</strong>-bar" style="height: 15%;"></div>
+                <div class="<strong>latency</strong>-label"><strong>Llama</strong> 1B<br>Classify</div>
+            </div>
+            <div class="<strong>latency</strong>-bar-wrapper">
+                <div class="<strong>latency</strong>-value">&lt;<strong>90ms</strong></div>
+                <div class="<strong>latency</strong>-bar" style="height: 25%;"></div>
+                <div class="<strong>latency</strong>-label"><strong>Qwen</strong> 7B<br>First Token</div>
+            </div>
+            <div class="<strong>latency</strong>-bar-wrapper">
+                <div class="<strong>latency</strong>-value"><strong>180ms</strong></div>
+                <div class="<strong>latency</strong>-bar" style="height: 45%;"></div>
+                <div class="<strong>latency</strong>-label"><strong>Qwen</strong> 32B<br>First Token</div>
+            </div>
+            <div class="<strong>latency</strong>-bar-wrapper">
+                <div class="<strong>latency</strong>-value"><strong>300ms</strong></div>
+                <div class="<strong>latency</strong>-bar" style="height: 60%;"></div>
+                <div class="<strong>latency</strong>-label"><strong>DeepSeek</strong><br>First Token</div>
+            </div>
+            <div class="<strong>latency</strong>-bar-wrapper">
+                <div class="<strong>latency</strong>-value">2-4s</div>
+                <div class="<strong>latency</strong>-bar" style="height: 100%;"></div>
+                <div class="<strong>latency</strong>-label"><strong>Claude</strong> API<br>Full Response</div>
+            </div>
+        </div>
+    </div>
+
+    <svg class="animate-diagram routing-diagram" width="100%" height="auto" viewBox="0 0 900 140">
+        <defs>
+            <filter id="glow-routing" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="4" result="blur"/>
+                <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+        </defs>
+
+        <line x1="50" y1="70" x2="850" y2="70" stroke="#333" stroke-width="1.5"/>
+
+        <circle cx="50" cy="70" r="7" fill="#d4b896" filter="url(#glow-routing)"/>
+        <text x="50" y="100" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="11">INPUT</text>
+
+        <rect x="140" y="45" width="120" height="50" fill="#111" stroke="#555" stroke-width="1.5" rx="3"/>
+        <text x="200" y="76" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="12">CLASSIFY</text>
+        <text x="200" y="30" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="10" font-weight="bold">Llama 1B · 50ms</text>
+
+        <circle cx="350" cy="70" r="5" fill="#555"/>
+
+        <line x1="350" y1="70" x2="450" y2="22" stroke="#444" stroke-width="1.5"/>
+        <line x1="350" y1="70" x2="450" y2="70" stroke="#444" stroke-width="1.5"/>
+        <line x1="350" y1="70" x2="450" y2="118" stroke="#444" stroke-width="1.5"/>
+
+        <rect x="450" y="7" width="100" height="30" fill="#111" stroke="#d4b896" stroke-width="1.5" rx="3" filter="url(#glow-routing)"/>
+        <text x="500" y="29" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="10" font-weight="bold">REASONING</text>
+
+        <rect x="450" y="54" width="100" height="30" fill="#111" stroke="#888" stroke-width="1.5" rx="3"/>
+        <text x="500" y="76" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10">BALANCED</text>
+
+        <rect x="450" y="101" width="100" height="30" fill="#111" stroke="#555" stroke-width="1.5" rx="3"/>
+        <text x="500" y="123" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10">FAST</text>
+
+        <line x1="550" y1="23" x2="650" y2="70" stroke="#444" stroke-width="1.5"/>
+        <line x1="550" y1="70" x2="650" y2="70" stroke="#444" stroke-width="1.5"/>
+        <line x1="550" y1="117" x2="650" y2="70" stroke="#444" stroke-width="1.5"/>
+
+        <circle cx="650" cy="70" r="5" fill="#555"/>
+
+        <rect x="690" y="45" width="120" height="50" fill="#111" stroke="#555" stroke-width="1.5" rx="3"/>
+        <text x="750" y="76" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="12">RESPONSE</text>
+
+        <circle cx="850" cy="70" r="7" fill="#d4b896" filter="url(#glow-routing)"/>
+        <text x="850" y="100" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="11">OUTPUT</text>
+    </svg>
+
+        <div class="nav-bar" style="position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 1000 !important;">
+        <a href="page_01_title.html" class="nav-item">Title</a>
+        <a href="page_02_philosophy.html" class="nav-item">Philosophy</a>
+        <a href="page_03_topology.html" class="nav-item">Topology</a>
+        <a href="page_04_models.html" class="nav-item active">Models</a>
+        <a href="page_05_memory.html" class="nav-item">Memory</a>
+        <a href="page_06_obsidian.html" class="nav-item"><strong>Obsidian</strong></a>
+        <a href="page_07_projects.html" class="nav-item">Projects</a>
+        <a href="page_08_agenthub.html" class="nav-item">Agents</a>
+        <a href="page_09_browser.html" class="nav-item">Browser</a>
+        <a href="page_10_mind.html" class="nav-item">Mind</a>
+        <a href="page_11_genesis.html" class="nav-item">Genesis</a>
+        <a href="page_12_bernard.html" class="nav-item"><strong>Bernard</strong></a>
+        <a href="page_13_suggestions.html" class="nav-item">Suggest</a>
+        <a href="page_14_voice.html" class="nav-item">Voice</a>
+        <a href="page_15_closing.html" class="nav-item">Closing</a>
+        <a href="page_16_appendix.html" class="nav-item">Appendix</a>
+    </div>
+
+    <div class="footer animate-footer" style="position: fixed !important; bottom: 70px !important; left: 0 !important; right: 0 !important; z-index: 999 !important;">
+        <span>JOHN MITTHS</span>
+        <span><strong>COGNITIVE ARCHITECTURE</strong></span>
+        <span class="page-num">04</span>
+    </div>
+</body>
+</html>

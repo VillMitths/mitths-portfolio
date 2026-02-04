@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Responsive Test</title>
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="resize-smooth.css">
+    <link rel="stylesheet" href="svg-responsive.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #080808;
+            color: #e8e6e3;
+            padding: 20px;
+        }
+        h1 { color: #d4b896; }
+        .viewport-size {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #d4b896;
+            color: #080808;
+            padding: 8px 12px;
+            font-family: monospace;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+    </style>
+    <link rel="stylesheet" href="hover-effects.css">
+</head>
+<body>
+    <div class="viewport-size">Viewport: <span id="vw"></span>px</div>
+    <h1>SVG Responsive Test - Resize Browser Window</h1>
+    <div class="diagram-container">
+        <svg viewBox="0 0 1000 1000">
+            <circle cx="500" cy="500" r="400" fill="none" stroke="#d4b896" stroke-width="4"/>
+            <text x="500" y="500" text-anchor="middle" fill="#d4b896" font-size="40">TEST SVG</text>
+            <text x="500" y="550" text-anchor="middle" fill="#888" font-size="20">Should scale responsively</text>
+        </svg>
+    </div>
+    <script>
+        function update() {
+            document.getElementById('vw').textContent = window.innerWidth;
+        }
+        update();
+        window.addEventListener('resize', update);
+    </script>
+</body>
+</html>

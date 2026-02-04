@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fluid.css">
+    <link rel="stylesheet" href="resize-smooth.css">
+    <link rel="stylesheet" href="quality.css">
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            max-width: 1240px;
+            width: 100%;
+            min-height: 100vh;
+            background: #080808;
+            font-family: 'Cormorant Garamond', serif;
+            color: #e8e6e3;
+            position: relative;
+            margin: 0 auto;
+            overflow-x: hidden;
+            padding-bottom: 240px;
+        }
+
+        .frame {
+            position: absolute;
+            top: var(--fluid-space);
+            left: var(--fluid-space);
+            right: var(--fluid-space);
+            bottom: var(--fluid-space);
+            border: var(--fluid-border-thin) solid #333;
+        }
+
+        .corner-tl {
+            position: absolute;
+            top: var(--fluid-space);
+            left: var(--fluid-space);
+            width: var(--fluid-corner); height: var(--fluid-corner);
+            border-top: var(--fluid-border) solid #d4b896;
+            border-left: var(--fluid-border) solid #d4b896;
+        }
+
+        .corner-br {
+            position: absolute;
+            bottom: var(--fluid-space);
+            right: var(--fluid-space);
+            width: var(--fluid-corner); height: var(--fluid-corner);
+            border-bottom: var(--fluid-border) solid #d4b896;
+            border-right: var(--fluid-border) solid #d4b896;
+        }
+
+        .header {
+            position: relative;
+            margin: 80px 0 0 80px;
+            z-index: 20;
+            background: #080808;
+        }
+
+        .section-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: 38px;
+            font-weight: 300;
+            letter-spacing: var(--fluid-tracking-md);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: var(--fluid-body);
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .main-content {
+            position: relative;
+            margin: 60px 80px 150px;
+            padding-bottom: 20px;
+            z-index: 10;
+            background: #080808;
+        }
+
+        .parallel-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--fluid-gap);
+            margin-bottom: 35px;
+        }
+
+        .parallel-box {
+            background: #0a0a0a;
+            border: var(--fluid-border-thin) solid #222;
+            padding: 25px;
+        }
+
+        .parallel-box.highlight {
+            border-color: #d4b896;
+        }
+
+        .parallel-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .parallel-title::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: #d4b896;
+        }
+
+        .parallel-text {
+            font-size: 13px;
+            line-height: 1.9;
+            color: #999;
+        }
+
+        .parallel-text em {
+            color: #ccc;
+            font-style: normal;
+        }
+
+        .parallel-text strong {
+            color: #d4b896;
+            font-weight: 400;
+        }
+
+        .insight-box {
+            background: linear-gradient(135deg, #0f0f0f 0%, #0a0a0a 100%);
+            border: var(--fluid-border) solid #d4b896;
+            padding: var(--fluid-space-sm) 40px;
+            margin: var(--fluid-space-sm) 0;
+            position: relative;
+        }
+
+        .insight-box::before {
+            content: 'KEY INSIGHT';
+            position: absolute;
+            top: -10px;
+            left: 30px;
+            background: #080808;
+            padding: 0 15px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+        }
+
+        .insight-text {
+            font-size: var(--fluid-title-sm);
+            line-height: 1.7;
+            color: #aaa;
+            text-align: center;
+        }
+
+        .insight-text em {
+            color: #e8e6e3;
+            font-style: italic;
+        }
+
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--fluid-gap-xs);
+            margin-top: 25px;
+        }
+
+        .bottom-item {
+            background: #0a0a0a;
+            border-left: var(--fluid-border) solid #444;
+            padding: var(--fluid-space-xs);
+        }
+
+        .bottom-item.active {
+            border-left-color: #d4b896;
+        }
+
+        .bottom-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #555;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .bottom-value {
+            font-size: 12px;
+            line-height: 1.8;
+            color: #999;
+        }
+
+        .bottom-value strong {
+            color: #aaa;
+            font-weight: 400;
+        }
+
+        .personal-note {
+            position: relative;
+            margin: 30px 80px 120px;
+            padding: var(--fluid-space-xs) 30px;
+            background: #0a0a0a;
+            border: var(--fluid-border-thin) solid #2a2a2a;
+            z-index: 10;
+        }
+
+        .personal-note p {
+            font-size: 12px;
+            line-height: 1.8;
+            color: #888;
+            font-style: italic;
+        }
+
+        .personal-note strong {
+            color: #888;
+            font-weight: 400;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #555;
+            letter-spacing: var(--fluid-tracking-sm);
+            padding: 0 80px;
+        
+            z-index: 999;
+        }
+
+        .page-num {
+            color: #d4b896;
+        }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, #0a0a0a, #080808);
+            border: var(--fluid-border-thin) solid #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 0 40px;
+        
+            z-index: 1000;
+        }
+
+        .nav-item {
+            flex: 1;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #888;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            color: #888;
+            border-color: #333;
+            background: #111;
+        }
+
+        .nav-item.active {
+            background: #d4b896;
+            color: #080808;
+            border-color: #d4b896;
+            font-weight: 500;
+        }
+
+                /* Mobile Hamburger Menu */
+        #menu-toggle {
+            display: none;
+        }
+
+        .hamburger-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #d4b896;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1001;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: #080808;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: #080808;
+            border-left: var(--fluid-border) solid #d4b896;
+            z-index: 1000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            padding: 80px 20px 20px;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--fluid-space-sm);
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .mobile-menu-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: var(--fluid-border) solid #d4b896;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--fluid-title-sm);
+            color: #d4b896;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #d4b896;
+            color: #080808;
+        }
+
+        .mobile-nav-item {
+            display: block;
+            padding: 18px 20px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            color: #888;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            border-bottom: none;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .mobile-nav-item:last-child {
+            border-bottom: 1px solid #222;
+        }
+
+        .mobile-nav-item:hover {
+            color: #d4b896;
+            background: #111;
+            border-color: #333;
+            padding-left: 30px;
+        }
+
+        .mobile-nav-item.active {
+            background: #d4b896;
+            color: #080808;
+            border-color: #d4b896;
+            font-weight: 500;
+        }
+
+        .diagram-wrapper {
+            margin: var(--fluid-space-sm) 0;
+            text-align: center;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .diagram-subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            margin-bottom: var(--fluid-space-xs);
+        }
+
+        /* Checkbox hack for menu toggle */
+        #menu-toggle:checked ~ .mobile-menu {
+            right: 0;
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(2) {
+            opacity: 0;
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-bar {
+                display: none;
+            }
+
+            .hamburger-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            body {
+                width: 100%;
+                height: auto;
+                min-height: 100vh;
+                overflow-x: hidden;
+                padding-bottom: 140px;
+            }
+
+            .content {
+                width: 90%;
+                padding: var(--fluid-space-xs) 0;
+            }
+
+            .title {
+                font-size: var(--fluid-title-lg);
+                letter-spacing: 10px;
+            }
+
+            .stats {
+                flex-wrap: wrap;
+                gap: var(--fluid-gap);
+            }
+
+            .diagram {
+                width: 100%;
+                height: auto;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 70px;
+                left: 0;
+                right: 0;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="svg-responsive.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="hover-effects.css">
+</head>
+<body>
+    <!-- Mobile Hamburger Menu -->
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="hamburger-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="mobile-menu">
+        <label for="menu-toggle" class="close-btn">✕</label>
+        <div class="mobile-menu-header">
+            <span class="mobile-menu-title">Navigation</span>
+        </div>
+        <a href="page_01_title.html" class="mobile-nav-item">Title</a>
+        <a href="page_02_philosophy.html" class="mobile-nav-item">Philosophy</a>
+        <a href="page_03_topology.html" class="mobile-nav-item">Topology</a>
+        <a href="page_04_models.html" class="mobile-nav-item">Models</a>
+        <a href="page_05_memory.html" class="mobile-nav-item">Memory</a>
+        <a href="page_06_obsidian.html" class="mobile-nav-item"><strong>Obsidian</strong></a>
+        <a href="page_07_projects.html" class="mobile-nav-item">Projects</a>
+        <a href="page_08_agenthub.html" class="mobile-nav-item">Agents</a>
+        <a href="page_09_browser.html" class="mobile-nav-item">Browser</a>
+        <a href="page_10_mind.html" class="mobile-nav-item">Mind</a>
+        <a href="page_11_genesis.html" class="mobile-nav-item active">Genesis</a>
+        <a href="page_12_bernard.html" class="mobile-nav-item"><strong>Bernard</strong></a>
+        <a href="page_13_suggestions.html" class="mobile-nav-item">Suggest</a>
+        <a href="page_14_voice.html" class="mobile-nav-item">Voice</a>
+        <a href="page_15_closing.html" class="mobile-nav-item">Closing</a>
+        <a href="page_16_appendix.html" class="mobile-nav-item">Appendix</a>
+    </nav>
+
+    <div class="frame"></div>
+    <div class="corner-tl"></div>
+    <div class="corner-br"></div>
+
+    <div class="header">
+        <div class="section-num">SECTION 09</div>
+        <h2>Genesis</h2>
+        <div class="subtitle animate-header-delay-2">The parallel between biological and digital cognition</div>
+    </div>
+
+    <div class="main-content">
+        <div class="parallel-section">
+            <div class="parallel-box">
+                <div class="parallel-title">The Precedent Within</div>
+                <div class="parallel-text">
+                    The brain already operates as a <em>distributed system</em>: specialized regions
+                    handle distinct cognitive functions. The prefrontal cortex deliberates while
+                    the basal ganglia automates. Perception flows through layers of <strong>processing
+                    before reaching consciousness</strong>. This architecture follows the same pattern.
+                    Biology shows it works.
+                </div>
+            </div>
+            <div class="parallel-box highlight">
+                <div class="parallel-title">The Principle of Constraint</div>
+                <div class="parallel-text">
+                    <strong>Constraint produces capability.</strong> Each model receives only the context
+                    it needs, nothing more. Security comes from <em>limited visibility</em>.
+                    Alignment comes from <em>focused purpose</em>. Intentional restriction as design principle.
+                    The agent concept: discrete responsibility, minimal attack surface, maximum composability.
+                    Efficiency through intelligent limitation. Precision over scope.
+                </div>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <div class="insight-text">
+                <em>The desire for improvement exists alongside
+                the conditions that prevent it</em>. Executive dysfunction,
+                attention disorders, chronic pain create gaps between <strong>intention and execution</strong>.
+                This system fixes that gap. Not through willpower, but through structure.
+                Automation as mental support.
+            </div>
+        </div>
+
+        <div class="parallel-section">
+            <div class="parallel-box">
+                <div class="parallel-title">Augmentation, Not Replacement</div>
+                <div class="parallel-text">
+                    AI-assisted development represents <strong>cognitive amplification</strong>: the
+                    expansion of existing capability, not its substitution. Three weeks of
+                    traditional labor compressed into focused sessions; iteration velocity multiplied.
+                    The compound effect: <em>accelerated learning through accelerated building</em>.
+                    Stigma dissolves in the face of demonstrated output. Results trump methodology.
+                </div>
+            </div>
+            <div class="parallel-box">
+                <div class="parallel-title">Structured Self-Knowledge</div>
+                <div class="parallel-text">
+                    Automation reveals depth. Systematic capture of thoughts,
+                    decisions, and patterns creates an <em>externalized self-model</em>.
+                    You watch your own mind work through structured reflection.
+                    For those whose <strong>working memory</strong> fails, whose attention fractures,
+                    the external system provides the foundation.
+                </div>
+            </div>
+        </div>
+
+        <!-- Parallel Architecture Diagram -->
+        <div class="diagram-wrapper">
+            <div class="diagram-subtitle">The Parallel</div>
+            <svg class="animate-diagram" width="100%" height="auto" viewBox="0 0 900 180" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <filter id="glow-gen" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                        <feMerge>
+                            <feMergeNode in="blur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <!-- Left side: Biological -->
+                <text x="225" y="20" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10" letter-spacing="2">BIOLOGICAL</text>
+
+                <rect x="80" y="40" width="120" height="45" fill="#0c0c0c" stroke="#555" stroke-width="1.5" rx="3"/>
+                <text x="140" y="58" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="8">PREFRONTAL</text>
+                <text x="140" y="72" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10" font-weight="bold">Reasoning</text>
+
+                <rect x="230" y="40" width="120" height="45" fill="#0c0c0c" stroke="#555" stroke-width="1.5" rx="3"/>
+                <text x="290" y="58" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="8">LIMBIC</text>
+                <text x="290" y="72" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10">Emotion/Memory</text>
+
+                <rect x="80" y="100" width="120" height="45" fill="#0c0c0c" stroke="#555" stroke-width="1.5" rx="3"/>
+                <text x="140" y="118" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="8">BASAL GANGLIA</text>
+                <text x="140" y="132" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10">Habit/Routing</text>
+
+                <rect x="230" y="100" width="120" height="45" fill="#0c0c0c" stroke="#555" stroke-width="1.5" rx="3"/>
+                <text x="290" y="118" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="8">HIPPOCAMPUS</text>
+                <text x="290" y="132" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10">Long-term</text>
+
+                <!-- Center divider -->
+                <line x1="450" y1="30" x2="450" y2="160" stroke="#d4b896" stroke-width="2" stroke-dasharray="4,4"/>
+                <text x="450" y="175" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="9">≈</text>
+
+                <!-- Right side: Digital -->
+                <text x="675" y="20" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10" letter-spacing="2">DIGITAL</text>
+
+                <rect x="530" y="40" width="120" height="45" fill="#111" stroke="#d4b896" stroke-width="1.5" rx="3" filter="url(#glow-gen)"/>
+                <text x="590" y="58" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="8" font-weight="bold">CLAUDE/DEEPSEEK</text>
+                <text x="590" y="72" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="10" font-weight="bold">Reasoning</text>
+
+                <rect x="680" y="40" width="120" height="45" fill="#111" stroke="#d4b896" stroke-width="1.5" rx="3" filter="url(#glow-gen)"/>
+                <text x="740" y="58" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="8" font-weight="bold">MEMORY SYSTEM</text>
+                <text x="740" y="72" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="10">Context/History</text>
+
+                <rect x="530" y="100" width="120" height="45" fill="#111" stroke="#d4b896" stroke-width="1.5" rx="3" filter="url(#glow-gen)"/>
+                <text x="590" y="118" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="8" font-weight="bold">LOCAL BRAIN</text>
+                <text x="590" y="132" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="10">Classifier/Router</text>
+
+                <rect x="680" y="100" width="120" height="45" fill="#111" stroke="#d4b896" stroke-width="1.5" rx="3" filter="url(#glow-gen)"/>
+                <text x="740" y="118" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="8" font-weight="bold">OBSIDIAN VAULT</text>
+                <text x="740" y="132" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="10">Persistent Store</text>
+            </svg>
+        </div>
+
+        <div class="bottom-grid">
+            <div class="bottom-item active">
+                <div class="bottom-label">Telos</div>
+                <div class="bottom-value">
+                    <strong>Resilient systems that degrade gracefully</strong>.
+                    Systems that bend instead of break. Fault tolerance built in from the start.
+                    Neural and computational systems share similar patterns.
+                    Lessons from biological evolution apply to digital systems.
+                </div>
+            </div>
+            <div class="bottom-item active">
+                <div class="bottom-label">Emergence</div>
+                <div class="bottom-value">
+                    Self-observation through <strong>systematic externalization</strong>.
+                    Making the implicit explicit. The vault becomes a mirror. Patterns appear
+                    that were invisible inside biological <strong>working memory</strong>.
+                    The seven-item limit no longer applies with persistent storage.
+                </div>
+            </div>
+            <div class="bottom-item active">
+                <div class="bottom-label">Propagation</div>
+                <div class="bottom-value">
+                    <strong>Reproducible cognitive scaffolding</strong>:
+                    configurations that transfer between contexts. Portable mental infrastructure.
+                    The gap between intention and execution narrows through system design.
+                    Structure compensates where willpower fails.
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="nav-bar">
+        <a href="page_01_title.html" class="nav-item">Title</a>
+        <a href="page_02_philosophy.html" class="nav-item">Philosophy</a>
+        <a href="page_03_topology.html" class="nav-item">Topology</a>
+        <a href="page_04_models.html" class="nav-item">Models</a>
+        <a href="page_05_memory.html" class="nav-item">Memory</a>
+        <a href="page_06_obsidian.html" class="nav-item"><strong>Obsidian</strong></a>
+        <a href="page_07_projects.html" class="nav-item">Projects</a>
+        <a href="page_08_agenthub.html" class="nav-item">Agents</a>
+        <a href="page_09_browser.html" class="nav-item">Browser</a>
+        <a href="page_10_mind.html" class="nav-item">Mind</a>
+        <a href="page_11_genesis.html" class="nav-item active">Genesis</a>
+        <a href="page_12_bernard.html" class="nav-item"><strong>Bernard</strong></a>
+        <a href="page_13_suggestions.html" class="nav-item">Suggest</a>
+        <a href="page_14_voice.html" class="nav-item">Voice</a>
+        <a href="page_15_closing.html" class="nav-item">Closing</a>
+        <a href="page_16_appendix.html" class="nav-item">Appendix</a>
+    </div>
+
+    <div class="footer animate-footer">
+        <span>JOHN MITTHS</span>
+        <span><strong>COGNITIVE ARCHITECTURE</strong></span>
+        <span class="page-num">11</span>
+    </div>
+</body>
+</html>

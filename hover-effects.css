@@ -1,0 +1,251 @@
+/* =============================================================================
+   HOVER & TOUCH EFFECTS - MINIMAL SYSTEM
+   Subtle interactions - less is more
+   ============================================================================= */
+
+/* Base transition for interactive elements only */
+a, button, .nav-item, .btn, .link {
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+/* =============================================================================
+   NAVIGATION ELEMENTS
+   ============================================================================= */
+
+/* Navigation links and items */
+.nav-item:hover,
+nav a:hover,
+.nav-link:hover {
+    color: #d4b896;
+    border-color: #d4b896;
+}
+
+/* Hamburger menu hover */
+.hamburger:hover .hamburger-line {
+    background-color: #d4b896;
+}
+
+/* =============================================================================
+   CONTENT BOXES & CARDS
+   ============================================================================= */
+
+/* Content boxes and cards - minimal hover */
+.content-box:hover,
+.card:hover,
+.grid-item:hover {
+    border-color: #d4b896;
+}
+
+/* =============================================================================
+   BUTTONS & LINKS
+   ============================================================================= */
+
+/* Links - simple color change */
+a:hover {
+    color: #d4b896;
+}
+
+/* Buttons - simple border highlight */
+button:hover,
+.btn:hover,
+.button:hover {
+    border-color: #d4b896;
+}
+
+/* =============================================================================
+   SVG & DIAGRAMS
+   ============================================================================= */
+
+/* SVG hover - disabled for cleaner look */
+/* Diagrams should be static, not reactive */
+
+/* =============================================================================
+   DECORATIVE ELEMENTS
+   ============================================================================= */
+
+/* Decorative elements should not react to hover - keeps design stable */
+
+/* =============================================================================
+   INTERACTIVE LISTS
+   ============================================================================= */
+
+/* List items - no hover effects, content should be stable */
+
+/* =============================================================================
+   FORM ELEMENTS
+   ============================================================================= */
+
+/* Input focus - minimal */
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #d4b896;
+    outline: none;
+}
+
+/* =============================================================================
+   MOBILE TOUCH STATES
+   ============================================================================= */
+
+/* Touch states for mobile devices (no hover capability) */
+@media (hover: none) {
+    /* Navigation touch */
+    .nav-item:active,
+    nav a:active,
+    .nav-link:active {
+        box-shadow: 0 0 20px rgba(212, 184, 150, 0.3);
+        color: #d4b896;
+        border-color: #d4b896;
+    }
+
+    /* Hamburger touch */
+    .hamburger:active {
+        box-shadow: 0 0 20px rgba(212, 184, 150, 0.3);
+    }
+
+    .hamburger:active .hamburger-line {
+        background-color: #d4b896;
+    }
+
+    /* Content boxes touch */
+    .content-box:active,
+    .card:active,
+    .grid-item:active,
+    .box:active,
+    .panel:active,
+    .section:active {
+        box-shadow: 0 0 20px rgba(212, 184, 150, 0.3);
+        border-color: #d4b896;
+    }
+
+    /* Links touch */
+    a:active {
+        color: #d4b896;
+        text-shadow: 0 0 10px rgba(212, 184, 150, 0.3);
+    }
+
+    /* Buttons touch */
+    button:active,
+    .btn:active,
+    .button:active,
+    input[type="submit"]:active,
+    input[type="button"]:active {
+        box-shadow: 0 0 20px rgba(212, 184, 150, 0.3);
+        border-color: #d4b896;
+    }
+
+    /* SVG touch */
+    svg:active,
+    .diagram-container:active,
+    .svg-container:active {
+        filter: drop-shadow(0 0 15px rgba(212, 184, 150, 0.2));
+    }
+
+    /* Corner decorations touch */
+    .corner-tl:active,
+    .corner-br:active {
+        box-shadow: 0 0 20px rgba(212, 184, 150, 0.3);
+        border-color: #d4b896;
+    }
+
+    /* Form elements touch */
+    input[type="text"]:active,
+    input[type="email"]:active,
+    input[type="search"]:active,
+    textarea:active,
+    select:active {
+        box-shadow: 0 0 20px rgba(212, 184, 150, 0.3);
+        border-color: #d4b896;
+    }
+}
+
+/* =============================================================================
+   ACCESSIBILITY - Focus States
+   ============================================================================= */
+
+/* Keyboard focus states (for accessibility) */
+*:focus-visible {
+    outline: 2px solid #d4b896;
+    outline-offset: 3px;
+    box-shadow: 0 0 20px rgba(212, 184, 150, 0.4);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #d4b896;
+    outline-offset: 3px;
+    box-shadow: 0 0 20px rgba(212, 184, 150, 0.4);
+}
+
+/* =============================================================================
+   REDUCED MOTION SUPPORT
+   ============================================================================= */
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    a, button, .nav-item, .grid-item, .content-box, .card,
+    .interactive, nav a, .btn, .link, svg, .diagram-container,
+    .header::before, .corner-tl, .corner-br, .frame {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    /* Still show hover effects, just without transitions */
+    .nav-item:hover,
+    nav a:hover,
+    .content-box:hover,
+    button:hover,
+    a:hover {
+        box-shadow: 0 0 20px rgba(212, 184, 150, 0.3);
+        color: #d4b896;
+        border-color: #d4b896;
+    }
+}
+
+/* =============================================================================
+   CUSTOM INTERACTIVE CLASSES
+   ============================================================================= */
+
+/* Generic interactive class for custom elements */
+.interactive {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.interactive:hover {
+    box-shadow: 0 0 20px rgba(212, 184, 150, 0.3);
+    border-color: #d4b896;
+}
+
+@media (hover: none) {
+    .interactive:active {
+        box-shadow: 0 0 20px rgba(212, 184, 150, 0.3);
+        border-color: #d4b896;
+    }
+}
+
+/* Subtle glow class for lighter effects */
+.subtle-glow:hover {
+    box-shadow: 0 0 15px rgba(212, 184, 150, 0.2);
+}
+
+@media (hover: none) {
+    .subtle-glow:active {
+        box-shadow: 0 0 15px rgba(212, 184, 150, 0.2);
+    }
+}
+
+/* Strong glow class for emphasis */
+.strong-glow:hover {
+    box-shadow: 0 0 30px rgba(212, 184, 150, 0.5);
+}
+
+@media (hover: none) {
+    .strong-glow:active {
+        box-shadow: 0 0 30px rgba(212, 184, 150, 0.5);
+    }
+}

@@ -1,0 +1,40 @@
+/* High Quality Rendering */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Crisp images only - SVGs use auto rendering for better text/curves */
+img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+svg {
+    image-rendering: auto;
+}
+
+/* High DPI support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    * {
+        -webkit-font-smoothing: subpixel-antialiased;
+    }
+}
+
+/* Sharp text at all zoom levels */
+body {
+    font-feature-settings: "kern" 1, "liga" 1;
+    font-kerning: normal;
+}
+
+/* Prevent blurry transforms */
+.nav-item, .content-box, [class*="box"], [class*="card"] {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}

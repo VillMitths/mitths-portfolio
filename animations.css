@@ -1,0 +1,32 @@
+/* ============================================
+   ANIMATIONS DISABLED
+   All elements show immediately - no startup animations
+   ============================================ */
+
+/* All animation classes just show content immediately */
+.animate,
+.animate-header,
+.animate-header-delay-1,
+.animate-header-delay-2,
+.animate-header-delay-3,
+.animate-header-delay-4,
+.animate-content,
+.animate-content-delay-1,
+.animate-content-delay-2,
+.animate-content-delay-3,
+.animate-content-delay-4,
+.animate-content-delay-5,
+.animate-content-delay-6,
+.animate-content-delay-7,
+.animate-content-delay-8,
+.animate-diagram,
+.animate-diagram-delay,
+.animate-nav,
+.animate-footer,
+.animate-stats,
+.animate-divider,
+.animate-grid-item {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+}

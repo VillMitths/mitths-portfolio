@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><strong>Cognitive Architecture</strong> Portfolio - John Mitths</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fluid.css">
+    <link rel="stylesheet" href="resize-smooth.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="hover-effects.css">
+
+    <link rel="stylesheet" href="quality.css">
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #080808;
+            font-family: 'Cormorant Garamond', serif;
+            color: #e8e6e3;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--fluid-space-md) var(--fluid-space);
+            flex: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: var(--fluid-space-lg);
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: var(--fluid-circle); height: var(--fluid-circle);
+            border: var(--fluid-border) solid #d4b896;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .eyebrow {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-md);
+            text-transform: uppercase;
+            margin-bottom: var(--fluid-space-xs);
+        }
+
+        .main-title {
+            font-size: var(--fluid-title-xl);
+            font-weight: 300;
+            letter-spacing: var(--fluid-tracking-xl);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: var(--fluid-title-sm);
+            color: #888;
+            font-style: italic;
+            letter-spacing: var(--fluid-tracking-sm);
+            margin-bottom: var(--fluid-space-sm);
+        }
+
+        .author {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #666;
+            letter-spacing: var(--fluid-tracking-sm);
+        }
+
+        .divider {
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #d4b896, transparent);
+            margin: var(--fluid-space-md) auto;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--fluid-gap-sm);
+            margin-bottom: var(--fluid-space-md);
+        }
+
+        .page-card {
+            background: linear-gradient(135deg, #0a0a0a, #111);
+            border: var(--fluid-border-thin) solid #2a2a2a;
+            padding: var(--fluid-space-sm);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+
+        .page-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #d4b896;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .page-card:hover {
+            border-color: #d4b896;
+            transform: translateX(4px);
+        }
+
+        .page-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .page-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            margin-bottom: 12px;
+            opacity: 0.7;
+        }
+
+        .page-title {
+            font-size: var(--fluid-title-sm);
+            font-weight: 400;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            color: #e8e6e3;
+        }
+
+        .page-description {
+            font-size: var(--fluid-body);
+            color: #888;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .corner-accent {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border-bottom: var(--fluid-border) solid #333;
+            border-right: var(--fluid-border) solid #333;
+            transition: border-color 0.3s ease;
+        }
+
+        .page-card:hover .corner-accent {
+            border-color: #d4b896;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: var(--fluid-gap-lg);
+            padding: var(--fluid-space);
+            background: linear-gradient(to bottom, #0a0a0a, #080808);
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+            margin-bottom: var(--fluid-space-md);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-title-md);
+            color: #d4b896;
+            font-weight: 300;
+        }
+
+        .stat-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: var(--fluid-tracking-sm);
+            margin-top: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: var(--fluid-space);
+            border-top: 1px solid #1a1a1a;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #555;
+            letter-spacing: var(--fluid-tracking-sm);
+        }
+
+        .footer-year {
+            color: #d4b896;
+            margin: 0 12px;
+        }
+
+        /* Tablet and below */
+        @media (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .container {
+                padding: var(--fluid-space) 24px;
+            }
+
+            .main-title {
+                font-size: var(--fluid-title-lg);
+                letter-spacing: var(--fluid-tracking-lg);
+            }
+
+            .subtitle {
+                font-size: var(--fluid-title-sm);
+            }
+
+            .stats-bar {
+                gap: var(--fluid-gap);
+            }
+
+            .stat-value {
+                font-size: var(--fluid-title-md);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: var(--fluid-space-sm) 20px;
+            }
+
+            .header {
+                margin-bottom: var(--fluid-space-md);
+            }
+
+            .main-title {
+                font-size: var(--fluid-title-md);
+                letter-spacing: var(--fluid-tracking-md);
+            }
+
+            .subtitle {
+                font-size: var(--fluid-body);
+                letter-spacing: 1px;
+            }
+
+            .author {
+                font-size: var(--fluid-eyebrow);
+                letter-spacing: var(--fluid-tracking-sm);
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: var(--fluid-gap-sm);
+                padding: var(--fluid-space-sm) 20px;
+            }
+
+            .stat-value {
+                font-size: var(--fluid-title-sm);
+            }
+
+            .page-card {
+                padding: var(--fluid-space-xs);
+            }
+
+            .page-title {
+                font-size: var(--fluid-title-sm);
+                letter-spacing: var(--fluid-tracking-sm);
+            }
+
+            .page-description {
+                font-size: var(--fluid-eyebrow);
+            }
+
+            .quick-nav {
+                padding: 16px 20px;
+                margin-bottom: var(--fluid-space-sm);
+            }
+
+            .quick-links {
+                gap: 12px;
+            }
+
+            .quick-link {
+                font-size: var(--fluid-tiny);
+                padding: 10px 16px;
+            }
+        }
+
+        /* Small mobile */
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: var(--fluid-title-sm);
+                letter-spacing: var(--fluid-tracking-sm);
+            }
+
+            .subtitle {
+                font-size: var(--fluid-eyebrow);
+            }
+
+            .eyebrow {
+                font-size: var(--fluid-tiny);
+                letter-spacing: var(--fluid-tracking-sm);
+            }
+
+            .divider {
+                width: 120px;
+            }
+
+            .page-card {
+                padding: var(--fluid-space-xs);
+            }
+
+            .page-title {
+                font-size: var(--fluid-title-sm);
+                letter-spacing: var(--fluid-tracking-sm);
+            }
+        }
+
+        /* Touch device enhancements */
+        @media (hover: none) and (pointer: coarse) {
+            .page-card:active {
+                border-color: #d4b896;
+                transform: translateX(4px);
+                background: linear-gradient(135deg, #0c0c0c, #131313);
+            }
+
+            .page-card:active::before {
+                transform: scaleY(1);
+            }
+
+            .page-card:active .corner-accent {
+                border-color: #d4b896;
+            }
+
+            .quick-link:active {
+                color: #d4b896;
+                border-color: #d4b896;
+                background: #111;
+            }
+        }
+
+        .quick-nav {
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            padding: var(--fluid-space-xs) 32px;
+            margin-bottom: var(--fluid-space);
+            text-align: center;
+        }
+
+        .quick-nav-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #666;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: var(--fluid-gap-xs);
+        }
+
+        .quick-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #888;
+            text-decoration: none;
+            padding: 12px 20px;
+            border: var(--fluid-border-thin) solid #2a2a2a;
+            transition: all 0.2s;
+            min-height: 44px;
+            min-width: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+        }
+
+        .quick-link:hover {
+            color: #d4b896;
+            border-color: #d4b896;
+        }
+
+        /* Mood Ball Component */
+        .mood-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px 40px;
+            margin-top: var(--fluid-space-lg);
+            perspective: 1200px;
+            position: relative;
+            opacity: 0.85;
+        }
+
+        .mood-prompt {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: var(--fluid-body);
+            color: #888;
+            letter-spacing: var(--fluid-tracking-sm);
+            margin-bottom: var(--fluid-space);
+            text-align: center;
+            font-style: italic;
+            opacity: 0;
+            animation: fadeInPrompt 1.2s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInPrompt {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mood-ball-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            cursor: grab;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: none;
+        }
+
+        .mood-ball-container:active {
+            cursor: grabbing;
+        }
+
+        .mood-ball {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            --mood-color-r: 80;
+            --mood-color-g: 200;
+            --mood-color-b: 120;
+            --mood-value: 0.5;
+            background: radial-gradient(circle at 30% 30%,
+                rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.6) 0%,
+                rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.4) 15%,
+                rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.25) 35%,
+                rgba(calc(var(--mood-color-r) * 0.7), calc(var(--mood-color-g) * 0.7), calc(var(--mood-color-b) * 0.7), 0.15) 55%,
+                rgba(calc(var(--mood-color-r) * 0.5), calc(var(--mood-color-g) * 0.5), calc(var(--mood-color-b) * 0.5), 0.08) 75%,
+                rgba(8, 8, 8, 0) 100%
+            );
+            box-shadow:
+                inset -25px -25px 70px rgba(0, 0, 0, 0.6),
+                inset 15px 15px 50px rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.25),
+                inset -8px -8px 30px rgba(0, 0, 0, 0.4);
+            /* Outer glow removed per user request */
+            animation: entranceRotate 2s ease-out;
+            /* breatheGlow animation removed - static glow only */
+            transition:
+                transform 0.15s ease-out,
+                background 1.5s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        /* breatheGlow animation removed - keeping static glow only
+        @keyframes breatheGlow {
+            0%, 100% {
+                box-shadow:
+                    inset -25px -25px 70px rgba(0, 0, 0, 0.6),
+                    inset 15px 15px 50px rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.25),
+                    inset -8px -8px 30px rgba(0, 0, 0, 0.4),
+                    0 0 50px rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.35),
+                    0 0 90px rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.25),
+                    0 0 130px rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.15);
+            }
+            50% {
+                box-shadow:
+                    inset -25px -25px 70px rgba(0, 0, 0, 0.6),
+                    inset 15px 15px 50px rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.35),
+                    inset -8px -8px 30px rgba(0, 0, 0, 0.4),
+                    0 0 65px rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.45),
+                    0 0 110px rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.35),
+                    0 0 155px rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.2);
+            }
+        }
+        */
+
+        @keyframes entranceRotate {
+            0% {
+                transform: rotateY(-180deg) scale(0.5);
+                opacity: 0;
+            }
+            60% {
+                opacity: 1;
+            }
+            100% {
+                transform: rotateY(0deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .mood-ball::before {
+            content: '';
+            position: absolute;
+            top: 12%;
+            left: 18%;
+            width: 45%;
+            height: 45%;
+            background: radial-gradient(circle,
+                rgba(255, 255, 255, 0.4) 0%,
+                rgba(255, 255, 255, 0.25) 20%,
+                rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.15) 40%,
+                transparent 70%
+            );
+            border-radius: 50%;
+            filter: blur(25px);
+            animation: shineShift 6s ease-in-out infinite;
+            transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes shineShift {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translate(8px, 8px) scale(1.08);
+                opacity: 0.9;
+            }
+        }
+
+        .mood-ball::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.12) 90deg,
+                transparent 180deg,
+                rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.12) 270deg,
+                transparent 360deg
+            );
+            filter: blur(10px);
+            animation: rotateRing 20s linear infinite;
+            opacity: 0.5;
+            transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes rotateRing {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .mood-ball-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 65%;
+            height: 65%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%,
+                rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.2) 0%,
+                rgba(var(--mood-color-r), var(--mood-color-g), var(--mood-color-b), 0.1) 40%,
+                transparent 70%
+            );
+            filter: blur(15px);
+            animation: pulseCore 3s ease-in-out infinite;
+            transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes pulseCore {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.12);
+                opacity: 1;
+            }
+        }
+
+        .mood-hint {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #555;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-align: center;
+            margin-top: var(--fluid-space);
+            opacity: 0;
+            animation: fadeInHint 1.5s ease-out 1.5s forwards;
+        }
+
+        @keyframes fadeInHint {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive mood ball */
+        @media (max-width: 1024px) {
+            .mood-ball-container {
+                width: 180px;
+                height: 180px;
+            }
+
+            .mood-prompt {
+                font-size: var(--fluid-body);
+                margin-bottom: var(--fluid-space-sm);
+            }
+
+            .mood-section {
+                padding: 50px 30px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mood-ball-container {
+                width: 160px;
+                height: 160px;
+            }
+
+            .mood-prompt {
+                font-size: var(--fluid-eyebrow);
+                margin-bottom: var(--fluid-space-xs);
+                letter-spacing: var(--fluid-tracking-sm);
+            }
+
+            .mood-section {
+                padding: 40px 20px 30px;
+            }
+
+            .mood-hint {
+                font-size: var(--fluid-tiny);
+                margin-top: var(--fluid-space-xs);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mood-ball-container {
+                width: 140px;
+                height: 140px;
+            }
+
+            .mood-prompt {
+                font-size: var(--fluid-eyebrow);
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="eyebrow animate-header">A Technical Treatise</div>
+            <h1 class="main-title animate-header-delay-1">Cognitive<br>Architecture</h1>
+            <div class="subtitle animate-header-delay-2">Systems for extending the human mind</div>
+            <div class="author animate-header-delay-3">JOHN MITTHS</div>
+        </div>
+
+        <div class="divider animate-divider"></div>
+
+        <div class="stats-bar animate-stats">
+            <div class="stat">
+                <div class="stat-value">16</div>
+                <div class="stat-label">Pages</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">9</div>
+                <div class="stat-label"><strong>MCP</strong> Servers</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value"><strong>50K</strong></div>
+                <div class="stat-label">Lines Code</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">5.4</div>
+                <div class="stat-label">GB Vectors</div>
+            </div>
+        </div>
+
+        <div class="quick-nav animate-nav">
+            <div class="quick-nav-title">Quick Navigation</div>
+            <div class="quick-links">
+                <a href="#core" class="quick-link">Core Systems</a>
+                <a href="#architecture" class="quick-link">Architecture</a>
+                <a href="#agents" class="quick-link">Agents</a>
+                <a href="#closing" class="quick-link">Closing</a>
+            </div>
+        </div>
+
+        <div class="portfolio-grid">
+            <a href="page_01_title.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 01</div>
+                <h2 class="page-title">Title</h2>
+                <div class="page-description">Introduction to <strong>cognitive architecture</strong> systems and the technical framework</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_02_philosophy.html" class="page-card animate-grid-item" id="core">
+                <div class="page-number">PAGE 02</div>
+                <h2 class="page-title">Philosophy</h2>
+                <div class="page-description">Core principles and design philosophy behind mind-extension systems</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_03_topology.html" class="page-card animate-grid-item" id="architecture">
+                <div class="page-number">PAGE 03</div>
+                <h2 class="page-title">Topology</h2>
+                <div class="page-description">System topology and infrastructure architecture mapping</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_04_models.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 04</div>
+                <h2 class="page-title">Models</h2>
+                <div class="page-description">Local AI models, <strong>reasoning</strong> engines, and fast <strong>inference</strong> systems</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_05_memory.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 05</div>
+                <h2 class="page-title">Memory</h2>
+                <div class="page-description"><strong>Persistent memory</strong> systems, learning loops, and knowledge retention</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_06_obsidian.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 06</div>
+                <h2 class="page-title"><strong>Obsidian</strong></h2>
+                <div class="page-description">Personal knowledge management and vault integration systems</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_07_projects.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 07</div>
+                <h2 class="page-title">Projects</h2>
+                <div class="page-description">Key projects, implementations, and technical achievements</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_08_agenthub.html" class="page-card animate-grid-item" id="agents">
+                <div class="page-number">PAGE 08</div>
+                <h2 class="page-title"><strong>AgentHub</strong></h2>
+                <div class="page-description">Multi-agent orchestration, routing, and specialized agent systems</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_09_browser.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 09</div>
+                <h2 class="page-title">Browser</h2>
+                <div class="page-description">Browser automation, web interaction, and agentic browsing</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_10_mind.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 10</div>
+                <h2 class="page-title">Mind</h2>
+                <div class="page-description">Cognitive frameworks and mental model extensions</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_11_genesis.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 11</div>
+                <h2 class="page-title">Genesis</h2>
+                <div class="page-description">Origin story, development journey, and system evolution</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_12_bernard.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 12</div>
+                <h2 class="page-title"><strong>Bernard</strong></h2>
+                <div class="page-description">Advanced agent capabilities and autonomous systems</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_13_suggestions.html" class="page-card animate-grid-item" id="closing">
+                <div class="page-number">PAGE 13</div>
+                <h2 class="page-title">Suggestions</h2>
+                <div class="page-description">System recommendations and optimization strategies</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_14_voice.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 14</div>
+                <h2 class="page-title">Voice</h2>
+                <div class="page-description">Voice interface, natural language processing, and audio systems</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_15_closing.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 15</div>
+                <h2 class="page-title">Closing</h2>
+                <div class="page-description">Conclusions, reflections, and future directions</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_16_appendix.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 16</div>
+                <h2 class="page-title">Appendix</h2>
+                <div class="page-description">Technical specifications, hardware registry, and system metrics</div>
+                <div class="corner-accent"></div>
+            </a>
+        </div>
+
+        <div class="mood-section">
+            <div class="mood-prompt">How do you feel today?</div>
+            <div class="mood-ball-container">
+                <div class="mood-ball">
+                    <div class="mood-ball-core"></div>
+                </div>
+            </div>
+            <div class="mood-hint">SWIPE TO CHANGE MOOD</div>
+        </div>
+    </div>
+
+    <div class="footer animate-footer">
+        <div class="footer-content">
+            JOHN MITTHS <span class="footer-year">2026</span> <strong>COGNITIVE ARCHITECTURE</strong> PORTFOLIO
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const container = document.querySelector('.mood-ball-container');
+            const ball = document.querySelector('.mood-ball');
+
+            if (!container || !ball) return;
+
+            // Color palette
+            const EMERALD_GREEN = { r: 80, g: 200, b: 120 }; // #50C878
+            const MAROON_RED = { r: 128, g: 0, b: 32 }; // #800020
+
+            // State
+            let moodValue = 0.5; // 0 = full red, 1 = full green, 0.5 = neutral
+            let rotateX = 0;
+            let rotateY = 0;
+            let targetRotateX = 0;
+            let targetRotateY = 0;
+            let animationFrame = null;
+
+            // Swipe tracking
+            let isDragging = false;
+            let startX = 0;
+            let startY = 0;
+            let currentX = 0;
+            let currentY = 0;
+            let swipeDistance = 0;
+
+            // Smooth color interpolation
+            function lerpColor(color1, color2, t) {
+                // Clamp t between 0 and 1
+                t = Math.max(0, Math.min(1, t));
+
+                return {
+                    r: Math.round(color1.r + (color2.r - color1.r) * t),
+                    g: Math.round(color1.g + (color2.g - color1.g) * t),
+                    b: Math.round(color1.b + (color2.b - color1.b) * t)
+                };
+            }
+
+            // Update ball color based on mood value
+            function updateMoodColor() {
+                const color = lerpColor(MAROON_RED, EMERALD_GREEN, moodValue);
+                ball.style.setProperty('--mood-color-r', color.r);
+                ball.style.setProperty('--mood-color-g', color.g);
+                ball.style.setProperty('--mood-color-b', color.b);
+                ball.style.setProperty('--mood-value', moodValue);
+            }
+
+            // Smooth animation loop
+            function animate() {
+                rotateX += (targetRotateX - rotateX) * 0.1;
+                rotateY += (targetRotateY - rotateY) * 0.1;
+
+                ball.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+                animationFrame = requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            // Start drag/swipe
+            function handleStart(x, y) {
+                isDragging = true;
+                startX = x;
+                startY = y;
+                currentX = x;
+                currentY = y;
+                swipeDistance = 0;
+            }
+
+            // During drag/swipe
+            function handleMove(x, y) {
+                if (!isDragging) return;
+
+                currentX = x;
+                currentY = y;
+
+                const rect = container.getBoundingClientRect();
+                const deltaX = currentX - startX;
+                const deltaY = currentY - startY;
+
+                // Update swipe distance (horizontal)
+                swipeDistance = deltaX;
+
+                // Calculate mood change based on swipe distance
+                // Swipe right (+) = more green (increase mood)
+                // Swipe left (-) = more red (decrease mood)
+                const sensitivity = 200; // pixels for full transition
+                const moodChange = deltaX / sensitivity;
+                const newMood = moodValue + moodChange;
+
+                // Update mood value (clamped between 0 and 1)
+                moodValue = Math.max(0, Math.min(1, newMood));
+                updateMoodColor();
+
+                // Reset start position for continuous swiping
+                startX = currentX;
+                startY = currentY;
+
+                // Parallax effect based on current position
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const offsetX = currentX - centerX;
+                const offsetY = currentY - centerY;
+
+                targetRotateY = (offsetX / rect.width) * 25;
+                targetRotateX = -(offsetY / rect.height) * 25;
+            }
+
+            // End drag/swipe
+            function handleEnd() {
+                isDragging = false;
+                swipeDistance = 0;
+
+                // Reset rotation to neutral
+                targetRotateX = 0;
+                targetRotateY = 0;
+            }
+
+            // Mouse events
+            container.addEventListener('mousedown', function(e) {
+                handleStart(e.clientX, e.clientY);
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    handleMove(e.clientX, e.clientY);
+                }
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    handleEnd();
+                }
+            });
+
+            // Touch events
+            container.addEventListener('touchstart', function(e) {
+                if (e.touches.length > 0) {
+                    handleStart(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: true });
+
+            container.addEventListener('touchmove', function(e) {
+                if (isDragging && e.touches.length > 0) {
+                    handleMove(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: true });
+
+            container.addEventListener('touchend', function() {
+                handleEnd();
+            }, { passive: true });
+
+            // Prevent text selection during drag
+            container.addEventListener('selectstart', function(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                }
+            });
+
+            // Initialize with neutral color (middle of spectrum)
+            updateMoodColor();
+
+            // Cleanup
+            window.addEventListener('beforeunload', () => {
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

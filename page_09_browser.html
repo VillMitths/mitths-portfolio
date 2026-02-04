@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fluid.css">
+    <link rel="stylesheet" href="resize-smooth.css">
+    <link rel="stylesheet" href="quality.css">
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            max-width: 1240px;
+            width: 100%;
+            min-height: 100vh;
+            background: #080808;
+            font-family: 'Cormorant Garamond', serif;
+            color: #e8e6e3;
+            position: relative;
+            margin: 0 auto;
+            overflow-x: hidden;
+            padding-bottom: 240px;
+        }
+
+        .frame {
+            position: absolute;
+            top: var(--fluid-space);
+            left: var(--fluid-space);
+            right: var(--fluid-space);
+            bottom: var(--fluid-space);
+            border: var(--fluid-border-thin) solid #333;
+        }
+
+        .corner-tl {
+            position: absolute;
+            top: var(--fluid-space);
+            left: var(--fluid-space);
+            width: var(--fluid-corner); height: var(--fluid-corner);
+            border-top: var(--fluid-border) solid #d4b896;
+            border-left: var(--fluid-border) solid #d4b896;
+        }
+
+        .corner-br {
+            position: absolute;
+            bottom: var(--fluid-space);
+            right: var(--fluid-space);
+            width: var(--fluid-corner); height: var(--fluid-corner);
+            border-bottom: var(--fluid-border) solid #d4b896;
+            border-right: var(--fluid-border) solid #d4b896;
+        }
+
+        .header {
+            position: relative;
+            margin: 80px 0 0 80px;
+            z-index: 20;
+            background: #080808;
+        }
+
+        .section-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: 38px;
+            font-weight: 300;
+            letter-spacing: var(--fluid-tracking-md);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: var(--fluid-body);
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .main-diagram {
+            position: relative;
+            margin: 60px auto 40px;
+            display: block;
+            max-width: 100%;
+            height: auto;
+            z-index: 1;
+        }
+
+        .pipeline-flow {
+            position: relative;
+            margin: 40px auto;
+            text-align: center;
+            z-index: 10;
+            background: #080808;
+            padding: 20px 0;
+        }
+
+        .flow-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            margin-bottom: var(--fluid-space-xs);
+        }
+
+        .flow-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--fluid-gap-sm);
+        }
+
+        .flow-step {
+            padding: 15px 25px;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #d4b896;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+        }
+
+        .flow-arrow {
+            font-size: var(--fluid-title-sm);
+            color: #555;
+        }
+
+        .capabilities {
+            position: relative;
+            margin: 40px 80px 30px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--fluid-gap-sm);
+            z-index: 10;
+            background: #080808;
+        }
+
+        .capability {
+            text-align: center;
+            padding: 25px 15px;
+            background: #0a0a0a;
+            border: var(--fluid-border-thin) solid #222;
+        }
+
+        .capability-icon {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-title-md);
+            color: #d4b896;
+            margin-bottom: 15px;
+        }
+
+        .capability-name {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #e8e6e3;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .capability-desc {
+            font-size: 12px;
+            line-height: 1.7;
+            color: #999;
+        }
+
+        .tech-stack {
+            position: relative;
+            margin: 30px 80px 120px;
+            display: flex;
+            justify-content: center;
+            gap: var(--fluid-gap);
+            padding: var(--fluid-space-xs) 0;
+            border-top: 1px solid #222;
+            z-index: 10;
+        }
+
+        .tech-item {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #555;
+            letter-spacing: 1px;
+        }
+
+        .tech-item span {
+            color: #d4b896;
+        }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, #0a0a0a, #080808);
+            border: var(--fluid-border-thin) solid #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 0 40px;
+        
+            z-index: 1000;
+        }
+
+        .nav-item {
+            flex: 1;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #888;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            color: #888;
+            border-color: #333;
+            background: #111;
+        }
+
+        .nav-item.active {
+            background: #d4b896;
+            color: #080808;
+            border-color: #d4b896;
+            font-weight: 500;
+        }
+
+                /* Mobile Hamburger Menu */
+        #menu-toggle {
+            display: none;
+        }
+
+        .hamburger-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #d4b896;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1001;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: #080808;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: #080808;
+            border-left: var(--fluid-border) solid #d4b896;
+            z-index: 1000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            padding: 80px 20px 20px;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--fluid-space-sm);
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .mobile-menu-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: var(--fluid-border) solid #d4b896;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--fluid-title-sm);
+            color: #d4b896;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #d4b896;
+            color: #080808;
+        }
+
+        .mobile-nav-item {
+            display: block;
+            padding: 18px 20px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            color: #888;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            border-bottom: none;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .mobile-nav-item:last-child {
+            border-bottom: 1px solid #222;
+        }
+
+        .mobile-nav-item:hover {
+            color: #d4b896;
+            background: #111;
+            border-color: #333;
+            padding-left: 30px;
+        }
+
+        .mobile-nav-item.active {
+            background: #d4b896;
+            color: #080808;
+            border-color: #d4b896;
+            font-weight: 500;
+        }
+
+        /* Checkbox hack for menu toggle */
+        #menu-toggle:checked ~ .mobile-menu {
+            right: 0;
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(2) {
+            opacity: 0;
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-bar {
+                display: none;
+            }
+
+            .hamburger-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            body {
+                width: 100%;
+                height: auto;
+                min-height: 100vh;
+                overflow-x: hidden;
+                padding-bottom: 140px;
+            }
+
+            .content {
+                width: 90%;
+                padding: var(--fluid-space-xs) 0;
+            }
+
+            .title {
+                font-size: var(--fluid-title-lg);
+                letter-spacing: 10px;
+            }
+
+            .stats {
+                flex-wrap: wrap;
+                gap: var(--fluid-gap);
+            }
+
+            .diagram {
+                width: 100%;
+                height: auto;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 70px;
+                left: 0;
+                right: 0;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #555;
+            letter-spacing: var(--fluid-tracking-sm);
+            padding: 0 80px;
+        
+            z-index: 999;
+        }
+
+        .page-num {
+            color: #d4b896;
+        }
+    </style>
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="svg-responsive.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="hover-effects.css">
+</head>
+<body>
+    <!-- Mobile Hamburger Menu -->
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="hamburger-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="mobile-menu">
+        <label for="menu-toggle" class="close-btn">✕</label>
+        <div class="mobile-menu-header">
+            <span class="mobile-menu-title">Navigation</span>
+        </div>
+        <a href="page_01_title.html" class="mobile-nav-item">Title</a>
+        <a href="page_02_philosophy.html" class="mobile-nav-item">Philosophy</a>
+        <a href="page_03_topology.html" class="mobile-nav-item">Topology</a>
+        <a href="page_04_models.html" class="mobile-nav-item">Models</a>
+        <a href="page_05_memory.html" class="mobile-nav-item">Memory</a>
+        <a href="page_06_obsidian.html" class="mobile-nav-item"><strong>Obsidian</strong></a>
+        <a href="page_07_projects.html" class="mobile-nav-item">Projects</a>
+        <a href="page_08_agenthub.html" class="mobile-nav-item">Agents</a>
+        <a href="page_09_browser.html" class="mobile-nav-item active">Browser</a>
+        <a href="page_10_mind.html" class="mobile-nav-item">Mind</a>
+        <a href="page_11_genesis.html" class="mobile-nav-item">Genesis</a>
+        <a href="page_12_bernard.html" class="mobile-nav-item"><strong>Bernard</strong></a>
+        <a href="page_13_suggestions.html" class="mobile-nav-item">Suggest</a>
+        <a href="page_14_voice.html" class="mobile-nav-item">Voice</a>
+        <a href="page_15_closing.html" class="mobile-nav-item">Closing</a>
+        <a href="page_16_appendix.html" class="mobile-nav-item">Appendix</a>
+    </nav>
+
+    <div class="frame"></div>
+    <div class="corner-tl"></div>
+    <div class="corner-br"></div>
+
+    <div class="header">
+        <div class="section-num">DEEP DIVE 01</div>
+        <h2>Browser Agent</h2>
+        <div class="subtitle animate-header-delay-2">Visual grounding for autonomous web navigation</div>
+    </div>
+
+    <svg class="animate-diagram main-diagram" width="100%" height="auto" viewBox="0 0 1000 580" preserveAspectRatio="xMidYMid meet">
+        <defs>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="4" result="blur"/>
+                <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+        </defs>
+
+        <!-- Browser viewport representation - LARGER -->
+        <rect x="200" y="40" width="600" height="360" fill="none" stroke="#333" stroke-width="2.5" rx="5"/>
+        <rect x="200" y="40" width="600" height="360" fill="#151515" stroke="#333" stroke-width="1.5"/>
+        <circle cx="225" cy="60" r="6" fill="#333"/>
+        <circle cx="248" cy="60" r="6" fill="#333"/>
+        <circle cx="271" cy="60" r="6" fill="#333"/>
+        <rect x="310" y="51" width="340" height="26" fill="#0a0a0a" stroke="#333" stroke-width="1" rx="2"/>
+        <text x="480" y="64" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="11">https://example.com</text>
+
+        <!-- Page content mockup -->
+        <rect x="230" y="110" width="540" height="30" fill="#1a1a1a"/>
+        <rect x="230" y="155" width="360" height="15" fill="#222"/>
+        <rect x="230" y="185" width="420" height="15" fill="#222"/>
+        <rect x="230" y="215" width="300" height="15" fill="#222"/>
+
+        <!-- Interactive elements -->
+        <rect x="230" y="260" width="150" height="40" fill="#1a1a1a" stroke="#d4b896" stroke-width="1.5" rx="3"/>
+        <text x="305" y="286" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="13">BUTTON</text>
+
+        <rect x="405" y="260" width="180" height="40" fill="#1a1a1a" stroke="#444" stroke-width="1.5" rx="3"/>
+        <text x="495" y="286" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="13">INPUT FIELD</text>
+
+        <rect x="610" y="260" width="120" height="40" fill="#1a1a1a" stroke="#444" stroke-width="1.5" rx="3"/>
+        <text x="670" y="286" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="13">LINK</text>
+
+        <!-- Visual analysis arrows -->
+        <line x1="500" y1="430" x2="500" y2="470" stroke="#d4b896" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <defs>
+            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#d4b896"/>
+            </marker>
+        </defs>
+
+        <!-- Vision model - ENHANCED -->
+        <rect x="350" y="470" width="300" height="60" fill="#111" stroke="#d4b896" stroke-width="2.5" rx="5" filter="url(#glow)"/>
+        <text x="500" y="495" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="12">VISION PIPELINE</text>
+        <text x="500" y="518" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="14" font-weight="bold">Qwen-VL 7B · DOM Tree · A11y</text>
+
+        <!-- Output arrows -->
+        <line x1="350" y1="502" x2="180" y2="502" stroke="#555" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <line x1="650" y1="502" x2="820" y2="502" stroke="#555" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+        <!-- Action nodes -->
+        <rect x="50" y="475" width="130" height="60" fill="#111" stroke="#555" stroke-width="1.5" rx="3"/>
+        <text x="115" y="498" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10">OBSERVER</text>
+        <text x="115" y="518" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="11" font-weight="bold">2-3s latency</text>
+
+        <rect x="820" y="475" width="130" height="60" fill="#111" stroke="#555" stroke-width="1.5" rx="3"/>
+        <text x="885" y="498" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10">EXECUTOR</text>
+        <text x="885" y="518" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="11" font-weight="bold">1-3s latency</text>
+
+        <!-- Loop back -->
+        <path d="M 885 529 L 885 560 L 115 560 L 115 529" fill="none" stroke="#d4b896" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+        <!-- Annotations -->
+        <text x="50" y="60" text-anchor="start" fill="#666" font-family="IBM Plex Mono" font-size="11">Chrome DevTools Protocol</text>
+        <text x="50" y="78" text-anchor="start" fill="#555" font-family="IBM Plex Mono" font-size="11">Real browser automation</text>
+
+        <text x="820" y="60" text-anchor="start" fill="#666" font-family="IBM Plex Mono" font-size="11">Dual perception:</text>
+        <text x="820" y="78" text-anchor="start" fill="#555" font-family="IBM Plex Mono" font-size="11">Vision + Structure</text>
+    </svg>
+
+    <div class="capabilities">
+        <div class="capability">
+            <div class="capability-icon">01</div>
+            <div class="capability-name">Navigate</div>
+            <div class="capability-desc">
+                Multi-step journeys with memory. Remembers forms filled,
+                pages visited, data extracted. Session state persists across
+                navigation. Builds mental map of site structure through exploration.
+            </div>
+        </div>
+        <div class="capability">
+            <div class="capability-icon">02</div>
+            <div class="capability-name">Extract</div>
+            <div class="capability-desc">
+                Structured data from chaos. Identifies patterns in tables,
+                lists, product pages. Normalizes across inconsistent layouts.
+            </div>
+        </div>
+        <div class="capability">
+            <div class="capability-icon">03</div>
+            <div class="capability-name">Interact</div>
+            <div class="capability-desc">
+                Visual targeting beats selectors. Sees "Submit" button like you do.
+                Combines vision model <strong>inference</strong> with accessibility tree semantics.
+                Handles dynamic forms, dropdowns, modals. No brittle CSS paths.
+            </div>
+        </div>
+        <div class="capability">
+            <div class="capability-icon">04</div>
+            <div class="capability-name">Record</div>
+            <div class="capability-desc">
+                Session replay with overlays. Shows clicks, scrolls, decisions.
+                Exports as GIF for debugging or documentation.
+            </div>
+        </div>
+    </div>
+
+    <div class="tech-stack">
+        <div class="tech-item"><span><strong>Playwright</strong></span> / Chrome DevTools Protocol</div>
+        <div class="tech-item"><span><strong>Qwen</strong>-VL 7B</span> / Vision-language model</div>
+        <div class="tech-item"><span>Accessibility Tree</span> / Semantic structure</div>
+        <div class="tech-item"><span>DOM Snapshot</span> / Element coordinates</div>
+    </div>
+
+    <div class="pipeline-flow">
+        <div class="flow-title">Vision Pipeline Execution Cycle</div>
+        <div class="flow-steps">
+            <div class="flow-step">OBSERVE</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">DECIDE</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">ACT</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">REPEAT</div>
+        </div>
+    </div>
+
+        <div class="nav-bar">
+        <a href="page_01_title.html" class="nav-item">Title</a>
+        <a href="page_02_philosophy.html" class="nav-item">Philosophy</a>
+        <a href="page_03_topology.html" class="nav-item">Topology</a>
+        <a href="page_04_models.html" class="nav-item">Models</a>
+        <a href="page_05_memory.html" class="nav-item">Memory</a>
+        <a href="page_06_obsidian.html" class="nav-item"><strong>Obsidian</strong></a>
+        <a href="page_07_projects.html" class="nav-item">Projects</a>
+        <a href="page_08_agenthub.html" class="nav-item">Agents</a>
+        <a href="page_09_browser.html" class="nav-item active">Browser</a>
+        <a href="page_10_mind.html" class="nav-item">Mind</a>
+        <a href="page_11_genesis.html" class="nav-item">Genesis</a>
+        <a href="page_12_bernard.html" class="nav-item"><strong>Bernard</strong></a>
+        <a href="page_13_suggestions.html" class="nav-item">Suggest</a>
+        <a href="page_14_voice.html" class="nav-item">Voice</a>
+        <a href="page_15_closing.html" class="nav-item">Closing</a>
+        <a href="page_16_appendix.html" class="nav-item">Appendix</a>
+    </div>
+
+    <div class="footer animate-footer">
+        <span>JOHN MITTHS</span>
+        <span><strong>COGNITIVE ARCHITECTURE</strong></span>
+        <span class="page-num">09</span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fluid.css">
+    <link rel="stylesheet" href="resize-smooth.css">
+    <link rel="stylesheet" href="quality.css">
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            max-width: 1240px;
+            width: 100%;
+            min-height: 100vh;
+            background: #080808;
+            font-family: 'Cormorant Garamond', serif;
+            color: #e8e6e3;
+            position: relative;
+            margin: 0 auto;
+            overflow-x: hidden;
+            padding-bottom: 240px;
+        }
+
+        .frame {
+            position: absolute;
+            top: var(--fluid-space);
+            left: var(--fluid-space);
+            right: var(--fluid-space);
+            bottom: var(--fluid-space);
+            border: var(--fluid-border-thin) solid #333;
+        }
+
+        .corner-tl {
+            position: absolute;
+            top: var(--fluid-space);
+            left: var(--fluid-space);
+            width: var(--fluid-corner); height: var(--fluid-corner);
+            border-top: var(--fluid-border) solid #d4b896;
+            border-left: var(--fluid-border) solid #d4b896;
+        }
+
+        .corner-br {
+            position: absolute;
+            bottom: var(--fluid-space);
+            right: var(--fluid-space);
+            width: var(--fluid-corner); height: var(--fluid-corner);
+            border-bottom: var(--fluid-border) solid #d4b896;
+            border-right: var(--fluid-border) solid #d4b896;
+        }
+
+        .header {
+            position: relative;
+            margin: 80px 0 0 80px;
+            z-index: 10;
+        }
+
+        .section-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: 38px;
+            font-weight: 300;
+            letter-spacing: var(--fluid-tracking-md);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: var(--fluid-body);
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+            letter-spacing: 1px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .diagram-container {
+            position: relative;
+            margin: 40px auto;
+            width: fit-content;
+            overflow: visible;
+            z-index: 5;
+            background: #080808;
+        }
+
+        .diagram-container svg {
+            overflow: visible;
+        }
+
+        .decorative-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #333, transparent);
+        }
+
+        .decorative-line-top {
+            margin: 0 80px;
+        }
+
+        .accent-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #d4b896;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #d4b896;
+        }
+
+        .annotation {
+            position: absolute;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: clamp(10px, 1.2vw, var(--fluid-tiny));
+            color: #666;
+            line-height: 1.6;
+            width: 200px;
+        }
+
+        .annotation-left {
+            right: 680px;
+            top: 300px;
+            text-align: right;
+        }
+
+        .annotation-right {
+            left: 680px;
+            top: 300px;
+            text-align: left;
+        }
+
+        .annotation .num {
+            color: #d4b896;
+            font-size: var(--fluid-title-sm);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .legend {
+            position: relative;
+            margin: 40px 80px;
+            display: flex;
+            justify-content: center;
+            gap: var(--fluid-gap-md);
+            z-index: 10;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-tiny);
+            color: #666;
+            background: #080808;
+            padding: 8px 12px;
+        }
+
+        .legend-line {
+            width: 30px;
+            height: 2px;
+        }
+
+        .legend-line.solid { background: #d4b896; }
+        .legend-line.dashed {
+            background: repeating-linear-gradient(90deg, #555 0px, #555 6px, transparent 6px, transparent 10px);
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #555;
+            letter-spacing: var(--fluid-tracking-sm);
+            padding: 0 80px;
+            z-index: 999;
+        }
+
+        .page-num {
+            color: #d4b896;
+        }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, #0a0a0a, #080808);
+            border: var(--fluid-border-thin) solid #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            flex: 1;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #555;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            color: #888;
+            border-color: #333;
+            background: #111;
+        }
+
+        .nav-item.active {
+            background: #d4b896;
+            color: #080808;
+            border-color: #d4b896;
+            font-weight: 500;
+        }
+
+                /* Mobile Hamburger Menu */
+        #menu-toggle {
+            display: none;
+        }
+
+        .hamburger-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #d4b896;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1001;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background: #080808;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: #080808;
+            border-left: var(--fluid-border) solid #d4b896;
+            z-index: 1000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            padding: 80px 20px 20px;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--fluid-space-sm);
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .mobile-menu-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            color: #d4b896;
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: var(--fluid-border) solid #d4b896;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--fluid-title-sm);
+            color: #d4b896;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #d4b896;
+            color: #080808;
+        }
+
+        .mobile-nav-item {
+            display: block;
+            padding: 18px 20px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--fluid-eyebrow);
+            letter-spacing: var(--fluid-tracking-sm);
+            text-transform: uppercase;
+            color: #888;
+            background: #0c0c0c;
+            border: var(--fluid-border-thin) solid #222;
+            border-bottom: none;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .mobile-nav-item:last-child {
+            border-bottom: 1px solid #222;
+        }
+
+        .mobile-nav-item:hover {
+            color: #d4b896;
+            background: #111;
+            border-color: #333;
+            padding-left: 30px;
+        }
+
+        .mobile-nav-item.active {
+            background: #d4b896;
+            color: #080808;
+            border-color: #d4b896;
+            font-weight: 500;
+        }
+
+        /* Checkbox hack for menu toggle */
+        #menu-toggle:checked ~ .mobile-menu {
+            right: 0;
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(2) {
+            opacity: 0;
+        }
+
+        #menu-toggle:checked ~ .hamburger-btn span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-bar {
+                display: none;
+            }
+
+            .hamburger-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            body {
+                width: 100%;
+                height: auto;
+                min-height: 100vh;
+                overflow-x: hidden;
+                padding-bottom: 140px;
+            }
+
+            .content {
+                width: 90%;
+                padding: var(--fluid-space-xs) 0;
+            }
+
+            .title {
+                font-size: var(--fluid-title-lg);
+                letter-spacing: 10px;
+            }
+
+            .stats {
+                flex-wrap: wrap;
+                gap: var(--fluid-gap);
+            }
+
+            .diagram {
+                width: 100%;
+                height: auto;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 70px;
+                left: 0;
+                right: 0;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .annotation-left,
+            .annotation-right {
+                position: static;
+                width: 90%;
+                margin: 20px auto;
+                text-align: left;
+            }
+
+            .diagram-container {
+                position: static;
+                transform: none;
+                width: 100%;
+                margin: 40px auto;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="svg-responsive.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="hover-effects.css">
+</head>
+<body>
+    <!-- Mobile Hamburger Menu -->
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="hamburger-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="mobile-menu">
+        <label for="menu-toggle" class="close-btn">✕</label>
+        <div class="mobile-menu-header">
+            <span class="mobile-menu-title">Navigation</span>
+        </div>
+        <a href="page_01_title.html" class="mobile-nav-item">Title</a>
+        <a href="page_02_philosophy.html" class="mobile-nav-item">Philosophy</a>
+        <a href="page_03_topology.html" class="mobile-nav-item active">Topology</a>
+        <a href="page_04_models.html" class="mobile-nav-item">Models</a>
+        <a href="page_05_memory.html" class="mobile-nav-item">Memory</a>
+        <a href="page_06_obsidian.html" class="mobile-nav-item"><strong>Obsidian</strong></a>
+        <a href="page_07_projects.html" class="mobile-nav-item">Projects</a>
+        <a href="page_08_agenthub.html" class="mobile-nav-item">Agents</a>
+        <a href="page_09_browser.html" class="mobile-nav-item">Browser</a>
+        <a href="page_10_mind.html" class="mobile-nav-item">Mind</a>
+        <a href="page_11_genesis.html" class="mobile-nav-item">Genesis</a>
+        <a href="page_12_bernard.html" class="mobile-nav-item"><strong>Bernard</strong></a>
+        <a href="page_13_suggestions.html" class="mobile-nav-item">Suggest</a>
+        <a href="page_14_voice.html" class="mobile-nav-item">Voice</a>
+        <a href="page_15_closing.html" class="mobile-nav-item">Closing</a>
+        <a href="page_16_appendix.html" class="mobile-nav-item">Appendix</a>
+    </nav>
+
+    <div class="frame"></div>
+    <div class="corner-tl"></div>
+    <div class="corner-br"></div>
+
+    <div class="header">
+        <div class="section-num">SECTION 02</div>
+        <h2>System Topology</h2>
+        <div class="subtitle animate-header-delay-2">Hub and spoke architecture with central orchestration</div>
+    </div>
+
+    <div class="annotation annotation-left">
+        <span class="num">A</span>
+        <strong>MCP</strong> Servers provide<br>
+        structured access to<br>
+        external capabilities:<br>
+        files, memory, search
+    </div>
+
+    <div class="annotation annotation-right">
+        <span class="num">B</span>
+        Specialized agents<br>
+        handle domain tasks:<br>
+        writing, debugging,<br>
+        system administration
+    </div>
+
+    <div style="position: relative; margin-top: 20px;">
+        <div class="decorative-line decorative-line-top"></div>
+        <div class="accent-dot" style="position: absolute; top: -2px; left: 80px;"></div>
+        <div class="accent-dot" style="position: absolute; top: -2px; right: 80px;"></div>
+    </div>
+
+    <div class="diagram-container">
+        <svg class="animate-diagram" width="100%" height="auto" viewBox="0 0 1000 1000">
+            <defs>
+                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="6" result="blur"/>
+                    <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+                <filter id="subtle-glow" x="-15%" y="-15%" width="130%" height="130%">
+                    <feGaussianBlur stdDeviation="3" result="blur"/>
+                    <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+
+            <!-- Outer ring - <strong>MCP</strong> Servers -->
+            <circle cx="500" cy="500" r="420" fill="none" stroke="#222" stroke-width="1.5" stroke-dasharray="8,8"/>
+
+            <!-- Inner ring - Agents -->
+            <circle cx="500" cy="500" r="270" fill="none" stroke="#333" stroke-width="2"/>
+
+            <!-- Central hub -->
+            <circle cx="500" cy="500" r="125" fill="#111" stroke="#d4b896" stroke-width="3" filter="url(#glow)"/>
+            <circle cx="500" cy="500" r="100" fill="#0a0a0a" stroke="#444" stroke-width="1.5"/>
+            <text x="500" y="478" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="18" letter-spacing="2">LOCAL</text>
+            <text x="500" y="518" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="32" font-weight="500">BRAIN</text>
+
+            <!-- <strong>MCP</strong> Servers (outer ring) -->
+            <g>
+                <!-- Memory -->
+                <circle cx="500" cy="80" r="52" fill="#111" stroke="#555" stroke-width="2" filter="url(#subtle-glow)"/>
+                <text x="500" y="88" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="16">MEMORY</text>
+                <line x1="500" y1="132" x2="500" y2="370" stroke="#444" stroke-width="1.5" stroke-dasharray="8,5"/>
+            </g>
+
+            <g>
+                <!-- <strong>Obsidian</strong> -->
+                <circle cx="864" cy="275" r="52" fill="#111" stroke="#555" stroke-width="2" filter="url(#subtle-glow)"/>
+                <text x="864" y="283" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="16" font-weight="bold">OBSIDIAN</text>
+                <line x1="819" y1="310" x2="605" y2="442" stroke="#444" stroke-width="1.5" stroke-dasharray="8,5"/>
+            </g>
+
+            <g>
+                <!-- <strong>Ollama</strong> -->
+                <circle cx="864" cy="725" r="52" fill="#111" stroke="#555" stroke-width="2" filter="url(#subtle-glow)"/>
+                <text x="864" y="733" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="16" font-weight="bold">OLLAMA</text>
+                <line x1="819" y1="690" x2="605" y2="558" stroke="#444" stroke-width="1.5" stroke-dasharray="8,5"/>
+            </g>
+
+            <g>
+                <!-- Files -->
+                <circle cx="500" cy="920" r="52" fill="#111" stroke="#555" stroke-width="2" filter="url(#subtle-glow)"/>
+                <text x="500" y="928" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="16">FILES</text>
+                <line x1="500" y1="868" x2="500" y2="630" stroke="#444" stroke-width="1.5" stroke-dasharray="8,5"/>
+            </g>
+
+            <g>
+                <!-- Ripgrep -->
+                <circle cx="136" cy="725" r="52" fill="#111" stroke="#555" stroke-width="2" filter="url(#subtle-glow)"/>
+                <text x="136" y="733" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="16">RIPGREP</text>
+                <line x1="181" y1="690" x2="395" y2="558" stroke="#444" stroke-width="1.5" stroke-dasharray="8,5"/>
+            </g>
+
+            <g>
+                <!-- <strong>Playwright</strong> -->
+                <circle cx="136" cy="275" r="52" fill="#111" stroke="#555" stroke-width="2" filter="url(#subtle-glow)"/>
+                <text x="136" y="279" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="13" font-weight="bold">PLAYWRIGHT</text>
+                <line x1="181" y1="310" x2="395" y2="442" stroke="#444" stroke-width="1.5" stroke-dasharray="8,5"/>
+            </g>
+
+            <!-- Agents (inner ring) -->
+            <g>
+                <rect x="435" y="190" width="130" height="48" fill="#111" stroke="#d4b896" stroke-width="2.5" rx="4" filter="url(#subtle-glow)"/>
+                <text x="500" y="222" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="17">@writer</text>
+                <line x1="500" y1="238" x2="500" y2="375" stroke="#d4b896" stroke-width="2.5"/>
+            </g>
+
+            <g>
+                <rect x="670" y="338" width="130" height="48" fill="#111" stroke="#d4b896" stroke-width="2.5" rx="4" filter="url(#subtle-glow)"/>
+                <text x="735" y="370" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="17">@debug</text>
+                <line x1="670" y1="362" x2="605" y2="455" stroke="#d4b896" stroke-width="2.5"/>
+            </g>
+
+            <g>
+                <rect x="670" y="614" width="130" height="48" fill="#111" stroke="#d4b896" stroke-width="2.5" rx="4" filter="url(#subtle-glow)"/>
+                <text x="735" y="646" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="17">@system</text>
+                <line x1="670" y1="638" x2="605" y2="545" stroke="#d4b896" stroke-width="2.5"/>
+            </g>
+
+            <g>
+                <rect x="435" y="762" width="130" height="48" fill="#111" stroke="#d4b896" stroke-width="2.5" rx="4" filter="url(#subtle-glow)"/>
+                <text x="500" y="794" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="17">@guardian</text>
+                <line x1="500" y1="762" x2="500" y2="625" stroke="#d4b896" stroke-width="2.5"/>
+            </g>
+
+            <g>
+                <rect x="200" y="614" width="130" height="48" fill="#111" stroke="#d4b896" stroke-width="2.5" rx="4" filter="url(#subtle-glow)"/>
+                <text x="265" y="646" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="17">@local-ai</text>
+                <line x1="330" y1="638" x2="395" y2="545" stroke="#d4b896" stroke-width="2.5"/>
+            </g>
+
+            <g>
+                <rect x="200" y="338" width="130" height="48" fill="#111" stroke="#d4b896" stroke-width="2.5" rx="4" filter="url(#subtle-glow)"/>
+                <text x="265" y="370" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="17" font-weight="bold">@obsidian</text>
+                <line x1="330" y1="362" x2="395" y2="455" stroke="#d4b896" stroke-width="2.5"/>
+            </g>
+        </svg>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-line solid"></div>
+            <span>Agent Connection</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-line dashed"></div>
+            <span><strong>MCP</strong> Protocol</span>
+        </div>
+    </div>
+
+    <div class="nav-bar" style="position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 1000 !important;">
+        <a href="page_01_title.html" class="nav-item">Title</a>
+        <a href="page_02_philosophy.html" class="nav-item">Philosophy</a>
+        <a href="page_03_topology.html" class="nav-item active">Topology</a>
+        <a href="page_04_models.html" class="nav-item">Models</a>
+        <a href="page_05_memory.html" class="nav-item">Memory</a>
+        <a href="page_06_obsidian.html" class="nav-item"><strong>Obsidian</strong></a>
+        <a href="page_07_projects.html" class="nav-item">Projects</a>
+        <a href="page_08_agenthub.html" class="nav-item">Agents</a>
+        <a href="page_09_browser.html" class="nav-item">Browser</a>
+        <a href="page_10_mind.html" class="nav-item">Mind</a>
+        <a href="page_11_genesis.html" class="nav-item">Genesis</a>
+        <a href="page_12_bernard.html" class="nav-item"><strong>Bernard</strong></a>
+        <a href="page_13_suggestions.html" class="nav-item">Suggest</a>
+        <a href="page_14_voice.html" class="nav-item">Voice</a>
+        <a href="page_15_closing.html" class="nav-item">Closing</a>
+        <a href="page_16_appendix.html" class="nav-item">Appendix</a>
+    </div>
+
+    <div class="footer animate-footer" style="position: fixed !important; bottom: 70px !important; left: 0 !important; right: 0 !important; z-index: 999 !important;">
+        <span>JOHN MITTHS</span>
+        <span><strong>COGNITIVE ARCHITECTURE</strong></span>
+        <span class="page-num">03</span>
+    </div>
+</body>
+</html>

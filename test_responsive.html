@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Responsive Test</title>
+    <link rel="stylesheet" href="resize-smooth.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #d4b896;
+        }
+
+        .viewport-info {
+            background: #2a2a2a;
+            border: 2px solid #d4b896;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .viewport-info h2 {
+            color: #d4b896;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #333;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 1.5rem;
+            color: #d4b896;
+            font-weight: bold;
+            font-family: monospace;
+        }
+
+        .breakpoint-indicator {
+            display: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .breakpoint-mobile {
+            background: #ff6b6b;
+            display: block;
+        }
+
+        .test-links {
+            margin: 30px 0;
+        }
+
+        .test-links h2 {
+            color: #d4b896;
+            margin-bottom: 15px;
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .test-link {
+            display: block;
+            padding: 15px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #d4b896;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .test-link:hover {
+            background: #333;
+            border-color: #d4b896;
+            transform: translateY(-2px);
+        }
+
+        .instructions {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border-left: 4px solid #d4b896;
+        }
+
+        .instructions h3 {
+            color: #d4b896;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .instructions li {
+            margin: 10px 0;
+        }
+
+        .instructions code {
+            background: #1a1a1a;
+            padding: 2px 8px;
+            border-radius: 3px;
+            color: #4fc3f7;
+            font-family: monospace;
+        }
+
+        @media (min-width: 768px) {
+            .breakpoint-mobile { display: none; }
+            .breakpoint-tablet {
+                background: #ffd93d;
+                color: #1a1a1a;
+                display: block;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .breakpoint-tablet { display: none; }
+            .breakpoint-desktop {
+                background: #6bcf7f;
+                color: #1a1a1a;
+                display: block;
+            }
+        }
+
+        .status {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #6bcf7f;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+    <link rel="stylesheet" href="hover-effects.css">
+</head>
+<body>
+    <div class="container">
+        <h1><span class="status"></span>Portfolio Responsive Test</h1>
+
+        <div class="breakpoint-indicator breakpoint-mobile">
+            📱 MOBILE BREAKPOINT (&lt; 768px)
+        </div>
+        <div class="breakpoint-indicator breakpoint-tablet">
+            📱 TABLET BREAKPOINT (768px - 1200px)
+        </div>
+        <div class="breakpoint-indicator breakpoint-desktop">
+            🖥️ DESKTOP BREAKPOINT (&gt; 1200px)
+        </div>
+
+        <div class="viewport-info">
+            <h2>Current Viewport Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Width</div>
+                    <div class="info-value" id="width">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Height</div>
+                    <div class="info-value" id="height">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Device Pixel Ratio</div>
+                    <div class="info-value" id="dpr">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Orientation</div>
+                    <div class="info-value" id="orientation">-</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>Testing Instructions</h3>
+            <ol>
+                <li>Click any page link below to test responsive design</li>
+                <li>Open DevTools (F12) and enable device toolbar (Ctrl+Shift+M or Cmd+Shift+M)</li>
+                <li>Test these common viewports:
+                    <ul>
+                        <li><code>375x667</code> - iPhone SE (Mobile)</li>
+                        <li><code>390x844</code> - iPhone 12 Pro (Mobile)</li>
+                        <li><code>768x1024</code> - iPad (Tablet)</li>
+                        <li><code>1024x1366</code> - iPad Pro (Tablet/Desktop)</li>
+                        <li><code>1240x1754</code> - Desktop (Original)</li>
+                    </ul>
+                </li>
+                <li>Verify:
+                    <ul>
+                        <li>No horizontal scrolling on any page</li>
+                        <li>Navigation bar is scrollable on mobile</li>
+                        <li>Text is readable without zooming</li>
+                        <li>Diagrams scale appropriately</li>
+                        <li>Desktop layout matches original at 1240px+</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="test-links">
+            <h2>Test All Pages</h2>
+            <div class="link-grid">
+                <a href="page_01_title.html" class="test-link">01. Title</a>
+                <a href="page_02_philosophy.html" class="test-link">02. Philosophy</a>
+                <a href="page_03_topology.html" class="test-link">03. Topology</a>
+                <a href="page_04_models.html" class="test-link">04. Models</a>
+                <a href="page_05_memory.html" class="test-link">05. Memory</a>
+                <a href="page_06_obsidian.html" class="test-link">06. Obsidian</a>
+                <a href="page_07_projects.html" class="test-link">07. Projects</a>
+                <a href="page_08_agenthub.html" class="test-link">08. AgentHub</a>
+                <a href="page_09_browser.html" class="test-link">09. Browser</a>
+                <a href="page_10_mind.html" class="test-link">10. Mind</a>
+                <a href="page_11_genesis.html" class="test-link">11. Genesis</a>
+                <a href="page_12_bernard.html" class="test-link">12. Bernard</a>
+                <a href="page_13_suggestions.html" class="test-link">13. Suggestions</a>
+                <a href="page_14_voice.html" class="test-link">14. Voice</a>
+                <a href="page_15_closing.html" class="test-link">15. Closing</a>
+                <a href="page_16_appendix.html" class="test-link">16. Appendix</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateViewportInfo() {
+            document.getElementById('width').textContent = window.innerWidth + 'px';
+            document.getElementById('height').textContent = window.innerHeight + 'px';
+            document.getElementById('dpr').textContent = window.devicePixelRatio.toFixed(2);
+            document.getElementById('orientation').textContent =
+                window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait';
+        }
+
+        // Update on load
+        updateViewportInfo();
+
+        // Update on resize
+        window.addEventListener('resize', updateViewportInfo);
+
+        // Update on orientation change
+        window.addEventListener('orientationchange', updateViewportInfo);
+    </script>
+</body>
+</html>
