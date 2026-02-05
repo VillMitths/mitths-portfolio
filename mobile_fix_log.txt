@@ -1,0 +1,226 @@
+[2026-02-05 02:25:46] ================================================================================
+[2026-02-05 02:25:46] Mobile Width Fixer - Starting
+[2026-02-05 02:25:46] ================================================================================
+[2026-02-05 02:25:46] Found 16 HTML files to process
+[2026-02-05 02:25:46] 
+Processing: page_01_title.html
+[2026-02-05 02:25:46]   Fixed 6 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 900px;' to 'width: min(900px, 90vw); max-width: 900px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_01_title.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_02_philosophy.html
+[2026-02-05 02:25:46]   Fixed 8 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 180px;' to 'width: min(180px, 90vw); max-width: 180px;'
+[2026-02-05 02:25:46]   - Changed 'width: 700px;' to 'width: min(700px, 90vw); max-width: 700px;'
+[2026-02-05 02:25:46]   - Changed 'width: 600px;' to 'width: min(600px, 90vw); max-width: 600px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   Found 2 positioning issues:
+[2026-02-05 02:25:46]   - Found .margin-note with left: 60px (will be fixed by media query)
+[2026-02-05 02:25:46]   - Found .content with left: 280px (will be fixed by media query)
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_02_philosophy.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_03_topology.html
+[2026-02-05 02:25:46]   Fixed 8 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 4px;' to 'width: min(4px, 90vw); max-width: 4px;'
+[2026-02-05 02:25:46]   - Changed 'width: 200px;' to 'width: min(200px, 90vw); max-width: 200px;'
+[2026-02-05 02:25:46]   - Changed 'width: 30px;' to 'width: min(30px, 90vw); max-width: 30px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   Found 2 positioning issues:
+[2026-02-05 02:25:46]   - Found .annotation-left with right: 680px (will be fixed by media query)
+[2026-02-05 02:25:46]   - Found .annotation-right with left: 680px (will be fixed by media query)
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_03_topology.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_04_models.html
+[2026-02-05 02:25:46]   Fixed 7 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 4px;' to 'width: min(4px, 90vw); max-width: 4px;'
+[2026-02-05 02:25:46]   - Changed 'width: 4px;' to 'width: min(4px, 90vw); max-width: 4px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_04_models.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_05_memory.html
+[2026-02-05 02:25:46]   Fixed 6 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 4px;' to 'width: min(4px, 90vw); max-width: 4px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_05_memory.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_06_obsidian.html
+[2026-02-05 02:25:46]   Fixed 5 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_06_obsidian.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_07_projects.html
+[2026-02-05 02:25:46]   Fixed 5 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_07_projects.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_08_agenthub.html
+[2026-02-05 02:25:46]   Fixed 6 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 2px;' to 'width: min(2px, 90vw); max-width: 2px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_08_agenthub.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_09_browser.html
+[2026-02-05 02:25:46]   Fixed 5 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_09_browser.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_10_mind.html
+[2026-02-05 02:25:46]   Fixed 5 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_10_mind.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_11_genesis.html
+[2026-02-05 02:25:46]   Fixed 6 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 20px;' to 'width: min(20px, 90vw); max-width: 20px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_11_genesis.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_12_bernard.html
+[2026-02-05 02:25:46]   Fixed 5 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_12_bernard.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_13_suggestions.html
+[2026-02-05 02:25:46]   Fixed 5 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_13_suggestions.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_14_voice.html
+[2026-02-05 02:25:46]   Fixed 5 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_14_voice.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_15_closing.html
+[2026-02-05 02:25:46]   Fixed 7 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 900px;' to 'width: min(900px, 90vw); max-width: 900px;'
+[2026-02-05 02:25:46]   - Changed 'width: 100px;' to 'width: min(100px, 90vw); max-width: 100px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_15_closing.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+Processing: page_16_appendix.html
+[2026-02-05 02:25:46]   Fixed 5 width declarations:
+[2026-02-05 02:25:46]   - Changed 'width: 1240px;' to 'width: min(1240px, 90vw); max-width: 1240px;'
+[2026-02-05 02:25:46]   - Changed 'width: 50px;' to 'width: min(50px, 90vw); max-width: 50px;'
+[2026-02-05 02:25:46]   - Changed 'width: 28px;' to 'width: min(28px, 90vw); max-width: 28px;'
+[2026-02-05 02:25:46]   - Changed 'width: 300px;' to 'width: min(300px, 90vw); max-width: 300px;'
+[2026-02-05 02:25:46]   - Changed 'width: 40px;' to 'width: min(40px, 90vw); max-width: 40px;'
+[2026-02-05 02:25:46]   Found 1 positioning issues:
+[2026-02-05 02:25:46]   - Found .content with left: 80px (will be fixed by media query)
+[2026-02-05 02:25:46]   + Added mobile media query
+[2026-02-05 02:25:46]   + Backup created: page_16_appendix.html.backup
+[2026-02-05 02:25:46]   + File updated successfully
+[2026-02-05 02:25:46] 
+================================================================================
+[2026-02-05 02:25:46] SUMMARY
+[2026-02-05 02:25:46] ================================================================================
+[2026-02-05 02:25:46] Total files processed: 16
+[2026-02-05 02:25:46] Files modified: 16
+[2026-02-05 02:25:46] 
+Modified files:
+[2026-02-05 02:25:46]   - page_01_title.html
+[2026-02-05 02:25:46]   - page_02_philosophy.html
+[2026-02-05 02:25:46]   - page_03_topology.html
+[2026-02-05 02:25:46]   - page_04_models.html
+[2026-02-05 02:25:46]   - page_05_memory.html
+[2026-02-05 02:25:46]   - page_06_obsidian.html
+[2026-02-05 02:25:46]   - page_07_projects.html
+[2026-02-05 02:25:46]   - page_08_agenthub.html
+[2026-02-05 02:25:46]   - page_09_browser.html
+[2026-02-05 02:25:46]   - page_10_mind.html
+[2026-02-05 02:25:46]   - page_11_genesis.html
+[2026-02-05 02:25:46]   - page_12_bernard.html
+[2026-02-05 02:25:46]   - page_13_suggestions.html
+[2026-02-05 02:25:46]   - page_14_voice.html
+[2026-02-05 02:25:46]   - page_15_closing.html
+[2026-02-05 02:25:46]   - page_16_appendix.html

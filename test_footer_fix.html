@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Fix Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #080808;
+            color: #e8e6e3;
+            margin: 0;
+            padding: 20px;
+            padding-bottom: 200px;
+        }
+
+        .test-section {
+            background: #111;
+            border: 2px solid #d4b896;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .success {
+            color: #50C878;
+        }
+
+        .info {
+            color: #d4b896;
+        }
+
+        h1 {
+            color: #d4b896;
+            text-align: center;
+        }
+
+        h2 {
+            color: #d4b896;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        ul {
+            line-height: 1.8;
+        }
+
+        .code {
+            background: #0a0a0a;
+            padding: 10px;
+            border-left: 3px solid #d4b896;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .test-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(8, 8, 8, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #333;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4b896;
+        }
+
+        .scroll-test {
+            height: 150vh;
+            background: linear-gradient(to bottom, #111 0%, #080808 100%);
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px dashed #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Footer Overlap Fix - Test Page</h1>
+
+    <div class="test-section">
+        <h2>Changes Applied</h2>
+        <ul>
+            <li class="success">✓ index.html: padding-bottom 100px → 200px</li>
+            <li class="success">✓ page_*.html: padding-bottom 340px → 480px</li>
+            <li class="success">✓ Mobile: padding-bottom 140px → 200px</li>
+            <li class="success">✓ contact-footer: z-index 1000 → 100</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>Z-Index Hierarchy (Fixed)</h2>
+        <div class="code">
+hamburger-btn:     10001  (mobile nav - highest)
+nav-drawer:        1000   (mobile drawer)
+nav-overlay:       999    (mobile overlay)
+nav-bar:           1000   (bottom nav on pages)
+footer:            999    (page number footer)
+contact-footer:    100    (contact footer - LOWEST)
+        </div>
+        <p class="info">The contact-footer is now at the BOTTOM of the z-index stack, preventing overlap.</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Padding Calculations</h2>
+        <p><strong>index.html (Homepage):</strong></p>
+        <div class="code">
+Body padding-bottom: 200px
+Contact footer height: 80px
+Extra clearance: 120px (prevents overlap with mood ball)
+        </div>
+
+        <p><strong>page_*.html (Content pages):</strong></p>
+        <div class="code">
+Body padding-bottom: 480px
+- Nav-bar (60px at bottom: 0)
+- Footer (at bottom: 70px above nav-bar)
+- Contact-footer (80px at bottom: 0)
+- Extra clearance: 340px (ample breathing room)
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Instructions</h2>
+        <ol>
+            <li>Open <strong>index.html</strong> in your browser</li>
+            <li>Scroll to the bottom</li>
+            <li>Verify the mood ball is fully visible (not covered by footer)</li>
+            <li>Verify "JOHN MITTHS 2026 COGNITIVE ARCHITECTURE PORTFOLIO" text is visible</li>
+            <li>Open any <strong>page_*.html</strong> file (e.g., page_01_title.html)</li>
+            <li>Scroll to the bottom</li>
+            <li>Verify the navigation bar is fully visible</li>
+            <li>Verify the page number footer is visible</li>
+            <li>Test on mobile (resize browser to < 768px width)</li>
+            <li>Verify all elements are still properly spaced</li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>Files Modified</h2>
+        <div class="code">
+Total: 17 files
+- index.html
+- page_01_title.html through page_16_appendix.html
+        </div>
+    </div>
+
+    <div class="scroll-test">
+        <h3 style="color: #d4b896;">Scroll Test Area</h3>
+        <p>Scroll down to see if content at the bottom is visible above the test footer.</p>
+        <p style="margin-top: 50vh;">Middle of scroll area...</p>
+        <p style="margin-top: 50vh; color: #50C878; font-size: 20px; font-weight: bold;">
+            BOTTOM REACHED - If you can read this clearly without it being covered, the fix works!
+        </p>
+    </div>
+
+    <div class="test-footer">
+        TEST FOOTER (z-index: 100) - This simulates the contact footer
+    </div>
+</body>
+</html>

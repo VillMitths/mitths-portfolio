@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Architecture Portfolio - John Mitths</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="animations.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #080808;
+            font-family: 'Cormorant Garamond', serif;
+            color: #e8e6e3;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            flex: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            border: 2px solid #d4b896;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .eyebrow {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            color: #d4b896;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .main-title {
+            font-size: 64px;
+            font-weight: 300;
+            letter-spacing: 16px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #888;
+            font-style: italic;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .author {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 3px;
+        }
+
+        .divider {
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #d4b896, transparent);
+            margin: 60px auto;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .page-card {
+            background: linear-gradient(135deg, #0a0a0a, #111);
+            border: 1px solid #2a2a2a;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+
+        .page-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #d4b896;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .page-card:hover {
+            border-color: #d4b896;
+            transform: translateX(4px);
+        }
+
+        .page-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .page-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: #d4b896;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            opacity: 0.7;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            color: #e8e6e3;
+        }
+
+        .page-description {
+            font-size: 15px;
+            color: #888;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .corner-accent {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border-bottom: 2px solid #333;
+            border-right: 2px solid #333;
+            transition: border-color 0.3s ease;
+        }
+
+        .page-card:hover .corner-accent {
+            border-color: #d4b896;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            padding: 40px;
+            background: linear-gradient(to bottom, #0a0a0a, #080808);
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+            margin-bottom: 60px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 36px;
+            color: #d4b896;
+            font-weight: 300;
+        }
+
+        .stat-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid #1a1a1a;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: #555;
+            letter-spacing: 2px;
+        }
+
+        .footer-year {
+            color: #d4b896;
+            margin: 0 12px;
+        }
+
+        /* Tablet and below */
+        @media (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .container {
+                padding: 40px 24px;
+            }
+
+            .main-title {
+                font-size: 52px;
+                letter-spacing: 12px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .stats-bar {
+                gap: 40px;
+            }
+
+            .stat-value {
+                font-size: 32px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            .header {
+                margin-bottom: 50px;
+            }
+
+            .main-title {
+                font-size: 36px;
+                letter-spacing: 6px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+                letter-spacing: 1px;
+            }
+
+            .author {
+                font-size: 12px;
+                letter-spacing: 2px;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 30px;
+                padding: 30px 20px;
+            }
+
+            .stat-value {
+                font-size: 28px;
+            }
+
+            .page-card {
+                padding: 24px;
+            }
+
+            .page-title {
+                font-size: 22px;
+                letter-spacing: 3px;
+            }
+
+            .page-description {
+                font-size: 14px;
+            }
+
+            .quick-nav {
+                padding: 16px 20px;
+                margin-bottom: 30px;
+            }
+
+            .quick-links {
+                gap: 12px;
+            }
+
+            .quick-link {
+                font-size: 10px;
+                padding: 10px 16px;
+            }
+        }
+
+        /* Small mobile */
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 28px;
+                letter-spacing: 4px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .eyebrow {
+                font-size: 10px;
+                letter-spacing: 4px;
+            }
+
+            .divider {
+                width: 120px;
+            }
+
+            .page-card {
+                padding: 20px;
+            }
+
+            .page-title {
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+        }
+
+        /* Touch device enhancements */
+        @media (hover: none) and (pointer: coarse) {
+            .page-card:active {
+                border-color: #d4b896;
+                transform: translateX(4px);
+                background: linear-gradient(135deg, #0c0c0c, #131313);
+            }
+
+            .page-card:active::before {
+                transform: scaleY(1);
+            }
+
+            .page-card:active .corner-accent {
+                border-color: #d4b896;
+            }
+
+            .quick-link:active {
+                color: #d4b896;
+                border-color: #d4b896;
+                background: #111;
+            }
+        }
+
+        .quick-nav {
+            background: #0c0c0c;
+            border: 1px solid #222;
+            padding: 20px 32px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .quick-nav-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            color: #666;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .quick-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: #888;
+            text-decoration: none;
+            padding: 12px 20px;
+            border: 1px solid #2a2a2a;
+            transition: all 0.2s;
+            min-height: 44px;
+            min-width: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+        }
+
+        .quick-link:hover {
+            color: #d4b896;
+            border-color: #d4b896;
+        }
+
+        /* Mood Ball Component */
+        .mood-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 40px;
+            margin-bottom: 40px;
+            perspective: 1200px;
+            position: relative;
+        }
+
+        .mood-prompt {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            color: #d4b896;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+            text-align: center;
+            font-style: italic;
+            opacity: 0;
+            animation: fadeInPrompt 1.2s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInPrompt {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mood-ball-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .mood-ball {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%,
+                rgba(212, 184, 150, 0.4) 0%,
+                rgba(212, 184, 150, 0.2) 20%,
+                rgba(180, 140, 100, 0.15) 40%,
+                rgba(120, 80, 50, 0.1) 60%,
+                rgba(8, 8, 8, 0) 100%
+            );
+            box-shadow:
+                inset -20px -20px 60px rgba(0, 0, 0, 0.5),
+                inset 10px 10px 40px rgba(212, 184, 150, 0.2),
+                0 0 60px rgba(212, 184, 150, 0.3),
+                0 0 100px rgba(212, 184, 150, 0.2),
+                0 0 140px rgba(212, 184, 150, 0.1);
+            animation: breatheGlow 4s ease-in-out infinite, entranceRotate 2s ease-out;
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            --glow-intensity: 1;
+        }
+
+        @keyframes breatheGlow {
+            0%, 100% {
+                box-shadow:
+                    inset -20px -20px 60px rgba(0, 0, 0, 0.5),
+                    inset 10px 10px 40px rgba(212, 184, 150, 0.2),
+                    0 0 60px rgba(212, 184, 150, calc(0.3 * var(--glow-intensity))),
+                    0 0 100px rgba(212, 184, 150, calc(0.2 * var(--glow-intensity))),
+                    0 0 140px rgba(212, 184, 150, calc(0.1 * var(--glow-intensity)));
+            }
+            50% {
+                box-shadow:
+                    inset -20px -20px 60px rgba(0, 0, 0, 0.5),
+                    inset 10px 10px 40px rgba(212, 184, 150, 0.3),
+                    0 0 80px rgba(212, 184, 150, calc(0.4 * var(--glow-intensity))),
+                    0 0 120px rgba(212, 184, 150, calc(0.3 * var(--glow-intensity))),
+                    0 0 160px rgba(212, 184, 150, calc(0.15 * var(--glow-intensity)));
+            }
+        }
+
+        @keyframes entranceRotate {
+            0% {
+                transform: rotateY(-180deg) scale(0.5);
+                opacity: 0;
+            }
+            60% {
+                opacity: 1;
+            }
+            100% {
+                transform: rotateY(0deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .mood-ball::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 20%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(circle,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(212, 184, 150, 0.2) 30%,
+                transparent 70%
+            );
+            border-radius: 50%;
+            filter: blur(20px);
+            animation: shineShift 6s ease-in-out infinite;
+        }
+
+        @keyframes shineShift {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(10px, 10px) scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        .mood-ball::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                rgba(212, 184, 150, 0.1) 90deg,
+                transparent 180deg,
+                rgba(212, 184, 150, 0.1) 270deg,
+                transparent 360deg
+            );
+            filter: blur(8px);
+            animation: rotateRing 20s linear infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes rotateRing {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .mood-ball-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%,
+                rgba(212, 184, 150, 0.15) 0%,
+                rgba(180, 140, 100, 0.08) 40%,
+                transparent 70%
+            );
+            filter: blur(10px);
+            animation: pulseCore 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseCore {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.9;
+            }
+        }
+
+        .mood-hint {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            color: #555;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0;
+            animation: fadeInHint 1.5s ease-out 1.5s forwards;
+        }
+
+        @keyframes fadeInHint {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive mood ball */
+        @media (max-width: 1024px) {
+            .mood-ball-container {
+                width: 240px;
+                height: 240px;
+            }
+
+            .mood-prompt {
+                font-size: 24px;
+                margin-bottom: 40px;
+            }
+
+            .mood-section {
+                padding: 60px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mood-ball-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .mood-prompt {
+                font-size: 20px;
+                margin-bottom: 30px;
+                letter-spacing: 2px;
+            }
+
+            .mood-section {
+                padding: 50px 20px;
+            }
+
+            .mood-hint {
+                font-size: 10px;
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mood-ball-container {
+                width: 180px;
+                height: 180px;
+            }
+
+            .mood-prompt {
+                font-size: 18px;
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="eyebrow animate-header">A Technical Treatise</div>
+            <h1 class="main-title animate-header-delay-1">Cognitive<br>Architecture</h1>
+            <div class="subtitle animate-header-delay-2">Systems for extending the human mind</div>
+            <div class="author animate-header-delay-3">JOHN MITTHS</div>
+        </div>
+
+        <div class="divider animate-divider"></div>
+
+        <div class="mood-section">
+            <div class="mood-prompt">How do you feel today?</div>
+            <div class="mood-ball-container">
+                <div class="mood-ball">
+                    <div class="mood-ball-core"></div>
+                </div>
+            </div>
+            <div class="mood-hint">TOUCH TO INTERACT</div>
+        </div>
+
+        <div class="stats-bar animate-stats">
+            <div class="stat">
+                <div class="stat-value">16</div>
+                <div class="stat-label">Pages</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">9</div>
+                <div class="stat-label">MCP Servers</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">50K</div>
+                <div class="stat-label">Lines Code</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">5.4</div>
+                <div class="stat-label">GB Vectors</div>
+            </div>
+        </div>
+
+        <div class="quick-nav animate-nav">
+            <div class="quick-nav-title">Quick Navigation</div>
+            <div class="quick-links">
+                <a href="#core" class="quick-link">Core Systems</a>
+                <a href="#architecture" class="quick-link">Architecture</a>
+                <a href="#agents" class="quick-link">Agents</a>
+                <a href="#closing" class="quick-link">Closing</a>
+            </div>
+        </div>
+
+        <div class="portfolio-grid">
+            <a href="page_01_title.html" class="page-card animate-grid-item">
+                <div class="page-number">PAGE 01</div>
+                <h2 class="page-title">Title</h2>
+                <div class="page-description">Introduction to cognitive architecture systems and the technical framework</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_02_philosophy.html" class="page-card" id="core">
+                <div class="page-number">PAGE 02</div>
+                <h2 class="page-title">Philosophy</h2>
+                <div class="page-description">Core principles and design philosophy behind mind-extension systems</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_03_topology.html" class="page-card" id="architecture">
+                <div class="page-number">PAGE 03</div>
+                <h2 class="page-title">Topology</h2>
+                <div class="page-description">System topology and infrastructure architecture mapping</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_04_models.html" class="page-card">
+                <div class="page-number">PAGE 04</div>
+                <h2 class="page-title">Models</h2>
+                <div class="page-description">Local AI models, reasoning engines, and fast inference systems</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_05_memory.html" class="page-card">
+                <div class="page-number">PAGE 05</div>
+                <h2 class="page-title">Memory</h2>
+                <div class="page-description">Persistent memory systems, learning loops, and knowledge retention</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_06_obsidian.html" class="page-card">
+                <div class="page-number">PAGE 06</div>
+                <h2 class="page-title">Obsidian</h2>
+                <div class="page-description">Personal knowledge management and vault integration systems</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_07_projects.html" class="page-card">
+                <div class="page-number">PAGE 07</div>
+                <h2 class="page-title">Projects</h2>
+                <div class="page-description">Key projects, implementations, and technical achievements</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_08_agenthub.html" class="page-card" id="agents">
+                <div class="page-number">PAGE 08</div>
+                <h2 class="page-title">AgentHub</h2>
+                <div class="page-description">Multi-agent orchestration, routing, and specialized agent systems</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_09_browser.html" class="page-card">
+                <div class="page-number">PAGE 09</div>
+                <h2 class="page-title">Browser</h2>
+                <div class="page-description">Browser automation, web interaction, and agentic browsing</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_10_mind.html" class="page-card">
+                <div class="page-number">PAGE 10</div>
+                <h2 class="page-title">Mind</h2>
+                <div class="page-description">Cognitive frameworks and mental model extensions</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_11_genesis.html" class="page-card">
+                <div class="page-number">PAGE 11</div>
+                <h2 class="page-title">Genesis</h2>
+                <div class="page-description">Origin story, development journey, and system evolution</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_12_bernard.html" class="page-card">
+                <div class="page-number">PAGE 12</div>
+                <h2 class="page-title">Bernard</h2>
+                <div class="page-description">Advanced agent capabilities and autonomous systems</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_13_suggestions.html" class="page-card" id="closing">
+                <div class="page-number">PAGE 13</div>
+                <h2 class="page-title">Suggestions</h2>
+                <div class="page-description">System recommendations and optimization strategies</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_14_voice.html" class="page-card">
+                <div class="page-number">PAGE 14</div>
+                <h2 class="page-title">Voice</h2>
+                <div class="page-description">Voice interface, natural language processing, and audio systems</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_15_closing.html" class="page-card">
+                <div class="page-number">PAGE 15</div>
+                <h2 class="page-title">Closing</h2>
+                <div class="page-description">Conclusions, reflections, and future directions</div>
+                <div class="corner-accent"></div>
+            </a>
+
+            <a href="page_16_appendix.html" class="page-card">
+                <div class="page-number">PAGE 16</div>
+                <h2 class="page-title">Appendix</h2>
+                <div class="page-description">Technical specifications, hardware registry, and system metrics</div>
+                <div class="corner-accent"></div>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            JOHN MITTHS <span class="footer-year">2026</span> COGNITIVE ARCHITECTURE PORTFOLIO
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const container = document.querySelector('.mood-ball-container');
+            const ball = document.querySelector('.mood-ball');
+
+            if (!container || !ball) return;
+
+            // Mood states with color gradients
+            const moods = [
+                {
+                    name: 'calm',
+                    gradient: 'radial-gradient(circle at 30% 30%, rgba(212, 184, 150, 0.4) 0%, rgba(212, 184, 150, 0.2) 20%, rgba(180, 140, 100, 0.15) 40%, rgba(120, 80, 50, 0.1) 60%, rgba(8, 8, 8, 0) 100%)',
+                    glow: 1
+                },
+                {
+                    name: 'energized',
+                    gradient: 'radial-gradient(circle at 30% 30%, rgba(255, 200, 130, 0.5) 0%, rgba(240, 180, 120, 0.3) 20%, rgba(220, 160, 100, 0.2) 40%, rgba(180, 120, 70, 0.12) 60%, rgba(8, 8, 8, 0) 100%)',
+                    glow: 1.6
+                },
+                {
+                    name: 'contemplative',
+                    gradient: 'radial-gradient(circle at 30% 30%, rgba(180, 150, 120, 0.35) 0%, rgba(160, 130, 100, 0.18) 20%, rgba(140, 110, 80, 0.12) 40%, rgba(100, 80, 60, 0.08) 60%, rgba(8, 8, 8, 0) 100%)',
+                    glow: 0.7
+                },
+                {
+                    name: 'creative',
+                    gradient: 'radial-gradient(circle at 30% 30%, rgba(230, 200, 160, 0.45) 0%, rgba(210, 180, 140, 0.25) 20%, rgba(190, 150, 110, 0.18) 40%, rgba(150, 110, 80, 0.12) 60%, rgba(8, 8, 8, 0) 100%)',
+                    glow: 1.3
+                },
+                {
+                    name: 'focused',
+                    gradient: 'radial-gradient(circle at 30% 30%, rgba(200, 170, 140, 0.38) 0%, rgba(180, 150, 120, 0.2) 20%, rgba(160, 130, 100, 0.14) 40%, rgba(130, 100, 70, 0.1) 60%, rgba(8, 8, 8, 0) 100%)',
+                    glow: 0.9
+                }
+            ];
+
+            let currentMoodIndex = 0;
+            let rotateX = 0;
+            let rotateY = 0;
+            let targetRotateX = 0;
+            let targetRotateY = 0;
+            let animationFrame = null;
+
+            // Smooth animation loop
+            function animate() {
+                rotateX += (targetRotateX - rotateX) * 0.1;
+                rotateY += (targetRotateY - rotateY) * 0.1;
+
+                ball.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+                animationFrame = requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            // Mouse move handler
+            function handleMouseMove(e) {
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                const deltaX = e.clientX - centerX;
+                const deltaY = e.clientY - centerY;
+
+                targetRotateY = (deltaX / rect.width) * 30;
+                targetRotateX = -(deltaY / rect.height) * 30;
+            }
+
+            // Touch move handler
+            function handleTouchMove(e) {
+                if (e.touches.length > 0) {
+                    const touch = e.touches[0];
+                    const rect = container.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+
+                    const deltaX = touch.clientX - centerX;
+                    const deltaY = touch.clientY - centerY;
+
+                    targetRotateY = (deltaX / rect.width) * 30;
+                    targetRotateX = -(deltaY / rect.height) * 30;
+                }
+            }
+
+            // Reset rotation
+            function resetRotation() {
+                targetRotateX = 0;
+                targetRotateY = 0;
+            }
+
+            // Cycle through moods
+            function cycleMood() {
+                currentMoodIndex = (currentMoodIndex + 1) % moods.length;
+                const mood = moods[currentMoodIndex];
+
+                ball.style.background = mood.gradient;
+                ball.style.setProperty('--glow-intensity', mood.glow);
+
+                // Pulse effect on click
+                ball.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background 0.5s ease';
+                targetRotateX = 0;
+                targetRotateY = 360;
+
+                setTimeout(() => {
+                    ball.style.transition = 'transform 0.15s ease-out, box-shadow 0.3s ease, background 0.5s ease';
+                    targetRotateY = 0;
+                }, 600);
+            }
+
+            // Event listeners
+            container.addEventListener('mousemove', handleMouseMove);
+            container.addEventListener('mouseleave', resetRotation);
+            container.addEventListener('touchmove', handleTouchMove, { passive: true });
+            container.addEventListener('touchend', resetRotation);
+            container.addEventListener('click', cycleMood);
+            container.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+
+            // Cleanup
+            window.addEventListener('beforeunload', () => {
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -200,7 +200,7 @@
             position: relative;
             margin: 0 auto;
             overflow-x: hidden;
-            padding-bottom: 340px;
+            padding-bottom: 480px;
         }
 
         .frame {
@@ -318,6 +318,7 @@
         }
 
         .nav-bar {
+            margin-bottom: 100px;
             position: fixed;
             bottom: 0;
             left: 0;
@@ -366,6 +367,7 @@
 
         @media (max-width: 768px) {
             .nav-bar {
+            margin-bottom: 100px;
                 display: none;
             }
 
@@ -378,7 +380,7 @@
                 height: auto;
                 min-height: 100vh;
                 overflow-x: hidden;
-                padding-bottom: 140px;
+                padding-bottom: 200px;
             }
 
             .content {
@@ -465,7 +467,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-top: 1px solid #333;
-            z-index: 1000;
+            z-index: 100;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -675,7 +677,7 @@
         <h1 class="title animate-header-delay-1">Cognitive<br>Architecture</h1>
         <div class="subtitle animate-header-delay-2">Systems for extending the human mind</div>
 
-        <svg class="diagram animate-diagram" width="100%" height="auto" viewBox="0 0 1000 400">
+        <svg class="diagram animate-diagram" width="100%" viewBox="0 0 1000 400">
             <!-- Central node with glow -->
             <defs>
                 <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">

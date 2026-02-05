@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Footer Component</title>
+    <style>
+        /* Base styles for demo page */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            /* Add bottom padding to prevent content from being hidden under footer */
+            padding-bottom: 100px;
+        }
+
+        /* Demo content */
+        .demo-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .demo-content h1 {
+            color: #d4b896;
+            margin-bottom: 1rem;
+        }
+
+        .demo-content p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* ============================================
+           CONTACT FOOTER COMPONENT
+           Copy from here to use in other pages
+           ============================================ */
+
+        .contact-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(8, 8, 8, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid #333;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            width: 100%;
+            padding: 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            min-height: 44px;
+            min-width: 44px;
+            color: #d4b896;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-link:hover {
+            background: rgba(212, 184, 150, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .footer-link:active {
+            transform: translateY(0);
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #d4b896;
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover::after {
+            width: 80%;
+        }
+
+        .footer-icon {
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+
+        .footer-text {
+            display: inline;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .contact-footer {
+                height: auto;
+                min-height: 80px;
+                padding: 0.5rem 0;
+            }
+
+            .footer-content {
+                gap: 0.5rem;
+            }
+
+            .footer-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            /* Hide text on very small screens, keep icons */
+            @media (max-width: 480px) {
+                .footer-text {
+                    display: none;
+                }
+
+                .footer-link {
+                    padding: 0.75rem;
+                    justify-content: center;
+                }
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .contact-footer {
+                border-top: 2px solid #fff;
+            }
+
+            .footer-link {
+                color: #fff;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .footer-link {
+                transition: none;
+            }
+
+            .footer-link:hover {
+                transform: none;
+            }
+
+            .footer-link:active {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Demo content to show footer in context -->
+    <div class="demo-content">
+        <h1>Contact Footer Component Demo</h1>
+        <p>
+            This page demonstrates the contact footer component. The footer is fixed at the bottom
+            of the viewport and will remain visible as you scroll.
+        </p>
+        <p>
+            The footer includes links to Email, GitHub, LinkedIn, and Home. It features a backdrop
+            blur effect, responsive design, and touch-friendly targets (minimum 44px).
+        </p>
+        <p>
+            On mobile devices, the footer adapts to smaller screens. On very small screens (under 480px),
+            only icons are shown to save space.
+        </p>
+        <p>
+            To use this component in your portfolio pages, copy the HTML footer element and the CSS
+            from the marked section above. Don't forget to add <code>padding-bottom: 100px;</code>
+            to your body element to prevent content from being hidden under the footer.
+        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+
+    <!-- CONTACT FOOTER COMPONENT -->
+    <footer class="contact-footer">
+        <nav class="footer-content" role="navigation" aria-label="Contact and navigation">
+            <a href="mailto:your@email.com" class="footer-link" aria-label="Send email">
+                <span class="footer-icon">✉️</span>
+                <span class="footer-text">Email</span>
+            </a>
+
+            <a href="https://github.com/yourusername" class="footer-link" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub profile">
+                <span class="footer-icon">💻</span>
+                <span class="footer-text">GitHub</span>
+            </a>
+
+            <a href="https://linkedin.com/in/yourprofile" class="footer-link" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn profile">
+                <span class="footer-icon">💼</span>
+                <span class="footer-text">LinkedIn</span>
+            </a>
+
+            <a href="index.html" class="footer-link" aria-label="Return to home page">
+                <span class="footer-icon">🏠</span>
+                <span class="footer-text">Home</span>
+            </a>
+        </nav>
+    </footer>
+
+    <script>
+        // Optional: Add active link highlighting based on current page
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const footerLinks = document.querySelectorAll('.footer-link');
+
+            footerLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref && linkHref.includes(currentPage)) {
+                    link.style.background = 'rgba(212, 184, 150, 0.15)';
+                }
+            });
+        });
+
+        // Optional: Smooth scroll to top when clicking home from same page
+        document.querySelector('.footer-link[href*="index.html"]')?.addEventListener('click', function(e) {
+            if (window.location.pathname.endsWith('index.html') ||
+                window.location.pathname.endsWith('/')) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
