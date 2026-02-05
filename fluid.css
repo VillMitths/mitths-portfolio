@@ -6,8 +6,8 @@
 
 :root {
   /* === FLUID TYPOGRAPHY === */
-  /* Main titles - scales from mobile (28px) to desktop (72px) */
-  --fluid-title-xl: clamp(28px, 5vw, 72px);
+  /* Main titles - scales from mobile (32px) to desktop (76px) - WCAG compliant */
+  --fluid-title-xl: clamp(32px, 5.5vw, 76px);
 
   /* Section titles - scales from 24px to 56px */
   --fluid-title-lg: clamp(24px, 4vw, 56px);
@@ -18,17 +18,17 @@
   /* Small titles/eyebrows - scales from 10px to 22px */
   --fluid-title-sm: clamp(10px, 2vw, 22px);
 
-  /* Eyebrows/labels - scales from 12px to 16px (FIXED: was 8px min) */
-  --fluid-eyebrow: clamp(12px, 1.2vw, 16px);
+  /* Eyebrows/labels - scales from 14px to 18px - WCAG compliant */
+  --fluid-eyebrow: clamp(14px, 1.4vw, 18px);
 
-  /* Body text - scales from 14px to 18px (IMPROVED: was 12px min) */
-  --fluid-body: clamp(14px, 1.5vw, 18px);
+  /* Body text - scales from 16px to 20px - WCAG AA compliant */
+  --fluid-body: clamp(16px, 1.8vw, 20px);
 
-  /* Small text/captions - scales from 12px to 16px (FIXED: was 10px min) */
-  --fluid-small: clamp(12px, 1.2vw, 16px);
+  /* Small text/captions - scales from 14px to 18px - WCAG compliant */
+  --fluid-small: clamp(14px, 1.5vw, 18px);
 
-  /* Tiny labels - scales from 12px to 14px (FIXED: was 8px min) */
-  --fluid-tiny: clamp(12px, 1vw, 14px);
+  /* Tiny labels - scales from 14px to 17px - WCAG compliant */
+  --fluid-tiny: clamp(14px, 1.3vw, 17px);
 
   /* === FLUID SPACING === */
   /* Extra large spacing - page margins, section gaps */
@@ -50,17 +50,17 @@
   --fluid-space-xs: clamp(8px, 1.5vw, 20px);
 
   /* === FLUID SIZING === */
-  /* Decorative elements - corner brackets, icons */
-  --fluid-corner: clamp(30px, 5vw, 60px);
+  /* Decorative elements - corner brackets, icons - WCAG enhanced visibility */
+  --fluid-corner: clamp(40px, 6vw, 80px);
 
-  /* Circular decorations */
-  --fluid-circle: clamp(60px, 10vw, 120px);
+  /* Circular decorations - WCAG enhanced visibility */
+  --fluid-circle: clamp(100px, 15vw, 200px);
 
-  /* Navigation items, buttons */
-  --fluid-nav-item: clamp(32px, 4vw, 48px);
+  /* Navigation items, buttons - WCAG AA touch target (44px minimum) */
+  --fluid-nav-item: clamp(44px, 5vw, 56px);
 
-  /* Icon sizes */
-  --fluid-icon: clamp(16px, 2vw, 24px);
+  /* Icon sizes - WCAG enhanced visibility */
+  --fluid-icon: clamp(20px, 2.5vw, 28px);
 
   /* === FLUID LETTER SPACING === */
   /* Title letter spacing - scales proportionally */

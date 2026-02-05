@@ -9,9 +9,189 @@
     <link rel="stylesheet" href="quality.css">
 <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* ============================================
+           MOBILE NAVIGATION STYLES
+           ============================================ */
+
+        body.nav-open {
+            overflow: hidden;
+        }
+
+        .hamburger-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background-color: rgba(212, 184, 150, 0.1);
+            border: 1px solid #d4b896;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 10001;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-btn:hover {
+            background-color: rgba(212, 184, 150, 0.2);
+            transform: scale(1.05);
+        }
+
+        .hamburger-btn:active {
+            transform: scale(0.95);
+        }
+
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background-color: #d4b896;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: min(350px, 85vw);
+            height: 100%;
+            background-color: #0a0a0a;
+            border-left: 1px solid #d4b896;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 24px;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-drawer.active {
+            transform: translateX(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            border: 1px solid #d4b896;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #d4b896;
+            font-size: 24px;
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background-color: rgba(212, 184, 150, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .nav-content {
+            margin-top: 60px;
+        }
+
+        .nav-title {
+            font-size: 24px;
+            color: #d4b896;
+            margin-bottom: 32px;
+            font-weight: 600;
+        }
+
+        .nav-section {
+            margin-bottom: 32px;
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #d4b896;
+            opacity: 0.7;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 12px 16px;
+            min-height: 44px;
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(212, 184, 150, 0.1);
+            color: #d4b896;
+            padding-left: 24px;
+        }
+
+        .nav-link:active {
+            background-color: rgba(212, 184, 150, 0.2);
+        }
+
+        .nav-drawer::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .nav-drawer::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        .nav-drawer::-webkit-scrollbar-thumb {
+            background: #d4b896;
+            border-radius: 3px;
+        }
+
+        .nav-drawer::-webkit-scrollbar-thumb:hover {
+            background: #c4a886;
+        }
+
+        /* End Mobile Navigation Styles */
+
 
         body {
-            max-width: 1240px;
+            max-width: min(1240px, 90vw); max-width: 1240px;
             width: 100%;
             min-height: 100vh;
             background: #080808;
@@ -20,7 +200,7 @@
             position: relative;
             margin: 0 auto;
             overflow-x: hidden;
-            padding-bottom: 240px;
+            padding-bottom: 340px;
         }
 
         .frame {
@@ -56,7 +236,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            width: 900px;
+            width: min(900px, 90vw); max-width: 900px;
             margin-bottom: 150px;
             overflow-y: auto;
         }
@@ -184,155 +364,14 @@
             font-weight: 500;
         }
 
-        /* Mobile Hamburger Menu */
-        #menu-toggle {
-            display: none;
-        }
-
-        .hamburger-btn {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: #d4b896;
-            border-radius: 4px;
-            cursor: pointer;
-            z-index: 1001;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: all 0.3s;
-        }
-
-        .hamburger-btn span {
-            display: block;
-            width: 28px;
-            height: 3px;
-            background: #080808;
-            border-radius: 2px;
-            transition: all 0.3s;
-        }
-
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 300px;
-            height: 100vh;
-            background: #080808;
-            border-left: var(--fluid-border) solid #d4b896;
-            z-index: 1000;
-            transition: right 0.3s ease;
-            overflow-y: auto;
-            padding: 80px 20px 20px;
-        }
-
-        .mobile-menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--fluid-space-sm);
-            padding-bottom: 20px;
-            border-bottom: 1px solid #333;
-        }
-
-        .mobile-menu-title {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: var(--fluid-eyebrow);
-            color: #d4b896;
-            letter-spacing: var(--fluid-tracking-sm);
-            text-transform: uppercase;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: transparent;
-            border: var(--fluid-border) solid #d4b896;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: var(--fluid-title-sm);
-            color: #d4b896;
-            transition: all 0.2s;
-        }
-
-        .close-btn:hover {
-            background: #d4b896;
-            color: #080808;
-        }
-
-        .mobile-nav-item {
-            display: block;
-            padding: 18px 20px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: var(--fluid-eyebrow);
-            letter-spacing: var(--fluid-tracking-sm);
-            text-transform: uppercase;
-            color: #888;
-            background: #0c0c0c;
-            border: var(--fluid-border-thin) solid #222;
-            border-bottom: none;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .mobile-nav-item:last-child {
-            border-bottom: 1px solid #222;
-        }
-
-        .mobile-nav-item:hover {
-            color: #d4b896;
-            background: #111;
-            border-color: #333;
-            padding-left: 30px;
-        }
-
-        .mobile-nav-item.active {
-            background: #d4b896;
-            color: #080808;
-            border-color: #d4b896;
-            font-weight: 500;
-        }
-
-        /* Checkbox hack for menu toggle */
-        #menu-toggle:checked ~ .mobile-menu {
-            right: 0;
-        }
-
-        #menu-toggle:checked ~ .hamburger-btn span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-
-        #menu-toggle:checked ~ .hamburger-btn span:nth-child(2) {
-            opacity: 0;
-        }
-
-        #menu-toggle:checked ~ .hamburger-btn span:nth-child(3) {
-            transform: rotate(-45deg) translate(8px, -8px);
-        }
-
         @media (max-width: 768px) {
             .nav-bar {
                 display: none;
             }
 
-            .hamburger-btn {
-                display: flex;
-            }
+            
 
-            .mobile-menu {
-                display: block;
-            }
+            
 
             body {
                 width: 100%;
@@ -371,42 +410,261 @@
                 gap: 10px;
             }
         }
-    </style>
+    
+        @media (max-width: 1200px) {
+            .annotation-left, .annotation-right {
+                position: static !important;
+                margin: var(--fluid-space-sm) auto;
+                text-align: center;
+                width: 90vw;
+                max-width: 600px;
+            }
+
+            .content {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                transform: none !important;
+                width: 90vw !important;
+                max-width: 900px !important;
+                margin: var(--fluid-space) auto;
+                padding: var(--fluid-space);
+            }
+
+            .margin-note {
+                position: static !important;
+                width: 90vw !important;
+                max-width: 600px !important;
+                margin: var(--fluid-space-sm) auto;
+            }
+
+            .diagram-area {
+                position: relative !important;
+                left: 0 !important;
+                transform: none !important;
+                margin: var(--fluid-space) auto;
+            }
+
+            .footer {
+                padding: 0 var(--fluid-space) !important;
+            }
+        }
+
+        /* ============================================
+           CONTACT FOOTER COMPONENT
+           ============================================ */
+
+        .contact-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(8, 8, 8, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid #333;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-footer .footer-content {
+            max-width: 1200px;
+            width: 100%;
+            padding: 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            min-height: 44px;
+            min-width: 44px;
+            color: #d4b896;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-link:hover {
+            background: rgba(212, 184, 150, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .footer-link:active {
+            transform: translateY(0);
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #d4b896;
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover::after {
+            width: 80%;
+        }
+
+        .footer-icon {
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+
+        .footer-text {
+            display: inline;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .contact-footer {
+                height: auto;
+                min-height: 80px;
+                padding: 0.5rem 0;
+            }
+
+            .contact-footer .footer-content {
+                gap: 0.5rem;
+            }
+
+            .footer-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Hide text on very small screens, keep icons */
+        @media (max-width: 480px) {
+            .footer-text {
+                display: none;
+            }
+
+            .footer-link {
+                padding: 0.75rem;
+                justify-content: center;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .contact-footer {
+                border-top: 2px solid #fff;
+            }
+
+            .footer-link {
+                color: #fff;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .footer-link {
+                transition: none;
+            }
+
+            .footer-link:hover {
+                transform: none;
+            }
+
+            .footer-link:active {
+                transform: none;
+            }
+        }
+
+</style>
     <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="svg-responsive.css">
     <link rel="stylesheet" href="animations.css">
     <link rel="stylesheet" href="hover-effects.css">
 </head>
 <body>
-    <!-- Mobile Hamburger Menu -->
-    <input type="checkbox" id="menu-toggle">
-    <label for="menu-toggle" class="hamburger-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-    </label>
-    <nav class="mobile-menu">
-        <label for="menu-toggle" class="close-btn">✕</label>
-        <div class="mobile-menu-header">
-            <span class="mobile-menu-title">Navigation</span>
+    <!-- Mobile Navigation -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open navigation menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <nav class="nav-drawer" id="navDrawer">
+        <button class="close-btn" id="closeBtn" aria-label="Close navigation menu">&times;</button>
+
+        <div class="nav-content">
+            <h2 class="nav-title">Navigation</h2>
+
+            <div class="nav-section">
+                <h3 class="nav-section-title">Home</h3>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="nav-section-title">Introduction</h3>
+                <ul class="nav-links">
+                    <li><a href="page_01_title.html" class="nav-link">Title</a></li>
+                    <li><a href="page_02_philosophy.html" class="nav-link">Philosophy</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="nav-section-title">Architecture</h3>
+                <ul class="nav-links">
+                    <li><a href="page_03_topology.html" class="nav-link">Topology</a></li>
+                    <li><a href="page_04_models.html" class="nav-link">Models</a></li>
+                    <li><a href="page_05_memory.html" class="nav-link">Memory</a></li>
+                    <li><a href="page_06_obsidian.html" class="nav-link">Obsidian</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="nav-section-title">Projects</h3>
+                <ul class="nav-links">
+                    <li><a href="page_07_projects.html" class="nav-link">Overview</a></li>
+                    <li><a href="page_08_agenthub.html" class="nav-link">AgentHub</a></li>
+                    <li><a href="page_09_browser.html" class="nav-link">Browser Agent</a></li>
+                    <li><a href="page_10_mind.html" class="nav-link">Mind</a></li>
+                    <li><a href="page_11_genesis.html" class="nav-link">Genesis</a></li>
+                    <li><a href="page_12_bernard.html" class="nav-link">Bernard</a></li>
+                    <li><a href="page_13_suggestions.html" class="nav-link">Suggestions</a></li>
+                    <li><a href="page_14_voice.html" class="nav-link">Voice</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="nav-section-title">Appendix</h3>
+                <ul class="nav-links">
+                    <li><a href="page_15_closing.html" class="nav-link">Closing</a></li>
+                    <li><a href="page_16_appendix.html" class="nav-link">Appendix</a></li>
+                </ul>
+            </div>
         </div>
-        <a href="page_01_title.html" class="mobile-nav-item active">Title</a>
-        <a href="page_02_philosophy.html" class="mobile-nav-item">Philosophy</a>
-        <a href="page_03_topology.html" class="mobile-nav-item">Topology</a>
-        <a href="page_04_models.html" class="mobile-nav-item">Models</a>
-        <a href="page_05_memory.html" class="mobile-nav-item">Memory</a>
-        <a href="page_06_obsidian.html" class="mobile-nav-item"><strong>Obsidian</strong></a>
-        <a href="page_07_projects.html" class="mobile-nav-item">Projects</a>
-        <a href="page_08_agenthub.html" class="mobile-nav-item">Agents</a>
-        <a href="page_09_browser.html" class="mobile-nav-item">Browser</a>
-        <a href="page_10_mind.html" class="mobile-nav-item">Mind</a>
-        <a href="page_11_genesis.html" class="mobile-nav-item">Genesis</a>
-        <a href="page_12_bernard.html" class="mobile-nav-item"><strong>Bernard</strong></a>
-        <a href="page_13_suggestions.html" class="mobile-nav-item">Suggest</a>
-        <a href="page_14_voice.html" class="mobile-nav-item">Voice</a>
-        <a href="page_15_closing.html" class="mobile-nav-item">Closing</a>
-        <a href="page_16_appendix.html" class="mobile-nav-item">Appendix</a>
     </nav>
+    <!-- End Mobile Navigation -->
+
+
+    <!-- Mobile Hamburger Menu -->
+    
+    
+    
 
     <div class="frame"></div>
     <div class="corner-tl"></div>
@@ -520,5 +778,99 @@
         <span>2026</span>
         <span class="page-num">01</span>
     </div>
+
+    <!-- CONTACT FOOTER COMPONENT -->
+    <footer class="contact-footer">
+        <nav class="footer-content" role="navigation" aria-label="Contact and navigation">
+            <a href="mailto:your@email.com" class="footer-link" aria-label="Send email">
+                <span class="footer-icon">✉️</span>
+                <span class="footer-text">Email</span>
+            </a>
+
+            <a href="https://github.com/yourusername" class="footer-link" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub profile">
+                <span class="footer-icon">💻</span>
+                <span class="footer-text">GitHub</span>
+            </a>
+
+            <a href="https://linkedin.com/in/yourprofile" class="footer-link" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn profile">
+                <span class="footer-icon">💼</span>
+                <span class="footer-text">LinkedIn</span>
+            </a>
+
+            <a href="index.html" class="footer-link" aria-label="Return to home page">
+                <span class="footer-icon">🏠</span>
+                <span class="footer-text">Home</span>
+            </a>
+        </nav>
+    </footer>
+
+    <script>
+        // Optional: Add active link highlighting based on current page
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const footerLinks = document.querySelectorAll('.contact-footer .footer-link');
+
+            footerLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref && linkHref.includes(currentPage)) {
+                    link.style.background = 'rgba(212, 184, 150, 0.15)';
+                }
+            });
+        });
+
+        // Optional: Smooth scroll to top when clicking home from same page
+        document.querySelector('.contact-footer .footer-link[href*="index.html"]')?.addEventListener('click', function(e) {
+            if (window.location.pathname.endsWith('index.html') ||
+                window.location.pathname.endsWith('/')) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    </script>
+
+    <script>
+        // Mobile Navigation JavaScript
+        (function() {
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const closeBtn = document.getElementById('closeBtn');
+            const navOverlay = document.getElementById('navOverlay');
+            const navDrawer = document.getElementById('navDrawer');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const body = document.body;
+
+            function openNav() {
+                navOverlay.classList.add('active');
+                navDrawer.classList.add('active');
+                body.classList.add('nav-open');
+            }
+
+            function closeNav() {
+                navOverlay.classList.remove('active');
+                navDrawer.classList.remove('active');
+                body.classList.remove('nav-open');
+            }
+
+            if (hamburgerBtn) hamburgerBtn.addEventListener('click', openNav);
+            if (closeBtn) closeBtn.addEventListener('click', closeNav);
+            if (navOverlay) navOverlay.addEventListener('click', closeNav);
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', closeNav);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && navDrawer && navDrawer.classList.contains('active')) {
+                    closeNav();
+                }
+            });
+
+            if (navDrawer) {
+                navDrawer.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+        })();
+    </script>
+
 </body>
 </html>
