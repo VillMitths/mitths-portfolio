@@ -349,7 +349,7 @@
         }
 
         .principle p {
-            font-size: clamp(14px, 1.6vw, var(--fluid-body));
+            font-size: clamp(16px, 1.8vw, 20px);
             line-height: 1.9;
             color: #999;
             max-width: min(600px, 90vw); max-width: 600px;
@@ -358,7 +358,7 @@
 
         .principle .technical {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: var(--fluid-eyebrow);
+            font-size: clamp(14px, 1.5vw, 18px);
             color: #666;
             line-height: 1.7;
             margin-top: 12px;
@@ -397,7 +397,7 @@
             align-items: center;
             justify-content: center;
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 9px;
+            font-size: 11px;
             letter-spacing: 1px;
             text-transform: uppercase;
             color: #555;
@@ -830,7 +830,7 @@
 
     </div>
 
-    <svg class="animate-diagram diagram-area" width="100%" height="auto" viewBox="0 0 800 120">
+    <svg class="animate-diagram diagram-area" width="100%" viewBox="0 0 800 120">
         <line x1="0" y1="60" x2="800" y2="60" stroke="#333" stroke-width="2"/>
 
         <circle cx="100" cy="60" r="4" fill="#d4b896"/>

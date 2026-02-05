@@ -273,7 +273,7 @@
 
         .header {
             position: relative;
-            margin: 80px 0 0 80px;
+            margin: 80px 0 0 var(--fluid-space);
             z-index: 10;
         }
 
@@ -303,7 +303,7 @@
 
         .model-grid {
             position: relative;
-            margin: 40px 80px;
+            margin: 40px var(--fluid-space);
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: var(--fluid-gap) 60px;
@@ -352,7 +352,7 @@
         }
 
         .model-desc {
-            font-size: clamp(12px, 1.4vw, var(--fluid-eyebrow));
+            font-size: clamp(16px, 1.8vw, 20px);
             line-height: 1.8;
             color: #888;
         }
@@ -375,7 +375,7 @@
         }
 
         .stat-label {
-            font-size: clamp(10px, 1.2vw, 11px);
+            font-size: clamp(14px, 1.5vw, 16px);
             color: #555;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -390,7 +390,7 @@
 
         .<strong>latency</strong>-chart {
             position: relative;
-            margin: 40px 80px;
+            margin: 40px var(--fluid-space);
             z-index: 5;
             background: #080808;
         }
@@ -399,11 +399,11 @@
             position: relative;
             height: 1px;
             background: linear-gradient(90deg, transparent, #333, transparent);
-            margin: 40px 80px;
+            margin: 40px var(--fluid-space);
         }
 
         .decorative-line-mid {
-            margin: 60px 80px 40px 80px;
+            margin: 60px var(--fluid-space) 40px var(--fluid-space);
         }
 
         .accent-dot {
@@ -595,7 +595,7 @@
             font-size: var(--fluid-eyebrow);
             color: #555;
             letter-spacing: var(--fluid-tracking-sm);
-            padding: 0 80px;
+            padding: 0 var(--fluid-space);
             z-index: 999;
         }
 
@@ -1009,7 +1009,7 @@
         </div>
     </div>
 
-    <svg class="animate-diagram routing-diagram" width="100%" height="auto" viewBox="0 0 900 140">
+    <svg class="animate-diagram routing-diagram" width="100%" viewBox="0 0 900 140">
         <defs>
             <filter id="glow-routing" x="-50%" y="-50%" width="200%" height="200%">
                 <feGaussianBlur stdDeviation="4" result="blur"/>
@@ -1023,11 +1023,11 @@
         <line x1="50" y1="70" x2="850" y2="70" stroke="#333" stroke-width="1.5"/>
 
         <circle cx="50" cy="70" r="7" fill="#d4b896" filter="url(#glow-routing)"/>
-        <text x="50" y="100" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="11">INPUT</text>
+        <text x="50" y="100" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="15">INPUT</text>
 
         <rect x="140" y="45" width="120" height="50" fill="#111" stroke="#555" stroke-width="1.5" rx="3"/>
-        <text x="200" y="76" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="12">CLASSIFY</text>
-        <text x="200" y="30" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="10" font-weight="bold">Llama 1B · 50ms</text>
+        <text x="200" y="76" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="16">CLASSIFY</text>
+        <text x="200" y="30" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="14" font-weight="bold">Llama 1B · 50ms</text>
 
         <circle cx="350" cy="70" r="5" fill="#555"/>
 
@@ -1036,13 +1036,13 @@
         <line x1="350" y1="70" x2="450" y2="118" stroke="#444" stroke-width="1.5"/>
 
         <rect x="450" y="7" width="100" height="30" fill="#111" stroke="#d4b896" stroke-width="1.5" rx="3" filter="url(#glow-routing)"/>
-        <text x="500" y="29" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="10" font-weight="bold">REASONING</text>
+        <text x="500" y="29" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="14" font-weight="bold">REASONING</text>
 
         <rect x="450" y="54" width="100" height="30" fill="#111" stroke="#888" stroke-width="1.5" rx="3"/>
-        <text x="500" y="76" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="10">BALANCED</text>
+        <text x="500" y="76" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="14">BALANCED</text>
 
         <rect x="450" y="101" width="100" height="30" fill="#111" stroke="#555" stroke-width="1.5" rx="3"/>
-        <text x="500" y="123" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10">FAST</text>
+        <text x="500" y="123" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="14">FAST</text>
 
         <line x1="550" y1="23" x2="650" y2="70" stroke="#444" stroke-width="1.5"/>
         <line x1="550" y1="70" x2="650" y2="70" stroke="#444" stroke-width="1.5"/>
@@ -1051,10 +1051,10 @@
         <circle cx="650" cy="70" r="5" fill="#555"/>
 
         <rect x="690" y="45" width="120" height="50" fill="#111" stroke="#555" stroke-width="1.5" rx="3"/>
-        <text x="750" y="76" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="12">RESPONSE</text>
+        <text x="750" y="76" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="16">RESPONSE</text>
 
         <circle cx="850" cy="70" r="7" fill="#d4b896" filter="url(#glow-routing)"/>
-        <text x="850" y="100" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="11">OUTPUT</text>
+        <text x="850" y="100" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="15">OUTPUT</text>
     </svg>
 
         <div class="nav-bar" style="position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 1000 !important;">

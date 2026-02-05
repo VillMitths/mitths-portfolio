@@ -322,7 +322,7 @@
         }
 
         .decorative-line-top {
-            margin: 0 80px;
+            margin: 0 var(--fluid-space);
         }
 
         .accent-dot {
@@ -509,7 +509,7 @@
             font-size: var(--fluid-eyebrow);
             color: #555;
             letter-spacing: var(--fluid-tracking-sm);
-            padding: 0 80px;
+            padding: 0 var(--fluid-space);
             z-index: 999;
         }
 
@@ -791,7 +791,7 @@
     </div>
 
     <div class="memory-flow">
-        <svg class="animate-diagram" width="100%" height="auto" viewBox="0 0 1080 800">
+        <svg class="animate-diagram" width="100%" viewBox="0 0 1080 800">
             <defs>
                 <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
                     <feGaussianBlur stdDeviation="8" result="blur"/>
@@ -814,69 +814,69 @@
 
             <!-- Layer 1: Session -->
             <rect x="40" y="50" fill="#0c0c0c" stroke="#d4b896" stroke-width="2.5" rx="4" filter="url(#subtle-glow)"/>
-            <text x="150" y="75" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="11">L1 · CONTEXT</text>
-            <text x="150" y="98" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="16" font-weight="500">SESSION</text>
-            <text x="150" y="120" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10">Active conversation</text>
+            <text x="150" y="75" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="16">L1 · CONTEXT</text>
+            <text x="150" y="98" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="20" font-weight="500">SESSION</text>
+            <text x="150" y="120" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="14">Active conversation</text>
 
             <!-- Arrow to <strong>SQLite</strong> -->
             <line x1="260" y1="95" x2="290" y2="95" stroke="#d4b896" stroke-width="2.5" marker-end="url(#arrow)"/>
-            <text x="275" y="85" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="9">persist</text>
+            <text x="275" y="85" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="13">persist</text>
 
             <!-- Layer 2: <strong>SQLite</strong> -->
             <rect x="290" y="50" width="220" height="90" fill="#0c0c0c" stroke="#d4b896" stroke-width="2.5" rx="4" filter="url(#glow)"/>
-            <text x="400" y="75" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="11">L2 · STRUCTURED</text>
+            <text x="400" y="75" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="16">L2 · STRUCTURED</text>
             <text x="400" y="98" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="16" font-weight="bold">SQLITE</text>
-            <text x="400" y="120" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10">Facts · Errors · Decisions</text>
+            <text x="400" y="120" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="14">Facts · Errors · Decisions</text>
 
             <!-- Arrow to Pattern Extraction -->
             <line x1="400" y1="140" x2="400" y2="190" stroke="#d4b896" stroke-width="2.5" marker-end="url(#arrow)"/>
-            <text x="425" y="165" text-anchor="start" fill="#666" font-family="IBM Plex Mono" font-size="9">extract</text>
+            <text x="425" y="165" text-anchor="start" fill="#666" font-family="IBM Plex Mono" font-size="13">extract</text>
 
             <!-- Pattern Extraction -->
             <rect x="290" y="190" fill="#111" stroke="#555" stroke-width="2.5" rx="4" filter="url(#subtle-glow)"/>
-            <text x="400" y="215" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="12">PATTERN EXTRACTION</text>
-            <text x="400" y="237" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10">What worked?</text>
-            <text x="400" y="253" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10">What failed?</text>
-            <text x="400" y="269" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10">User preferences?</text>
+            <text x="400" y="215" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="17">PATTERN EXTRACTION</text>
+            <text x="400" y="237" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="14">What worked?</text>
+            <text x="400" y="253" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="14">What failed?</text>
+            <text x="400" y="269" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="14">User preferences?</text>
 
             <!-- Arrow to <strong>Obsidian</strong> -->
             <line x1="510" y1="235" x2="630" y2="235" stroke="#d4b896" stroke-width="2.5" marker-end="url(#arrow)"/>
-            <text x="570" y="225" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="9">write notes</text>
+            <text x="570" y="225" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="13">write notes</text>
 
             <!-- <strong>Obsidian</strong> Vault (large, central) -->
             <rect x="630" y="150" width="420" height="290" fill="#0a0a0a" stroke="#d4b896" stroke-width="3" rx="8" filter="url(#glow)"/>
-            <text x="840" y="190" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="20" font-weight="bold">OBSIDIAN VAULT</text>
-            <text x="840" y="213" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="12">Markdown-based knowledge management system</text>
+            <text x="840" y="190" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="26" font-weight="bold">OBSIDIAN VAULT</text>
+            <text x="840" y="213" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="17">Markdown-based knowledge management system</text>
 
             <!-- What is <strong>Obsidian</strong> explanation -->
-            <text x="840" y="245" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="11">Local files · No cloud dependency</text>
-            <text x="840" y="263" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="11">Bidirectional links create knowledge graphs</text>
+            <text x="840" y="245" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="16">Local files · No cloud dependency</text>
+            <text x="840" y="263" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="16">Bidirectional links create knowledge graphs</text>
 
             <!-- Note types in <strong>Obsidian</strong> -->
             <rect x="650" y="285" fill="#0c0c0c" stroke="#444" stroke-width="1.5" rx="4"/>
-            <text x="740" y="305" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="11">NOTE TYPES</text>
-            <text x="660" y="325" fill="#666" font-family="IBM Plex Mono" font-size="10">· Daily notes</text>
-            <text x="660" y="341" fill="#666" font-family="IBM Plex Mono" font-size="10">· Project notes</text>
-            <text x="660" y="357" fill="#666" font-family="IBM Plex Mono" font-size="10">· Person notes</text>
-            <text x="660" y="373" fill="#666" font-family="IBM Plex Mono" font-size="10">· Decision logs</text>
-            <text x="660" y="389" fill="#666" font-family="IBM Plex Mono" font-size="10">· Error patterns</text>
-            <text x="660" y="405" fill="#666" font-family="IBM Plex Mono" font-size="10">· Dream journal</text>
-            <text x="660" y="421" fill="#666" font-family="IBM Plex Mono" font-size="10">· Shadow work</text>
+            <text x="740" y="305" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="16">NOTE TYPES</text>
+            <text x="660" y="325" fill="#666" font-family="IBM Plex Mono" font-size="14">· Daily notes</text>
+            <text x="660" y="341" fill="#666" font-family="IBM Plex Mono" font-size="14">· Project notes</text>
+            <text x="660" y="357" fill="#666" font-family="IBM Plex Mono" font-size="14">· Person notes</text>
+            <text x="660" y="373" fill="#666" font-family="IBM Plex Mono" font-size="14">· Decision logs</text>
+            <text x="660" y="389" fill="#666" font-family="IBM Plex Mono" font-size="14">· Error patterns</text>
+            <text x="660" y="405" fill="#666" font-family="IBM Plex Mono" font-size="14">· Dream journal</text>
+            <text x="660" y="421" fill="#666" font-family="IBM Plex Mono" font-size="14">· Shadow work</text>
 
             <rect x="850" y="285" fill="#0c0c0c" stroke="#444" stroke-width="1.5" rx="4"/>
-            <text x="940" y="305" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="11">CONNECTIONS</text>
-            <text x="860" y="325" fill="#666" font-family="IBM Plex Mono" font-size="10">· Memory Watcher</text>
-            <text x="860" y="341" fill="#666" font-family="IBM Plex Mono" font-size="10">· Writer Agent</text>
-            <text x="860" y="357" fill="#666" font-family="IBM Plex Mono" font-size="10">· Guardian Agent</text>
-            <text x="860" y="373" fill="#666" font-family="IBM Plex Mono" font-size="10">· Gmail Extractor</text>
-            <text x="860" y="389" fill="#666" font-family="IBM Plex Mono" font-size="10">· Browser Agent</text>
-            <text x="860" y="405" fill="#666" font-family="IBM Plex Mono" font-size="10">· Telegram Bot</text>
+            <text x="940" y="305" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="16">CONNECTIONS</text>
+            <text x="860" y="325" fill="#666" font-family="IBM Plex Mono" font-size="14">· Memory Watcher</text>
+            <text x="860" y="341" fill="#666" font-family="IBM Plex Mono" font-size="14">· Writer Agent</text>
+            <text x="860" y="357" fill="#666" font-family="IBM Plex Mono" font-size="14">· Guardian Agent</text>
+            <text x="860" y="373" fill="#666" font-family="IBM Plex Mono" font-size="14">· Gmail Extractor</text>
+            <text x="860" y="389" fill="#666" font-family="IBM Plex Mono" font-size="14">· Browser Agent</text>
+            <text x="860" y="405" fill="#666" font-family="IBM Plex Mono" font-size="14">· Telegram Bot</text>
 
             <!-- Layer 3: Project Knowledge -->
             <rect x="40" y="190" fill="#0c0c0c" stroke="#555" stroke-width="2.5" rx="4" filter="url(#subtle-glow)"/>
-            <text x="150" y="217" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="11">L3 · CODEBASE</text>
+            <text x="150" y="217" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="16">L3 · CODEBASE</text>
             <text x="150" y="240" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="15" font-weight="bold">LOCAL BRAIN</text>
-            <text x="150" y="263" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10" font-weight="bold">23K chunks · Qdrant</text>
+            <text x="150" y="263" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="14" font-weight="bold">23K chunks · Qdrant</text>
 
             <!-- Arrow from <strong>Local Brain</strong> to <strong>Obsidian</strong> -->
             <line x1="260" y1="235" x2="380" y2="235" stroke="#555" stroke-width="1.5" stroke-dasharray="5,4"/>
@@ -884,42 +884,42 @@
 
             <!-- Layer 4: Long-term -->
             <rect x="40" y="330" fill="#0c0c0c" stroke="#555" stroke-width="2.5" rx="4" filter="url(#subtle-glow)"/>
-            <text x="150" y="357" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="11">L4 · LONG-TERM</text>
+            <text x="150" y="357" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="16">L4 · LONG-TERM</text>
             <text x="150" y="380" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="15">VECTORS</text>
-            <text x="150" y="403" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="10" font-weight="bold">5.4GB · 400+ sessions</text>
+            <text x="150" y="403" text-anchor="middle" fill="#666" font-family="IBM Plex Mono" font-size="14" font-weight="bold">5.4GB · 400+ sessions</text>
 
             <!-- Arrow from Vectors to <strong>Obsidian</strong> -->
             <line x1="260" y1="375" x2="630" y2="375" stroke="#555" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
 
             <!-- Example flows -->
-            <text x="540" y="490" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="11" font-weight="500">REAL EXAMPLES</text>
+            <text x="540" y="490" text-anchor="middle" fill="#888" font-family="IBM Plex Mono" font-size="20" font-weight="500">REAL EXAMPLES</text>
 
             <!-- Example 1 -->
             <rect x="50" y="510" width="300" height="100" fill="#0a0a0a" stroke="#444" stroke-width="1.5" rx="3"/>
-            <text x="200" y="530" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="10">Daily Note Created</text>
-            <text x="60" y="550" fill="#666" font-family="Cormorant Garamond" font-size="11">Session: "Struggled with anxiety today"</text>
-            <text x="60" y="565" fill="#666" font-family="Cormorant Garamond" font-size="11" font-weight="bold">→ SQLite: Decision to process shadow work</text>
-            <text x="60" y="580" fill="#666" font-family="Cormorant Garamond" font-size="11">→ Pattern: Triggers Writer Agent template</text>
-            <text x="60" y="595" fill="#888" font-family="Cormorant Garamond" font-size="11" font-weight="bold">→ Obsidian: Creates reflection note with prompts</text>
+            <text x="200" y="530" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="14">Daily Note Created</text>
+            <text x="60" y="550" fill="#666" font-family="Cormorant Garamond" font-size="16">Session: "Struggled with anxiety today"</text>
+            <text x="60" y="565" fill="#666" font-family="Cormorant Garamond" font-size="16" font-weight="bold">→ SQLite: Decision to process shadow work</text>
+            <text x="60" y="580" fill="#666" font-family="Cormorant Garamond" font-size="16">→ Pattern: Triggers Writer Agent template</text>
+            <text x="60" y="595" fill="#888" font-family="Cormorant Garamond" font-size="16" font-weight="bold">→ Obsidian: Creates reflection note with prompts</text>
 
             <!-- Example 2 -->
             <rect x="380" y="510" width="300" height="100" fill="#0a0a0a" stroke="#444" stroke-width="1.5" rx="3"/>
-            <text x="530" y="530" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="10">Error Encountered</text>
-            <text x="390" y="550" fill="#666" font-family="Cormorant Garamond" font-size="11">Session: Module not found in Python</text>
-            <text x="390" y="565" fill="#666" font-family="Cormorant Garamond" font-size="11">→ Memory: Check past errors (found 3 similar)</text>
-            <text x="390" y="580" fill="#666" font-family="Cormorant Garamond" font-size="11">→ Solution: Virtual environment activation</text>
-            <text x="390" y="595" fill="#888" font-family="Cormorant Garamond" font-size="11">→ Recorded: Pattern strengthened</text>
+            <text x="530" y="530" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="14">Error Encountered</text>
+            <text x="390" y="550" fill="#666" font-family="Cormorant Garamond" font-size="16">Session: Module not found in Python</text>
+            <text x="390" y="565" fill="#666" font-family="Cormorant Garamond" font-size="16">→ Memory: Check past errors (found 3 similar)</text>
+            <text x="390" y="580" fill="#666" font-family="Cormorant Garamond" font-size="16">→ Solution: Virtual environment activation</text>
+            <text x="390" y="595" fill="#888" font-family="Cormorant Garamond" font-size="16">→ Recorded: Pattern strengthened</text>
 
             <!-- Example 3 -->
             <rect x="710" y="510" width="330" height="100" fill="#0a0a0a" stroke="#444" stroke-width="1.5" rx="3"/>
-            <text x="875" y="530" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="10">Vault Health Check</text>
-            <text x="720" y="550" fill="#666" font-family="Cormorant Garamond" font-size="11" font-weight="bold">Guardian: Scanned 2047 notes in 30 seconds</text>
-            <text x="720" y="565" fill="#666" font-family="Cormorant Garamond" font-size="11">→ Found: 847 orphans, 23 broken links</text>
-            <text x="720" y="580" fill="#666" font-family="Cormorant Garamond" font-size="11">→ Suggested: 156 potential connections</text>
-            <text x="720" y="595" fill="#888" font-family="Cormorant Garamond" font-size="11" font-weight="bold">→ Obsidian: Updated graph structure</text>
+            <text x="875" y="530" text-anchor="middle" fill="#d4b896" font-family="IBM Plex Mono" font-size="14">Vault Health Check</text>
+            <text x="720" y="550" fill="#666" font-family="Cormorant Garamond" font-size="16" font-weight="bold">Guardian: Scanned 2047 notes in 30 seconds</text>
+            <text x="720" y="565" fill="#666" font-family="Cormorant Garamond" font-size="16">→ Found: 847 orphans, 23 broken links</text>
+            <text x="720" y="580" fill="#666" font-family="Cormorant Garamond" font-size="16">→ Suggested: 156 potential connections</text>
+            <text x="720" y="595" fill="#888" font-family="Cormorant Garamond" font-size="16" font-weight="bold">→ Obsidian: Updated graph structure</text>
 
             <!-- Bidirectional flow indicator -->
-            <text x="540" y="650" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="10" letter-spacing="2">BIDIRECTIONAL KNOWLEDGE FLOW</text>
+            <text x="540" y="650" text-anchor="middle" fill="#555" font-family="IBM Plex Mono" font-size="14" letter-spacing="2">BIDIRECTIONAL KNOWLEDGE FLOW</text>
             <line x1="300" y1="660" x2="780" y2="660" stroke="#333" stroke-width="1.5"/>
             <polygon points="300,655 300,665 285,660" fill="#333"/>
             <polygon points="780,655 780,665 795,660" fill="#333"/>
