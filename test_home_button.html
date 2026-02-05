@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME Button Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a;
+            color: #d4b896;
+            font-family: system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* HOME BUTTON STYLES (from portfolio pages) */
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 10000;
+            width: 48px;
+            height: 48px;
+            background: transparent;
+            border: 2px solid #d4b896;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #d4b896;
+            font-size: 20px;
+        }
+
+        .home-btn:hover {
+            background: rgba(212, 184, 150, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 184, 150, 0.3);
+        }
+
+        .home-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Hamburger button for comparison */
+        .hamburger-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background-color: rgba(212, 184, 150, 0.1);
+            border: 1px solid #d4b896;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 10001;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background-color: #d4b896;
+            border-radius: 2px;
+        }
+
+        .content {
+            padding: 100px 40px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #d4b896;
+            margin-bottom: 20px;
+        }
+
+        .test-section {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .test-section h2 {
+            color: #d4b896;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .test-section p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checklist li::before {
+            content: "☐ ";
+            color: #d4b896;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .home-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+            }
+
+            .content {
+                padding: 80px 20px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HOME BUTTON -->
+    <a href="index.html" class="home-btn" aria-label="Return to homepage">
+        🏠
+    </a>
+
+    <!-- Hamburger button for visual comparison -->
+    <button class="hamburger-btn" aria-label="Open navigation menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+
+    <div class="content">
+        <h1>HOME Button Test Page</h1>
+
+        <div class="test-section">
+            <h2>Visual Check</h2>
+            <p>You should see:</p>
+            <ul class="checklist">
+                <li>🏠 HOME button in top-left corner (this page)</li>
+                <li>☰ Hamburger menu in top-right corner</li>
+                <li>Both buttons have gold borders (#d4b896)</li>
+                <li>Both buttons are 48px × 48px (44px on mobile)</li>
+                <li>Both buttons are positioned 20px from their respective corners</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>Interaction Check</h2>
+            <ul class="checklist">
+                <li>Hover over HOME button - should lift up 2px with glow effect</li>
+                <li>Click HOME button - should navigate to index.html</li>
+                <li>Button should maintain fixed position when scrolling</li>
+                <li>Button should be keyboard accessible (Tab to focus, Enter to click)</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>Responsive Check</h2>
+            <ul class="checklist">
+                <li>Resize window to &lt;768px width</li>
+                <li>HOME button should shrink to 44px × 44px</li>
+                <li>Icon should shrink to 18px font size</li>
+                <li>Button should remain touch-friendly (≥44px)</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>Accessibility Check</h2>
+            <ul class="checklist">
+                <li>Screen reader should announce "Return to homepage"</li>
+                <li>Button should be focusable via keyboard (Tab key)</li>
+                <li>Button should be activatable via Enter/Space keys</li>
+                <li>Button should have sufficient color contrast</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>Cross-Page Verification</h2>
+            <p>Test these pages to ensure consistency:</p>
+            <ul class="checklist">
+                <li>page_01_title.html</li>
+                <li>page_08_agenthub.html</li>
+                <li>page_16_appendix.html</li>
+            </ul>
+        </div>
+
+        <div class="test-section" style="margin-bottom: 100vh;">
+            <h2>Scroll Test</h2>
+            <p>Scroll down this page. The HOME button should remain fixed in the top-left corner and always be accessible.</p>
+        </div>
+    </div>
+</body>
+</html>

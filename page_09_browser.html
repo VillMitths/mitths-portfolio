@@ -8,6 +8,47 @@
     <link rel="stylesheet" href="resize-smooth.css">
     <link rel="stylesheet" href="quality.css">
 <style>
+        /* ============================================
+           HOME BUTTON STYLES
+           ============================================ */
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 10000;
+            width: 48px;
+            height: 48px;
+            background: transparent;
+            border: 2px solid #d4b896;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #d4b896;
+            font-size: 20px;
+        }
+
+        .home-btn:hover {
+            background: rgba(212, 184, 150, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 184, 150, 0.3);
+        }
+
+        .home-btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .home-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+            }
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         /* ============================================
            MOBILE NAVIGATION STYLES
@@ -669,6 +710,11 @@
     <link rel="stylesheet" href="hover-effects.css">
 </head>
 <body>
+    <!-- HOME BUTTON -->
+    <a href="index.html" class="home-btn" aria-label="Return to homepage">
+        🏠
+    </a>
+
     <!-- Mobile Navigation -->
     <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open navigation menu">
         <span class="hamburger-line"></span>
