@@ -272,9 +272,9 @@
         }
 
         .header {
-            position: absolute;
-            top: 80px;
-            left: var(--fluid-space);
+            position: relative;
+            margin: 80px 80px 0;
+            z-index: 10;
         }
 
         .section-num {
@@ -294,10 +294,9 @@
         }
 
         .why-matters {
-            position: absolute;
-            top: 180px;
-            left: var(--fluid-space);
-            right: var(--fluid-space);
+            position: relative;
+            margin: 30px 80px 0;
+            z-index: 10;
         }
 
         .why-title {
@@ -331,10 +330,11 @@
 
         .projects-grid {
             position: relative;
-            margin: 40px 80px 60px;
+            margin: 30px 80px 180px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: var(--fluid-gap-xs);
+            z-index: 10;
         }
 
         .project {
