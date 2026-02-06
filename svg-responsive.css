@@ -7,10 +7,11 @@ svg {
     display: block;
 }
 
-/* Wide diagrams need horizontal scroll on small screens */
+/* Keep wide viewBox SVGs within mobile viewport */
 svg[viewBox*="900"] {
-    min-width: 700px;
-    overflow-x: auto;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
 }
 
 /* Diagram containers - mobile first */

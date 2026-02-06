@@ -122,8 +122,8 @@
             height: 100%;
             background-color: #0a0a0a;
             border-left: 1px solid #d4b896;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
+            display: none;
+            transition: none;
             z-index: 1000;
             overflow-y: auto;
             padding: 24px;
@@ -131,7 +131,7 @@
         }
 
         .nav-drawer.active {
-            transform: translateX(0);
+            display: block;
         }
 
         .close-btn {
@@ -232,7 +232,7 @@
 
 
         body {
-            max-width: min(1240px, 90vw); max-width: 1240px;
+            max-width: min(1240px, 90vw);
             width: 100%;
             min-height: 100vh;
             background: #080808;
@@ -274,7 +274,7 @@
         .header {
             position: absolute;
             top: 80px;
-            left: 80px;
+            left: var(--fluid-space);
         }
 
         .section-num {
@@ -296,8 +296,8 @@
         .why-matters {
             position: absolute;
             top: 180px;
-            left: 80px;
-            right: 80px;
+            left: var(--fluid-space);
+            right: var(--fluid-space);
         }
 
         .why-title {
@@ -394,7 +394,7 @@
 
         .footer {
             position: fixed;
-            bottom: 70px;
+            bottom: 150px;
             left: 0;
             right: 0;
             display: flex;
@@ -412,13 +412,14 @@
         }
 
         .nav-bar {
-            margin-bottom: 100px;
             position: fixed;
-            bottom: 0;
+            bottom: 80px;
             left: 0;
             right: 0;
             height: 60px;
-            background: linear-gradient(to bottom, #0a0a0a, #080808);
+            background: rgba(8, 8, 8, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: var(--fluid-border-thin) solid #2a2a2a;
             display: flex;
             align-items: center;
@@ -461,7 +462,6 @@
 
                 @media (max-width: 768px) {
             .nav-bar {
-            margin-bottom: 100px;
                 display: none;
             }
 
@@ -474,7 +474,7 @@
                 height: auto;
                 min-height: 100vh;
                 overflow-x: hidden;
-                padding-bottom: 200px;
+                padding-bottom: 170px;
             }
 
             .content {
@@ -492,12 +492,38 @@
                 gap: var(--fluid-gap);
             }
 
-            .diagram {
-                width: 100%;
-                height: auto;
-            }
+                .diagram {
+                    width: 100%;
+                    height: auto;
+                }
 
-            .footer {
+                .header {
+                    position: relative;
+                    top: auto;
+                    left: auto;
+                    margin: 80px var(--fluid-space-sm) 0;
+                }
+
+                .why-matters {
+                    position: relative;
+                    top: auto;
+                    left: auto;
+                    right: auto;
+                    margin: var(--fluid-space-sm);
+                }
+
+                .why-grid {
+                    grid-template-columns: 1fr;
+                    gap: var(--fluid-gap-sm);
+                }
+
+                .projects-grid {
+                    margin: var(--fluid-space-sm);
+                    grid-template-columns: 1fr;
+                    gap: var(--fluid-gap-sm);
+                }
+
+                .footer {
                 position: fixed;
                 bottom: 70px;
                 left: 0;
@@ -562,7 +588,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-top: 1px solid #333;
-            z-index: 100;
+            z-index: 998;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -893,7 +919,7 @@
         </div>
     </div>
 
-        <div class="nav-bar" style="position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 1000 !important;">
+        <div class="nav-bar">
         <a href="page_01_title.html" class="nav-item">Title</a>
         <a href="page_02_philosophy.html" class="nav-item">Philosophy</a>
         <a href="page_03_topology.html" class="nav-item">Topology</a>
@@ -912,7 +938,7 @@
         <a href="page_16_appendix.html" class="nav-item">Appendix</a>
     </div>
 
-    <div class="footer animate-footer" style="position: fixed !important; bottom: 70px !important; left: 0 !important; right: 0 !important; z-index: 999 !important;">
+    <div class="footer animate-footer">
         <span>JOHN MITTHS</span>
         <span><strong>COGNITIVE ARCHITECTURE</strong></span>
         <span class="page-num">07</span>

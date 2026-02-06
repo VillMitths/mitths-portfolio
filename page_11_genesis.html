@@ -122,8 +122,8 @@
             height: 100%;
             background-color: #0a0a0a;
             border-left: 1px solid #d4b896;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
+            display: none;
+            transition: none;
             z-index: 1000;
             overflow-y: auto;
             padding: 24px;
@@ -131,7 +131,7 @@
         }
 
         .nav-drawer.active {
-            transform: translateX(0);
+            display: block;
         }
 
         .close-btn {
@@ -232,7 +232,7 @@
 
 
         body {
-            max-width: min(1240px, 90vw); max-width: 1240px;
+            max-width: min(1240px, 90vw);
             width: 100%;
             min-height: 100vh;
             background: #080808;
@@ -374,7 +374,7 @@
             content: 'KEY INSIGHT';
             position: absolute;
             top: -10px;
-            left: 30px;
+            left: var(--fluid-space-xs);
             background: #080808;
             padding: 0 15px;
             font-family: 'IBM Plex Mono', monospace;
@@ -455,7 +455,7 @@
 
         .footer {
             position: fixed;
-            bottom: 70px;
+            bottom: 150px;
             left: 0;
             right: 0;
             display: flex;
@@ -474,13 +474,14 @@
         }
 
         .nav-bar {
-            margin-bottom: 100px;
             position: fixed;
-            bottom: 0;
+            bottom: 80px;
             left: 0;
             right: 0;
             height: 60px;
-            background: linear-gradient(to bottom, #0a0a0a, #080808);
+            background: rgba(8, 8, 8, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: var(--fluid-border-thin) solid #2a2a2a;
             display: flex;
             align-items: center;
@@ -524,7 +525,6 @@
 
                 @media (max-width: 768px) {
             .nav-bar {
-            margin-bottom: 100px;
                 display: none;
             }
 
@@ -537,7 +537,7 @@
                 height: auto;
                 min-height: 100vh;
                 overflow-x: hidden;
-                padding-bottom: 200px;
+                padding-bottom: 170px;
             }
 
             .content {
@@ -558,6 +558,34 @@
             .diagram {
                 width: 100%;
                 height: auto;
+            }
+
+            .header {
+                margin: 80px var(--fluid-space-sm) 0;
+            }
+
+            .main-content {
+                margin: 30px var(--fluid-space-sm);
+            }
+
+            .parallel-section {
+                grid-template-columns: 1fr;
+                gap: var(--fluid-gap-sm);
+            }
+
+            .insight-box {
+                padding: var(--fluid-space-sm);
+                margin: var(--fluid-space-sm) 0;
+            }
+
+            .bottom-grid {
+                grid-template-columns: 1fr;
+                gap: var(--fluid-gap-sm);
+            }
+
+            .personal-note {
+                margin: 30px var(--fluid-space-sm) 140px;
+                padding: var(--fluid-space-sm);
             }
 
             .footer {
@@ -625,7 +653,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-top: 1px solid #333;
-            z-index: 100;
+            z-index: 998;
             display: flex;
             align-items: center;
             justify-content: center;
