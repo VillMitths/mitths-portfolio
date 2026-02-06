@@ -7,6 +7,11 @@ svg {
     display: block;
 }
 
+/* Reusable wrapper for dense technical diagrams */
+.diagram-scroll-wrap {
+    position: relative;
+}
+
 /* Keep wide viewBox SVGs within mobile viewport */
 svg[viewBox*="900"] {
     width: 100%;
@@ -326,6 +331,76 @@ svg[viewBox*="900"] {
         left: 680px !important;
         top: 300px !important;
         right: auto !important;
+    }
+}
+
+/* Diagram readability pass for mobile */
+@media (max-width: 768px) {
+    /* Only force horizontal pan on explicitly wrapped dense SVGs */
+    .diagram-scroll-wrap {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        touch-action: pan-x pan-y;
+        border-left: 1px solid #1e1e1e;
+        border-right: 1px solid #1e1e1e;
+        padding-bottom: 4px;
+    }
+
+    .diagram-scroll-wrap > svg,
+    .diagram-scroll-wrap > svg.main-diagram,
+    .diagram-scroll-wrap > svg.routing-diagram,
+    .diagram-scroll-wrap > svg.diagram-area,
+    .diagram-scroll-wrap > svg.diagram {
+        width: max(100%, 820px) !important;
+        min-width: 820px !important;
+        max-width: none !important;
+        height: auto !important;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .diagram-scroll-wrap > svg[viewBox*="1000"],
+    .diagram-scroll-wrap > svg[viewBox*="1080"] {
+        width: max(100%, 960px) !important;
+        min-width: 960px !important;
+    }
+
+    .diagram-scroll-wrap > svg[viewBox*="900"] {
+        width: max(100%, 900px) !important;
+        min-width: 900px !important;
+    }
+
+    .diagram-scroll-wrap > svg[viewBox*="0 0 800 120"],
+    .diagram-scroll-wrap > svg[viewBox*="0 0 800 100"] {
+        width: max(100%, 760px) !important;
+        min-width: 760px !important;
+    }
+
+    /* Keep default diagram containers full-width unless explicitly wrapped */
+    .diagram-container > svg,
+    .memory-flow > svg,
+    .vault-diagram > svg,
+    .concept-diagram > svg,
+    .diagram-wrapper > svg,
+    .final-diagram > svg {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    .diagram-scroll-wrap::after {
+        content: "Swipe diagram for readable detail";
+        display: block;
+        margin-top: 8px;
+        text-align: center;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: #666;
+        text-transform: uppercase;
     }
 }
 
